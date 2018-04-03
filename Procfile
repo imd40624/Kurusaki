@@ -1,1 +1,1 @@
-web: python golden_boy.py
+worker: python golden_boy.py
