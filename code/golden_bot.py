@@ -165,4 +165,4 @@ async def rank(ctx):
 
 
 
-bot.run('MzE3MDkyNzg4Mzc2NDM2NzM2.DaCePw.JbeYoCg05AoK_FI3oqYjCcuFvhI')
+bot.run("Discord bot's API TOKEN")
