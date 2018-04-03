@@ -1,0 +1,7 @@
+
+discord
+discord.ext
+asyncio
+Pymoe
+json
+requests
