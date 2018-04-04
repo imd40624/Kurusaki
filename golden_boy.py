@@ -170,6 +170,16 @@ async def rank(ctx):
         await bot.say("Rank Type: {}\nLeague Name: {}\nTier: {}\nWins: {}\nLosses: {}\nDivision: {}\nPoints: {}".format(solo_rank, league_name_solo, tier_solo, wins_solo,losses_solo, division_solo, points_solo))
 
 
+        
+        
+@bot.command(pass_context=True)
+async def urban(ctx):
+  word1=ctx.message.content.split("~urban ")
+  word=" ".join(word1[1:])
+  link='http://api.urbandictionary.com/v0/define?term={}'.format(word)
+  rq_link=rq.get(link).text
+  rq_json=json.loads(rq_link)
+  print("Word: {}\nVotes: {}\nDefinitioin: {}\nExample: {}".format(rq_json['list'][0]['word'],rq_json['list'][0]['thumbs_up'],rq_json['list'][0]['definition'],rq_json['list'][0]['example']))
 
 
 
