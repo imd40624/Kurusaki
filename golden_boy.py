@@ -5,9 +5,15 @@ from discord.ext.commands import Bot
 import asyncio
 import Pymoe
 import simplejson as json
-# import json
 import requests as rq
 from champs import champs
+from boto.s3.connection import S3Connection
+
+
+
+
+
+api = S3Connection(os.environ['RIOT_KEY'])
 
 
 
@@ -15,9 +21,6 @@ from champs import champs
 
 
 
-
-
-riot=(process.env.RIOT_KEY)
 
 An=Pymoe.Anilist()
 
