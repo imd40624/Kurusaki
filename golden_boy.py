@@ -35,12 +35,24 @@ async def on_ready():
     print ("I am running on " + bot.user.name)
     await bot.change_presence(game=discord.Game(name='Discord.gg'))
 
+    
+    
 @bot.command(pass_context=True)
 async def ping(ctx):
     """PINGS THE BOT"""
     await bot.say(":ping_pong: ping!!")
     print ("user has pinged")
 
+
+@bot.command(pass_context=True)
+async def echo(ctx):
+    """REPEATS WHATEVER THE USER SAYS"""
+    mesg=ctx.message.content.split("~echo ")
+    repeat=" ".join(mesg[1:])
+    await bot.say(repeat)
+    
+    
+    
 @bot.command(pass_context=True)
 async def info(ctx, user: discord.Member):
     """GETS THE BASIC INFORMATION OF A USER IN DISCORD"""
