@@ -7,13 +7,16 @@ import Pymoe
 import simplejson as json
 import requests as rq
 from champs import champs
-from boto.s3.connection import S3Connection
 
 
 
 
 
-api = S3Connection(os.environ['RIOT_KEY'])
+
+
+
+
+api = (os.environ['API_KEY'])
 
 
 
@@ -170,4 +173,4 @@ async def rank(ctx):
 
 
 
-bot.run(S3Connection(os.environ['BOT_TOKEN']))
+bot.run(os.environ['BOT_TOKEN'])
