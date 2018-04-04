@@ -170,4 +170,4 @@ async def rank(ctx):
 
 
 
-bot.run(process.env.BOT_TOKEN)
+bot.run(S3Connection(os.environ['BOT_TOKEN']))
