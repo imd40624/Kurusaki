@@ -18,6 +18,7 @@ from riot import api
 
 
 
+riot=(process.env.BOT_TOKEN)
 
 An=Pymoe.Anilist()
 
