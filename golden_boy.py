@@ -8,7 +8,6 @@ import simplejson as json
 # import json
 import requests as rq
 from champs import champs
-from riot import api
 
 
 
