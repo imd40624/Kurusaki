@@ -179,7 +179,7 @@ async def urban(ctx):
   link='http://api.urbandictionary.com/v0/define?term={}'.format(word)
   rq_link=rq.get(link).text
   rq_json=json.loads(rq_link)
-  print("Word: {}\nVotes: {}\nDefinitioin: {}\nExample: {}".format(rq_json['list'][0]['word'],rq_json['list'][0]['thumbs_up'],rq_json['list'][0]['definition'],rq_json['list'][0]['example']))
+  await bot.say("Word: {}\nVotes: {}\nDefinitioin: {}\nExample: {}".format(rq_json['list'][0]['word'],rq_json['list'][0]['thumbs_up'],rq_json['list'][0]['definition'],rq_json['list'][0]['example']))
 
 
 
