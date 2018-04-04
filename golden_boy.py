@@ -50,8 +50,7 @@ async def echo(ctx):
     mesg=ctx.message.content.split("~echo ")
     repeat=" ".join(mesg[1:])
     await bot.say(repeat)
-    await asyncio.sleep(10)
-    message.delete()
+
     
     
 @bot.command(pass_context=True)
