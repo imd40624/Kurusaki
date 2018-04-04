@@ -51,8 +51,7 @@ async def echo(ctx):
     repeat=" ".join(mesg[1:])
     await bot.say(repeat)
     await asyncio.sleep(10)
-    msg_id=ctx.message.id
-    awaiit delete(msg_id)
+    message.delete()
     
     
 @bot.command(pass_context=True)
