@@ -4,7 +4,8 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 import asyncio
 import Pymoe
-import json
+import simplejson as json
+# import json
 import requests as rq
 from champs import champs
 from riot import api
