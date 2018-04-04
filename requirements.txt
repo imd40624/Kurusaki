@@ -2,4 +2,4 @@ discord
 asyncio
 Pymoe
 requests
-json
+json == 19.2
