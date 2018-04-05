@@ -60,6 +60,18 @@ async def info(ctx, user: discord.Member):
 
 
 
+    
+    
+@bot.command(pass_context=True)
+async def cat(ctx):
+    url = 'https://cat-fact.herokuapp.com/facts/random?amount=1'
+    rq_url=rq.get(url).text
+    rq_json=json.loads(rq_url)
+    await bot.say(rq_json['text'])
+    
+    
+    
+    
 
 
 @bot.command(pass_context=True)
