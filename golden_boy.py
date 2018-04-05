@@ -36,6 +36,13 @@ async def on_ready():
     await bot.change_presence(game=discord.Game(name='Discord.gg'))
 
     
+@bot.event
+async def on_member_join(member):
+    """WHEN A MEMBER JOINS SEND A MESSAGE TO ANNOUNCE IT"""
+    guild = member.guild
+    guild_name = guild.name
+    await member.send("Welcome to {}, {}!".format(guild_name,guild.name))    
+    
     
 @bot.command(pass_context=True)
 async def ping(ctx):
