@@ -16,7 +16,7 @@ import os
 
 
 
-api = ('RGAPI-fb65a82a-764f-4959-83d3-e104936ca3d2')
+api = str(process.env.RIOT_KEY)
 
 
 
@@ -212,4 +212,4 @@ async def urban(ctx):
 
 
 
-bot.run('NDA1OTA3MzI2MDUxMDI0OTA2.Dac-cQ.mn6vNNm0TjApwZsBdModJTH-AeU')
+bot.run(process.env.BOT_TOKEN)
