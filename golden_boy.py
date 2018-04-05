@@ -16,7 +16,7 @@ import os
 
 
 
-api = os.environ['API_KEY']
+api = os.environ['RIOT_KEY']
 
 
 
