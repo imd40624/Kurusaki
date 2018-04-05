@@ -16,7 +16,7 @@ import os
 
 
 
-api = str(os.environ.get('RIOT_KEY'))
+api = ('RGAPI-fb65a82a-764f-4959-83d3-e104936ca3d2')
 
 
 
@@ -35,8 +35,8 @@ async def on_ready():
     print ("I am running on " + bot.user.name)
     await bot.change_presence(game=discord.Game(name='Discord.gg'))
 
-    
-    
+
+
 @bot.command(pass_context=True)
 async def ping(ctx):
     """PINGS THE BOT"""
@@ -51,8 +51,8 @@ async def echo(ctx):
     repeat=" ".join(mesg[1:])
     await bot.say(repeat)
 
-    
-    
+
+
 @bot.command(pass_context=True)
 async def info(ctx, user: discord.Member):
     """GETS THE BASIC INFORMATION OF A USER IN DISCORD"""
@@ -143,25 +143,24 @@ async def masterytotal(ctx):
     mast = rq.get("https://na1.api.riotgames.com/lol/champion-mastery/v3/scores/by-summoner/{}?api_key={}".format(ide, api)).text
     await bot.say("{}'s total mastery points is: {}".format(name,mast))
 
-    
-    
-    
+
+
 @bot.command(pass_context=True)
 async def status(ctx):
     raw_inp = ctx.message.content.split("~status ")
     region=" ".join(raw_inp[1:]).lower()
-    if region == "kr" or "ru":
-        link1 = 'https://{}.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(region, api)
-        rq_link1=rq.get(link1).text
-        rq_json1=json.loads(rq_link1)
-        await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(rq_json1['name'],rq_json1['services'][0]['status'],rq_json1['services'][1]['status'],rq_json1['services'][2]['status'],rq_json1['services'][3]['status']))
-    else:
-        link = 'https://{}1.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(region,api)
+    try: 
+        if region == "kr" or "ru":
+            link1 = 'https://{}.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(region, api)
+            rq_link1=rq.get(link1).text
+            rq_json1=json.loads(rq_link1)
+            await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(rq_json1['name'],rq_json1['services'][0]['status'],rq_json1['services'][1]['status'],rq_json1['services'][2]['status'],rq_json1['services'][3]['status']))
+
+    except:
+        link = 'https://{}1.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(region, api)
         rq_link=rq.get(link).text
         rq_json=json.loads(rq_link)
         await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(rq_json['name'],rq_json['services'][0]['status'],rq_json['services'][1]['status'],rq_json['services'][2]['status'],rq_json['services'][3]['status']))
-    
-
 
 
 
@@ -200,17 +199,17 @@ async def rank(ctx):
         await bot.say("Rank Type: {}\nLeague Name: {}\nTier: {}\nWins: {}\nLosses: {}\nDivision: {}\nPoints: {}".format(solo_rank, league_name_solo, tier_solo, wins_solo,losses_solo, division_solo, points_solo))
 
 
-        
-        
+
+
 @bot.command(pass_context=True)
 async def urban(ctx):
-  word1=ctx.message.content.split("~urban ")
-  word=" ".join(word1[1:])
-  link='http://api.urbandictionary.com/v0/define?term={}'.format(word)
-  rq_link=rq.get(link).text
-  rq_json=json.loads(rq_link)
-  await bot.say("Word: {}\nVotes: {}\nDefinitioin: {}\nExample: {}".format(rq_json['list'][0]['word'],rq_json['list'][0]['thumbs_up'],rq_json['list'][0]['definition'],rq_json['list'][0]['example']))
+    word1=ctx.message.content.split("~urban ")
+    word=" ".join(word1[1:])
+    link='http://api.urbandictionary.com/v0/define?term={}'.format(word)
+    rq_link=rq.get(link).text
+    rq_json=json.loads(rq_link)
+    await bot.say("Word: {}\nVotes: {}\nDefinitioin: {}\nExample: {}".format(rq_json['list'][0]['word'],rq_json['list'][0]['thumbs_up'],rq_json['list'][0]['definition'],rq_json['list'][0]['example']))
 
 
 
-bot.run(str(os.environ.get('BOT_TOKEN')))
+bot.run('NDA1OTA3MzI2MDUxMDI0OTA2.Dac-cQ.mn6vNNm0TjApwZsBdModJTH-AeU')
