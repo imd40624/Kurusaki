@@ -16,7 +16,7 @@ import os
 
 
 
-api = str(os.environ.get.RIOT_KEY)
+api = os.environ['API_KEY']
 
 
 
@@ -212,4 +212,4 @@ async def urban(ctx):
 
 
 
-bot.run(os.environ.get.BOT_TOKEN)
+bot.run(os.environ['BOT_TOKEN'])
