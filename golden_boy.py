@@ -9,9 +9,7 @@ import requests as rq
 from champs import champs
 import os
 import image_links
-from KissAnime import desktop
-from urllib.parse import urlparse
-
+import desktop
 
 
 
