@@ -3,9 +3,4 @@ asyncio
 Pymoe
 requests
 simplejson
-sqlite3
-urllib
-urlparse
-cfscrape
-requests
 lxml
