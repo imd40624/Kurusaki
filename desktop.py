@@ -1,7 +1,7 @@
 """Desktop related KissAnime usage."""
 import sqlite3
 import urllib
-import urlparse
+from urlparse import urlparse
 import cfscrape
 import requests
 import lxml.html
