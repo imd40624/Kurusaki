@@ -3,3 +3,5 @@ asyncio
 Pymoe
 requests
 simplejson
+urllib
+os
