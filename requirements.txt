@@ -3,5 +3,3 @@ asyncio
 Pymoe
 requests
 simplejson
-lxml
-urlparse
