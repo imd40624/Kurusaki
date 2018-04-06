@@ -9,7 +9,7 @@ import requests as rq
 from champs import champs
 import os
 import image_links
-
+from KissAnime import desktop
 
 
 
@@ -71,6 +71,14 @@ async def info(ctx, user: discord.Member):
 
 
 
+
+@bot.command(pass_context=True)
+async def random_anime(ctx):
+    kiss_desktop = desktop.KissAnime()
+    random_anime = kiss_desktop.get_random_anime(genre='Action', excluded_anime='Yu-Gi-Oh-Arc-V-Dub;Black-Rock-Shooter-TV;')
+    await bot.say(random_anime)
+
+    
     
     
 @bot.command(pass_context=True)
