@@ -86,6 +86,20 @@ async def cat(ctx):
     
 
     
+@bot.command(pass_context=True)
+async def weather(ctx):
+    wu_key='c8034bd5f8c70795'
+    url='http://api.wunderground.com/api/{}/conditions/q/Tx/Austin.json'.format(wu_key)
+    t = u"\u00b0"
+    rq_url=rq.get(url).text
+    rq_json=json.loads(rq_url)
+    print("Country: {}\nState: {}\nCity: {}\nTemperature: {}{}F ({}{}C)\nRelative Humidity: {}\nWind Speed: {}MPH\n{}".format(rq_json['current_observation']['display_location']['country'],rq_json['current_observation']['display_location']['state_name'],rq_json['current_observation']['display_location']['city'],rq_json['current_observation']['temp_f'],t,rq_json['current_observation']['temp_c'],t,rq_json['current_observation']['relative_humidity'],rq_json['current_observation']['wind_mph'],image_links.wu))
+    
+    
+    
+    
+    
+    
     
 
 @bot.command(pass_context=True)
