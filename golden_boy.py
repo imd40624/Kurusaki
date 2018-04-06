@@ -191,7 +191,7 @@ async def summoner(ctx):
     """GETS THE SUMMONER'S BASIC INFORMATION; NAME,LEVEL"""
     link = rq.get("https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(name, api)).text
     rq_json = json.loads(link)
-    await bot.say("{}is level: {}\n{}'s profile icon is: {}\n{}'s ID is :{}".format(rq_json['name'],rq_json['summonerLevel'],rq_json['name'],rq_json['profileIconId'],rq_json['name'],rq_json['id']))
+    await bot.say("{}is level: {}\n{}'s profile icon is: {}\n{}'s ID is : {}\n{}'s Account ID is: {}".format(rq_json['name'],rq_json['summonerLevel'],rq_json['name'],rq_json['profileIconId'],rq_json['name'],rq_json['id'],rq_json['name'],rq_json['accountId']))
 
 
 @bot.command(pass_context=True)
