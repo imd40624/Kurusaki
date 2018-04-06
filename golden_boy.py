@@ -52,6 +52,18 @@ async def echo(ctx):
     await bot.say(repeat)
 
 
+@bot.command(pass_context=True)
+async def logout(ctx):
+    creator_id = 185181025104560128
+    sender_id = ctx.message.author.id
+    send_id=int(sender_id)
+    if send_id == creator_id:
+        await bot.say("Loggoing out now!")
+        await bot.logout()
+    else:
+        await bot.say("Can not logout because you are not the creator")
+ 
+    
 
 @bot.command(pass_context=True)
 async def info(ctx, user: discord.Member):
