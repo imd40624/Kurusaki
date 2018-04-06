@@ -53,7 +53,8 @@ async def echo(ctx):
 
 
 @bot.command(pass_context=True)
-async def logout(ctx):
+async def restart(ctx):
+    """RESTARTS THE BOT IN HEROKU SERVER, BUT ENDS IN TERMINAL"""
     creator_id = 185181025104560128
     sender_id = ctx.message.author.id
     send_id=int(sender_id)
@@ -61,7 +62,7 @@ async def logout(ctx):
         await bot.say("Loggoing out now!")
         await bot.logout()
     else:
-        await bot.say("Can not logout because you are not the creator")
+        await bot.say("Can not restart bot because you are not the creator")
  
     
 
