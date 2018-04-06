@@ -72,8 +72,8 @@ async def info(ctx, user: discord.Member):
 
 @bot.command(pass_context=True)
 async def random_anime(ctx):
-    kiss_desktop = desktop.KissAnime()
-    random_anime = kiss_desktop.get_random_anime(genre='Action', excluded_anime='Yu-Gi-Oh-Arc-V-Dub;Black-Rock-Shooter-TV;')
+    kiss_anime = desktop.KissAnime()
+    random_anime = kiss_anime.get_random_anime(genre='Action', excluded_anime='Yu-Gi-Oh-Arc-V-Dub;Black-Rock-Shooter-TV;')
     await bot.say(random_anime)
 
     
