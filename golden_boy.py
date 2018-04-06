@@ -71,6 +71,22 @@ async def cat(ctx):
     
     
     
+
+    
+    
+
+@bot.command(pass_context=True)
+async def img(ctx):
+    api = 'f4237223-a9fc-4a7a-b789-e7d2beebcbef'
+    raw_inp = ctx.message.content.split("~img ")
+    query=" ".join(raw_inp[1:])
+    url ='http://version1.api.memegenerator.net//Generators_Search?q={}&apiKey={}'.format(query,api)
+    rq_link = rq.get(url).text
+    rq_json = json.loads(rq_link)
+    await bot.say(rq_json['result'][0]['imageUrl'])    
+    
+    
+    
     
 
 
