@@ -60,6 +60,8 @@ async def restart(ctx):
     send_id=int(sender_id)
     if send_id == creator_id:
         await bot.say("Restarting bot now!")
+        await asyncio.sleep(5)
+        await bot.say("Rebooting bot now!")
         await bot.logout()
     else:
         await bot.say("Can not restart bot because you are not the creator")
