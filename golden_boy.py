@@ -85,6 +85,14 @@ async def cat(ctx):
 
     
 @bot.command(pass_context=True)
+async def invite(ctx):
+    await bot.say("Here is the invite link for {}\n{}".format(bot.user.name,'https://discordapp.com/oauth2/authorize?client_id=317092788376436736&scope=bot'))
+    
+    
+    
+    
+    
+@bot.command(pass_context=True)
 async def weather(ctx):
     t = u"\u00b0"
     remove_command=ctx.message.content.split("~weather ")
