@@ -173,6 +173,36 @@ async def anime(ctx):
 
 
 
+            
+            
+@bot.command(pass_context=True)
+async def MAL(ctx):
+    _raw_input = ctx.message.content.split("~MAL ")
+    query = "".join(_raw_inpu[1:])
+    url = 'https://api.jikan.me/search/anime/{}'.format(query)
+    rq_url = rq.get(url).text
+    rq_json = json.loads(rq_url)
+    anime_id = rq_json['result'][0]['id']
+    url2 = 'https://api.jikan.me/anime/{}/stats/'.format(anime_id)
+    rq_url2 = rq.get(url2).text
+    rq_json2 = json.loads(rq_url2)
+    summary = rq_json2['synopsis']
+    title_jp = rq_json2['title_japanese']
+    title_en = rq_json2['title_english']
+    anime_type = rq_json2['type']
+    status = rq_json2['status']
+    airing = rq_json2['airing']
+    aired_from = rq_json2['aired']['from']
+    aired_to = rq_json2['aired']['to']
+    episodes = rq_json2['episodes']
+    source = rq_json2['source']
+    members = rq_json2['members']
+    popularity = rq_json2['popularity']
+    rank = rq_json2['rank']
+    duration = rq_json2p['duration']
+    
+            
+            
 
 @bot.command(pass_context=True)
 async def kick(ctx, user: discord.Member):
