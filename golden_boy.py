@@ -186,13 +186,15 @@ async def kick(ctx, user: discord.Member):
 
 @bot.command(pass_context=True)
 async def summoner(ctx):
-    raw_name = ctx.message.content.split("~summoner ")
-    name = " ".join(raw_name[1:])
-    """GETS THE SUMMONER'S BASIC INFORMATION; NAME,LEVEL"""
-    link = rq.get("https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(name, api)).text
-    rq_json = json.loads(link)
-    await bot.say("{}is level: {}\n{}'s profile icon is: {}\n{}'s ID is : {}\n{}'s Account ID is: {}".format(rq_json['name'],rq_json['summonerLevel'],rq_json['name'],rq_json['profileIconId'],rq_json['name'],rq_json['id'],rq_json['name'],rq_json['accountId']))
-
+    try:
+        raw_name = ctx.message.content.split("~summoner ")
+        name = " ".join(raw_name[1:])
+        """GETS THE SUMMONER'S BASIC INFORMATION; NAME,LEVEL"""
+        link = rq.get("https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(name, api)).text
+        rq_json = json.loads(link)
+        await bot.say("{}is level: {}\n{}'s profile icon is: {}\n{}'s ID is : {}\n{}'s Account ID is: {}".format(rq_json['name'],rq_json['summonerLevel'],rq_json['name'],rq_json['profileIconId'],rq_json['name'],rq_json['id'],rq_json['name'],rq_json['accountId']))
+    except KeyError:
+        await bot.say("{} is currently unable process your command.".format(bot.user.name))
 
 @bot.command(pass_context=True)
 async def lore(ctx):
