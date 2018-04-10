@@ -27,7 +27,7 @@ async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print ("I am running on " + bot.user.name)
     choice=random.choice
-    game=['new','sd','old','osu','league of legends']
+    game=['Discord.gg','KawaiiNeko','Overwatch','OSU!','League of Legends','Neko Neko']
     global ran_game
     ran_game=choice(game)
     while True:
