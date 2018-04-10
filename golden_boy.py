@@ -26,18 +26,6 @@ bot = commands.Bot(command_prefix='~')
 async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print ("I am running on " + bot.user.name)
-#     await bot.change_presence(game=discord.Game(name="OSU!"))
-
-
-
-@bot.command(pass_context=True)
-async def ping(ctx):
-    """PINGS THE BOT"""
-    await bot.say(":ping_pong: ping!!")
-    print ("user has pinged")
-
-@bot.event()
-async def red():
     choice=random.choice
     game=['new','sd','old','osu','league of legends']
     global ran_game
@@ -45,9 +33,34 @@ async def red():
     while True:
         ran_game=choice(game)
         time.sleep(1)
-        await bot.change_presence(game=discord.Game(name=ran_game))
+        print(ran_game)
+#         await bot.change_presence(game=discord.Game(name=ran_game))
+#     await bot.change_presence(game=discord.Game(name="OSU!"))
 
-    
+
+# @bot.event()
+# async def on_ready():
+#     choice=random.choice
+#     game=['new','sd','old','osu','league of legends']
+#     global ran_game
+#     ran_game=choice(game)
+#     while True:
+#         ran_game=choice(game)
+#         time.sleep(1)
+#         await bot.change_presence(game=discord.Game(name=ran_game))
+
+
+        
+        
+        
+@bot.command(pass_context=True)
+async def ping(ctx):
+    """PINGS THE BOT"""
+    await bot.say(":ping_pong: ping!!")
+    print ("user has pinged")
+
+        
+        
 @bot.command(pass_context=True)
 async def echo(ctx):
     """REPEATS WHATEVER THE USER SAYS"""
