@@ -9,15 +9,19 @@ import requests as rq
 from champs import champs
 import os
 import image_links
-
-
+import random
+import games
 
 
 
 api = os.environ['RIOT_KEY']
 wu_key='c8034bd5f8c70795'
-
-
+choice=random.choice
+def games():
+    global random_games
+    random_games = choice(games.games)
+    while True:
+        random_games = choice(games.games)
 
 An=Pymoe.Anilist()
 
@@ -27,7 +31,7 @@ bot = commands.Bot(command_prefix='~')
 async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print ("I am running on " + bot.user.name)
-    await bot.change_presence(game=discord.Game(name='Discord.gg'))
+    await bot.change_presence(game=discord.Game(name=random_games))
 
 
 
