@@ -22,6 +22,7 @@ def games():
     random_games = choice(games.games)
     while True:
         random_games = choice(games.games)
+        await asyncio.sleep(3)
 
 An=Pymoe.Anilist()
 
