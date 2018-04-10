@@ -27,7 +27,7 @@ async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print ("I am running on " + bot.user.name)
     choice=random.choice
-    games=games.games
+    games=games.game_list
     while True:
         ran_games=choice(games)
         await asyncio.sleep(5)
