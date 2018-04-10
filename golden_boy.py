@@ -10,7 +10,7 @@ from champs import champs
 import os
 import image_links
 import random
-# import games
+import games
 import time
 
 
@@ -27,7 +27,7 @@ async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print ("I am running on " + bot.user.name)
     choice=random.choice
-    game=['Discord.gg','KawaiiNeko','Overwatch','OSU!','League of Legends','Neko Neko']
+    games=games.games
     global ran_game
     ran_game=choice(game)
     while True:
