@@ -135,8 +135,9 @@ async def img(ctx):
     
 
 
+
 @bot.command(pass_context=True)
-async def anime(ctx):
+async def al(ctx):
     """SEARCHES FOR AN ANIME THAT THE USER INPUTS FROM DISCORD USING ~ANIME (ANIME NAME)"""
     try:
         title=ctx.message.content.split("~anime ")
@@ -173,12 +174,12 @@ async def anime(ctx):
 
 
 
-            
-            
+
+
 @bot.command(pass_context=True)
-async def MAL(ctx):
-    _raw_input = ctx.message.content.split("~MAL ")
-    query = "".join(_raw_inpu[1:])
+async def mal(ctx):
+    _raw_input = ctx.message.content.lower().split("~mal ")
+    query = "".join(_raw_input[1:])
     url = 'https://api.jikan.me/search/anime/{}'.format(query)
     rq_url = rq.get(url).text
     rq_json = json.loads(rq_url)
@@ -199,9 +200,31 @@ async def MAL(ctx):
     members = rq_json2['members']
     popularity = rq_json2['popularity']
     rank = rq_json2['rank']
-    duration = rq_json2p['duration']
-    
-            
+    duration = rq_json2['duration']
+    rating = rq_json2['rating']
+    premiered = rq_json2['premiered']
+    favorites = rq_json2['favorites']
+    scored_by = rq_json2['scored_by']
+    score = rq_json2['score']
+    #anime formatting output
+    anime_picture = rq_json2['image_url']
+    await bot.say('Here is what I could find about your query')
+    embed = discord.Embed(title="Title: {}".format(query), description=title_en+":"+title_jp, color=0xDEADBF)
+    embed.add_field(name="Type",value=anime_type)
+    embed.add_field(name="Status",value=status)
+    embed.add_field(name="Members",value=members)
+    embed.add_field(name="Popularity",value=popularity)
+    embed.add_field(name="Rank",value=rank)
+    embed.add_field(name="Favorites",value=favorites)
+    embed.add_field(name="Score",value=score)
+    embed.add_field(name="Scored By",value=scored_by)
+    embed.add_field(name="Aired From",value=aired_from)
+    embed.add_field(name="Rating",value=rating)
+    embed.add_field(name="Duration",value=duration)
+    embed.add_field(name="Premiered",value=premiered)
+    await bot.say(embed=embed)
+    await bot.say("Summary: {}\n{}".format(summary,anime_picture))
+         
             
 
 @bot.command(pass_context=True)
