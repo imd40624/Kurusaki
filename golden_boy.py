@@ -10,7 +10,7 @@ from champs import champs
 import os
 import image_links
 import random
-import games
+# import games
 import time
 
 
@@ -32,9 +32,9 @@ async def on_ready():
     ran_game=choice(game)
     while True:
         ran_game=choice(game)
-        await asyncio.sleep(1)
-        print(ran_game)
-#         await bot.change_presence(game=discord.Game(name=ran_game))
+        await asyncio.sleep(5)
+#         print(ran_game)
+        await bot.change_presence(game=discord.Game(name=ran_game))
 #     await bot.change_presence(game=discord.Game(name="OSU!"))
 
 
