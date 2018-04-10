@@ -11,7 +11,7 @@ import os
 import image_links
 import random
 import games
-
+import time
 
 
 api = os.environ['RIOT_KEY']
@@ -32,7 +32,7 @@ async def on_ready():
     ran_game=choice(game)
     while True:
         ran_game=choice(game)
-        time.sleep(1)
+        await asyncio.sleep(1)
         print(ran_game)
 #         await bot.change_presence(game=discord.Game(name=ran_game))
 #     await bot.change_presence(game=discord.Game(name="OSU!"))
