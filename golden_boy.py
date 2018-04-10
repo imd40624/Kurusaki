@@ -28,13 +28,11 @@ async def on_ready():
     print ("I am running on " + bot.user.name)
     choice=random.choice
     games=games.games
-    global ran_game
-    ran_game=choice(game)
     while True:
-        ran_game=choice(game)
+        ran_games=choice(games)
         await asyncio.sleep(5)
 #         print(ran_game)
-        await bot.change_presence(game=discord.Game(name=ran_game))
+        await bot.change_presence(game=discord.Game(name=ran_games))
 #     await bot.change_presence(game=discord.Game(name="OSU!"))
 
 
