@@ -140,7 +140,7 @@ async def img(ctx):
 async def al(ctx):
     """SEARCHES FOR AN ANIME THAT THE USER INPUTS FROM DISCORD USING ~ANIME (ANIME NAME)"""
     try:
-        title=ctx.message.content.split("~anime ")
+        title=ctx.message.content.split("~al ")
         new_msg = " ".join(title[1:])
         search = An.search.anime(new_msg)
         episodes = search['data']['Page']['media'][0]['episodes']
