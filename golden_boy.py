@@ -141,6 +141,17 @@ async def weather(ctx):
     
     
     
+
+    
+    
+@bot.command(pass_context=True)
+async def cat(ctx):
+    raw_msg=ctx.message.content.lower().split("~cat ")
+    url='http://aws.random.cat/meow'
+    rq_url=rq.get(url).text
+    rq_json=json.loads(rq_url)
+    pic=rq_json['file']
+    await bot.say(pic)
     
     
     
