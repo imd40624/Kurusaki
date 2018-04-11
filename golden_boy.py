@@ -12,6 +12,11 @@ import image_links
 import random
 import games
 import time
+import watching
+
+
+
+
 
 
 api = os.environ['RIOT_KEY']
@@ -70,10 +75,21 @@ async def logout(ctx):
         
         
 @bot.command(pass_context=True)
-async def presence(ctx):
+async def game(ctx):
     raw_msg = ctx.message.content.split("~presence ")
     mesg = "".join(raw_msg[1:])
     await bot.change_presence(game=discord.Game(name=mesg))
+    
+    
+    
+@bot.command(pass_context=True)
+async def game(ctx):
+    raw_msg = ctx.message.content.split("~presence ")
+    mesg = "".join(raw_msg[1:])
+    await bot.change_presence(game=watching.Game(name=mesg))
+    
+    
+    
     
 
 @bot.command(pass_context=True)
