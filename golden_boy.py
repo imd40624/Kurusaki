@@ -30,7 +30,7 @@ async def on_ready():
     game=games.game_list
     while True:
         ran_games=choice(game)
-        await asyncio.sleep(5)
+        await asyncio.sleep(18000)
 #         print(ran_game)
         await bot.change_presence(game=discord.Game(name=ran_games))
 #     await bot.change_presence(game=discord.Game(name="OSU!"))
