@@ -19,7 +19,7 @@ import time
 
 
 api = os.environ['RIOT_KEY']
-wu_key='c8034bd5f8c70795'
+wu_key=os.environ['WU_API']
 
 
 An=Pymoe.Anilist()
