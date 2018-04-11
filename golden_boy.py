@@ -27,9 +27,9 @@ async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print ("I am running on " + bot.user.name)
     choice=random.choice
-    games=games.game_list
+    game=games.game_list
     while True:
-        ran_games=choice(games)
+        ran_games=choice(game)
         await asyncio.sleep(5)
 #         print(ran_game)
         await bot.change_presence(game=discord.Game(name=ran_games))
