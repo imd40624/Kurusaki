@@ -81,13 +81,7 @@ async def game(ctx):
     await bot.change_presence(game=discord.Game(name=mesg))
     
     
-    
-@bot.command(pass_context=True)
-async def watching(ctx):
-    raw_msg = ctx.message.content.split("~presence ")
-    mesg = "".join(raw_msg[1:])
-    await bot.change_presence(game=watching.watching(name=mesg))
-    
+   
     
     
     
