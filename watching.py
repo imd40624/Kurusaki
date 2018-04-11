@@ -42,7 +42,7 @@ class Game:
         return self._iterator()
 
     def __eq__(self, other):
-        return isinstance(other, Watching) and other.name == self.name
+        return isinstance(other, Game) and other.name == self.name
 
     def __ne__(self, other):
         return not self.__eq__(other)
