@@ -295,6 +295,20 @@ async def lore(ctx):
     await bot.say("Champion Name: {}\nTitle: {}\nLore: {}".format(champ_json['name'],champ_json['title'],champ_json['lore']))
 
 
+    
+    
+    
+# @bot.command(pass_context=True)
+# async def champ_mastery(ctx):
+#     raw_msg=ctx.message.content.split("~champ_mastery ")
+#     bett=raw_msg.find(",")
+#     summoner=raw_msg[0:bett]
+#     url2='https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}'.format()
+#     url="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{}/by-champion/{}?api_key={}".format()
+    
+    
+    
+    
 
 @bot.command(pass_context=True)
 async def masterytotal(ctx):
