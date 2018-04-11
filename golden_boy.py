@@ -72,7 +72,7 @@ async def logout(ctx):
 @bot.command(pass_context=True)
 async def presence(ctx):
     raw_msg = ctx.message.content.split("~presence ")
-    mesg = "".join([1:])
+    mesg = "".join(raw_msg[1:])
     await bot.change_presence(game=discord.Game(name=mesg))
     
 
