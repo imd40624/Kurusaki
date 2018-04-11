@@ -31,22 +31,7 @@ async def on_ready():
     while True:
         ran_games=choice(game)
         await asyncio.sleep(18000)
-#         print(ran_game)
         await bot.change_presence(game=discord.Game(name=ran_games))
-#     await bot.change_presence(game=discord.Game(name="OSU!"))
-
-
-# @bot.event()
-# async def on_ready():
-#     choice=random.choice
-#     game=['new','sd','old','osu','league of legends']
-#     global ran_game
-#     ran_game=choice(game)
-#     while True:
-#         ran_game=choice(game)
-#         time.sleep(1)
-#         await bot.change_presence(game=discord.Game(name=ran_game))
-
 
         
         
@@ -66,9 +51,11 @@ async def echo(ctx):
     repeat=" ".join(mesg[1:])
     await bot.say(repeat)
 
+    
+    
 
 @bot.command(pass_context=True)
-async def restart(ctx):
+async def logout(ctx):
     """RESTARTS THE BOT IN HEROKU SERVER, BUT ENDS IN TERMINAL"""
     creator_id = 185181025104560128
     sender_id = ctx.message.author.id
@@ -78,7 +65,15 @@ async def restart(ctx):
         await bot.logout()
     else:
         await bot.say("Can not restart bot because you are not the creator")
- 
+
+        
+        
+        
+@bot.command(pass_context=True)
+async def presence(ctx):
+    raw_msg = ctx.message.content.split("~presence ")
+    mesg = "".join([1:])
+    await bot.change_presence(game=discord.Game(name=mesg))
     
 
 @bot.command(pass_context=True)
