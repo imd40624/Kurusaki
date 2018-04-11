@@ -83,7 +83,7 @@ async def game(ctx):
     
     
 @bot.command(pass_context=True)
-async def game(ctx):
+async def watching(ctx):
     raw_msg = ctx.message.content.split("~presence ")
     mesg = "".join(raw_msg[1:])
     await bot.change_presence(game=watching.Game(name=mesg))
