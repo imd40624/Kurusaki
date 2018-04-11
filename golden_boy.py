@@ -151,7 +151,7 @@ async def cat(ctx):
     rq_url=rq.get(url).text
     rq_json=json.loads(rq_url)
     pic=rq_json['file']
-    await bot.say(pic)
+    await bot.say("{}".format(pic))
     
     
     
