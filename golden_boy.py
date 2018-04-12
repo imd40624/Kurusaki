@@ -306,7 +306,8 @@ async def champ_mastery(ctx):
     summoner=raw_msg[0:bett]
     champ=raw_msg[bett+1:]
     url2='https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}'.format(summoner,api)
-    sum_json=json.loads(url2)
+    rq_url=rq.get(url2).text
+    sum_json=json.loads(rq_url)
     sum_name=sum_json['name']
     sun_id=sum_json['id']
     url="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{}/by-champion/{}?api_key={}".format(sum_id,champs['keys'][sum_name],api)
