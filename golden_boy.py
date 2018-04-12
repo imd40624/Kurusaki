@@ -298,14 +298,24 @@ async def lore(ctx):
     
     
     
-# @bot.command(pass_context=True)
-# async def champ_mastery(ctx):
-#     raw_msg=ctx.message.content.split("~champ_mastery ")
-#     bett=raw_msg.find(",")
-#     summoner=raw_msg[0:bett]
-#     url2='https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}'.format()
-#     url="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{}/by-champion/{}?api_key={}".format()
-    
+@bot.command(pass_context=True)
+async def champ_mastery(ctx):
+    raw_msg=ctx.message.content.split("~champ_mastery ")
+    bett=raw_msg.find(",")
+    summoner=raw_msg[0:bett]
+    champ=raw_msg[bett+1:]
+    url2='https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}'.format(summoner,api)
+    sum_json=json.loads(url2)
+    sum_name=sum_json['name']
+    sun_id=sum_json['id']
+    url="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{}/by-champion/{}?api_key={}".format(sum_id,champs['keys'][sum_name],api)
+    champ_mast=rq.get(url).text
+    mast_json = json.loads(champ_mast)
+    champ_lvl=mast_json['championLevel']
+    champ_points=mast_json['championPoints']
+    chest=mast_json['chestGranted']
+    await bot.say("Level: {}\nPoints: {}\nChest Granted: {}".format(champ_lvl,champ_points,chest))
+      
     
     
     
