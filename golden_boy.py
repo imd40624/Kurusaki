@@ -303,24 +303,20 @@ async def champ_mastery(ctx):
     raw_msg=ctx.message.content.split("~champ_mastery ")
     msg="".join(raw_msg[1:])
     bett=msg.find(",")
-    summoner=raw_msg[0:bett]
-    champ=raw_msg[bett+1:]
-    url2='https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}'.format(summoner,api)
-    rq_url=rq.get(url2).text
-    sum_json=json.loads(rq_url)
-#     sum_name=sum_json['name']
-    sum_id=sum_json['id']
-    url="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{}/by-champion/{}?api_key={}".format(sum_id,champs['keys'][champ],api)
-    champ_mast=rq.get(url).text
-    mast_json = json.loads(champ_mast)
-    champ_lvl=mast_json['championLevel']
-    champ_points=mast_json['championPoints']
-    chest=mast_json['chestGranted']
-    await bot.say("Level: {}\nPoints: {}\nChest Granted: {}".format(champ_lvl,champ_points,chest))
-      
-    
-    
-    
+    summoner=msg[0:bett]
+    champ=msg[bett+1:]
+    url1='https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}'.format(summoner,api)
+    sum_info = rq.get(url1).text
+    info_json=json.loads(sum_info)
+    name=info_json['name']
+    sum_id=info_json['id']
+    url2=https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{}/by-champion/{}?api_key={}'.format(sum_id,champs['key'][champ],api)
+    mast_info=rq.get(url2).text
+    mast_json=json.loads(mast_info)
+    await bot.say(mast_json)
+        
+        
+        
 
 @bot.command(pass_context=True)
 async def masterytotal(ctx):
