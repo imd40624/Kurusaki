@@ -301,7 +301,8 @@ async def lore(ctx):
 @bot.command(pass_context=True)
 async def champ_mastery(ctx):
     raw_msg=ctx.message.content.split("~champ_mastery ")
-    bett=raw_msg.find(",")
+    msg="".join(raw_msg[1:])
+    bett=msg.find(",")
     summoner=raw_msg[0:bett]
     champ=raw_msg[bett+1:]
     url2='https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}'.format(summoner,api)
