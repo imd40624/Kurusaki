@@ -308,9 +308,9 @@ async def champ_mastery(ctx):
     url2='https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}'.format(summoner,api)
     rq_url=rq.get(url2).text
     sum_json=json.loads(rq_url)
-    sum_name=sum_json['name']
+#     sum_name=sum_json['name']
     sun_id=sum_json['id']
-    url="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{}/by-champion/{}?api_key={}".format(sum_id,champs['keys'][sum_name],api)
+    url="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{}/by-champion/{}?api_key={}".format(sum_id,champs['keys'][champ],api)
     champ_mast=rq.get(url).text
     mast_json = json.loads(champ_mast)
     champ_lvl=mast_json['championLevel']
