@@ -327,7 +327,10 @@ async def masterytotal(ctx):
     rq_json = json.loads(link)
     ide = rq_json['id']
     mast = rq.get("https://na1.api.riotgames.com/lol/champion-mastery/v3/scores/by-summoner/{}?api_key={}".format(ide, api)).text
-    await bot.say("{}'s total mastery points is: {}".format(name,mast))
+    champ_lvl=mast['championLevel']
+    champ_points=mast['championPoints']
+    chest=mast['chestGranted']
+    await bot.say("Level: {}\nPoints: {}Chest: {}'s total mastery points is: {}".format(champ_lvl,champ_points,chest))
 
 
 
