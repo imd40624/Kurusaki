@@ -310,7 +310,7 @@ async def champ_mastery(ctx):
     info_json=json.loads(sum_info)
     name=info_json['name']
     sum_id=info_json['id']
-    url2=https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{}/by-champion/{}?api_key={}'.format(sum_id,champs['key'][champ],api)
+    url2='https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{}/by-champion/{}?api_key={}'.format(sum_id,champs['key'][champ],api)
     mast_info=rq.get(url2).text
     mast_json=json.loads(mast_info)
     await bot.say(mast_json)
