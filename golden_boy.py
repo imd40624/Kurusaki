@@ -37,6 +37,30 @@ async def on_ready():
 #         await asyncio.sleep(18000)
 #         await bot.change_presence(game=discord.Game(name=ran_games))
 
+
+
+  
+@bot.event
+async def on_message(message):
+  mention=bot.user.mention
+  if message.content.startswith(mention):
+    raw_msg=message.content.split("{}".format(mention))
+    msg="".join(raw_msg[1:])
+    print(msg)
+    client_token='5df92cae29c5452aadd286f3001112c4'
+    ai=apiai.ApiAI(client_token)
+    request =ai.text_request()
+    request.lang= 'en'
+    request.session_id = "<SESSION ID, UNIQUE FOR EACH USER>"
+    request.query = msg
+    response = request.getresponse()
+    rope = str(response.read())
+    rope = rope[rope.index("speech")+10:]
+    rope = rope[0:rope.index("\"")]
+    await bot.send_message(message.channel,msg)   
+
+
+
         
         
         
