@@ -3,3 +3,4 @@ asyncio
 Pymoe
 requests
 simplejson
+apiai
