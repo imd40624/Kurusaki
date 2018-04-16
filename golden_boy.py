@@ -47,7 +47,7 @@ async def on_message(message):
     raw_msg=message.content.split("{}".format(mention))
     msg="".join(raw_msg[1:])
     print(msg)
-    client_token='5df92cae29c5452aadd286f3001112c4'
+    client_token=os.environ['api_ai']
     ai=apiai.ApiAI(client_token)
     request =ai.text_request()
     request.lang= 'en'
