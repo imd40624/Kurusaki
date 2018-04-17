@@ -30,35 +30,33 @@ bot = commands.Bot(command_prefix='~')
 async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print ("I am running on " + bot.user.name)
-#     choice=random.choice
-#     game=games.game_list
-#     while True:
-#         ran_games=choice(game)
-#         await asyncio.sleep(18000)
-#         await bot.change_presence(game=discord.Game(name=ran_games))
+    await bot.change_prescence(game=discord.Game(name="Discord.gg"))
 
-
-
-  
+    
+    
 @bot.event
 async def on_message(message):
-  mention=bot.user.mention
-  if message.content.startswith(mention):
-    raw_msg=message.content.split("{}".format(mention))
-    msg="".join(raw_msg[1:])
-    print(msg)
-    client_token=os.environ['api_ai']
-    ai=apiai.ApiAI(client_token)
-    request =ai.text_request()
-    request.lang= 'en'
-    request.session_id = "<SESSION ID, UNIQUE FOR EACH USER>"
-    request.query = msg
-    response = request.getresponse()
-    rope = str(response.read())
-    rope = rope[rope.index("speech")+10:]
-    rope = rope[0:rope.index("\"")]
-    await bot.send_message(message.channel,msg)   
-
+    mention = bot.user.mention
+    if message.content.startswith(mention):
+        raw_msg = message.content.split("{}".format(mention))
+        msg = "".join(raw_msg[1:])
+#         print(msg)
+        client_token = os.environ['api_ai']
+        ai = apiai.ApiAI(client_token)
+        request = ai.text_request()
+        request.lang = 'en'
+        request.session_id = "<SESSION ID, UNIQUE FOR EACH USER>"
+        request.query = msg
+        response = request.getresponse()
+        rope = str(response.read())
+        rope = rope[rope.index("speech") + 10:]
+        rope = rope[0:rope.index("\"")]
+        await bot.send_message(message.channel, rope)    
+    
+    
+    
+    
+    
 
 
         
