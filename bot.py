@@ -12,7 +12,7 @@ import apiai
 import image_links
 import random
 import time
-
+import chat
 
 
 
@@ -400,8 +400,7 @@ async def urban(ctx):
     await bot.say("Word: {}\nVotes: {}\nDefinitioin: {}\nExample: {}".format(rq_json['list'][0]['word'],rq_json['list'][0]['thumbs_up'],rq_json['list'][0]['definition'],rq_json['list'][0]['example']))
 
     
-  
-    
+
 
 
 bot.run(os.environ['BOT_TOKEN'])
