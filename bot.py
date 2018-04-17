@@ -22,7 +22,7 @@ wu_key=os.environ['WU_API']
 
 An=Pymoe.Anilist()
 
-bot = commands.Bot(command_prefix='~')
+bot = commands.Bot(command_prefix='a.')
 
 @bot.event
 async def on_ready():
@@ -63,9 +63,9 @@ async def ping(ctx):
 
 
 @bot.command(pass_context=True)
-async def echo(ctx):
+async def say(ctx):
     """REPEATS WHATEVER THE USER SAYS"""
-    mesg=ctx.message.content.split("~echo ")
+    mesg=ctx.message.content.split("a.say ")
     repeat=" ".join(mesg[1:])
     await bot.say(repeat)
 
@@ -89,7 +89,7 @@ async def logout(ctx):
 
 @bot.command(pass_context=True)
 async def game(ctx):
-    raw_msg = ctx.message.content.split("~game ")
+    raw_msg = ctx.message.content.split("a.game ")
     mesg = "".join(raw_msg[1:])
     await bot.change_presence(game=discord.Game(name=mesg))
 
@@ -132,7 +132,7 @@ async def invite(ctx):
 @bot.command(pass_context=True)
 async def weather(ctx):
     t = u"\u00b0"
-    remove_command=ctx.message.content.split("~weather ")
+    remove_command=ctx.message.content.split("a.weather ")
     city_state=" ".join(remove_command[1:])
     if " " in city_state:
         remove_space=city_state.split()
@@ -160,7 +160,7 @@ async def weather(ctx):
 
 @bot.command(pass_context=True)
 async def cat(ctx):
-    raw_msg=ctx.message.content.lower().split("~cat ")
+    raw_msg=ctx.message.content.lower().split("a.cat ")
     url='http://aws.random.cat/meow'
     rq_url=rq.get(url).text
     rq_json=json.loads(rq_url)
@@ -173,7 +173,7 @@ async def cat(ctx):
 @bot.command(pass_context=True)
 async def img(ctx):
     api = 'f4237223-a9fc-4a7a-b789-e7d2beebcbef'
-    raw_inp = ctx.message.content.split("~img ")
+    raw_inp = ctx.message.content.split("a.img ")
     query=" ".join(raw_inp[1:])
     url ='http://version1.api.memegenerator.net//Generators_Search?q={}&apiKey={}'.format(query,api)
     rq_link = rq.get(url).text
@@ -188,9 +188,9 @@ async def img(ctx):
 
 @bot.command(pass_context=True)
 async def al(ctx):
-    """SEARCHES FOR AN ANIME THAT THE USER INPUTS FROM DISCORD USING ~ANIME (ANIME NAME)"""
+    """SEARCHES FOR AN ANIME THAT THE USER INPUTS FROM DISCORD USING a.ANIME (ANIME NAME)"""
     try:
-        title=ctx.message.content.split("~al ")
+        title=ctx.message.content.split("a.al ")
         new_msg = " ".join(title[1:])
         search = An.search.anime(new_msg)
         episodes = search['data']['Page']['media'][0]['episodes']
@@ -228,7 +228,7 @@ async def al(ctx):
 
 @bot.command(pass_context=True)
 async def mal(ctx):
-    _raw_input = ctx.message.content.lower().split("~mal ")
+    _raw_input = ctx.message.content.lower().split("a.mal ")
     query = "".join(_raw_input[1:])
     url = 'https://api.jikan.me/search/anime/{}'.format(query)
     rq_url = rq.get(url).text
@@ -290,7 +290,7 @@ async def kick(ctx, user: discord.Member):
 @bot.command(pass_context=True)
 async def summoner(ctx):
     try:
-        raw_name = ctx.message.content.split("~summoner ")
+        raw_name = ctx.message.content.split("a.summoner ")
         name = " ".join(raw_name[1:])
         """GETS THE SUMMONER'S BASIC INFORMATION; NAME,LEVEL"""
         link = rq.get("https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(name, api)).text
@@ -302,7 +302,7 @@ async def summoner(ctx):
 @bot.command(pass_context=True)
 async def lore(ctx):
     """GETS THE LORE OF A CHAMPION GIVEN"""
-    champ_name = ctx.message.content.split("~lore ")
+    champ_name = ctx.message.content.split("a.lore ")
     new_msg = " ".join(champ_name[1:]).lower()
     champ = rq.get('https://na1.api.riotgames.com/lol/static-data/v3/champions/{}?locale=en_US&champData=lore&api_key={}'.format(champs['keys'][new_msg],api)).text
     champ_json=json.loads(champ)
@@ -314,7 +314,7 @@ async def lore(ctx):
 
 @bot.command(pass_context=True)
 async def champ_mastery(ctx):
-    raw_msg=ctx.message.content.split("~champ_mastery ")
+    raw_msg=ctx.message.content.split("a.champ_mastery ")
     msg="".join(raw_msg[1:])
     bett=msg.find(",")
     summoner=msg[0:bett]
@@ -339,7 +339,7 @@ async def champ_mastery(ctx):
 @bot.command(pass_context=True)
 async def masterytotal(ctx):
     """GETS THE SUMMONER'S TOTAL MASTERY POINTS"""
-    raw_name=ctx.message.content.split("~masterytotal ")
+    raw_name=ctx.message.content.split("a.masterytotal ")
     name=" ".join(raw_name[1:]).lower()
     link = rq.get("https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(name, api)).text
     rq_json = json.loads(link)
@@ -351,7 +351,7 @@ async def masterytotal(ctx):
 
 @bot.command(pass_context=True)
 async def status(ctx):
-    raw_inp = ctx.message.content.split("~status ")
+    raw_inp = ctx.message.content.split("a.status ")
     region=" ".join(raw_inp[1:]).lower()
     try:
         if region == "kr" or "ru":
@@ -372,7 +372,7 @@ async def status(ctx):
 async def rank(ctx):
     """GETS THE SUMMONER'S RANK INFO, ONLY SOLODUO"""
     try:
-        raw_name=ctx.message.content.split("~rank ")
+        raw_name=ctx.message.content.split("a.rank ")
         name=" ".join(raw_name[1:])
         link = rq.get("https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(name, api)).text
         rq_json = json.loads(link)
@@ -407,7 +407,7 @@ async def rank(ctx):
 
 @bot.command(pass_context=True)
 async def urban(ctx):
-    word1=ctx.message.content.split("~urban ")
+    word1=ctx.message.content.split("a.urban ")
     word=" ".join(word1[1:])
     link='http://api.urbandictionary.com/v0/define?term={}'.format(word)
     rq_link=rq.get(link).text
