@@ -6,6 +6,7 @@ import apiai
 import time
 
 
+bot = commands.Bot(command_prefix="~")
 
 @bot.event
 async def on_message(message):
