@@ -49,8 +49,8 @@ async def on_message(message):
         rope = str(response.read())
         rope = rope[rope.index("speech") + 10:]
         rope = rope[0:rope.index("\"")]
-        return rope
-        await bot.process_commands(message)
+        await bot.send_message(message.channel, rope)
+    await bot.process_commands(message)
 
 
 
