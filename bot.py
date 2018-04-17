@@ -28,7 +28,7 @@ bot = commands.Bot(command_prefix='~')
 async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print ("I am running on " + bot.user.name)
-    await bot.change_prescence(game=discord.Game(name="Discord.gg"))
+#     await bot.change_prescence(game=discord.Game(name="Discord.gg"))
 
 
 
