@@ -123,7 +123,7 @@ async def catfact(ctx):
 
 @bot.command(pass_context=True)
 async def invite(ctx):
-    await bot.say("Here is the invite link for {}\n{}".format(bot.user.name,'https://discordapp.com/oauth2/authorize?client_id=317092788376436736&scope=bot'))
+    await bot.say("Here is the invite link for {}\n{}".format(bot.user.name,'https://discordapp.com/oauth2/authorize?client_id=403402614454353941&scope=bot'))
 
 
 
