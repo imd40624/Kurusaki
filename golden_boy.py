@@ -6,11 +6,11 @@ import asyncio
 import Pymoe
 import simplejson as json
 import requests as rq
-from champs import champs
-import os
+# from champs import champs
+# import os
 import image_links
 import random
-import games
+# import games
 import time
 import apiai
 
@@ -18,8 +18,8 @@ import apiai
 
 
 
-api = os.environ['RIOT_KEY']
-wu_key=os.environ['WU_API']
+api = 'rtyrty'
+wu_key='dfsdf'
 
 
 An=Pymoe.Anilist()
@@ -30,18 +30,18 @@ bot = commands.Bot(command_prefix='~')
 async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print ("I am running on " + bot.user.name)
-    await bot.change_prescence(game=discord.Game(name="Discord.gg"))
+    # await bot.change_prescence(game=discord.Game(name="Discord.gg"))
 
-    
-    
+
+
 @bot.event
 async def on_message(message):
     mention = bot.user.mention
     if message.content.startswith(mention):
         raw_msg = message.content.split("{}".format(mention))
         msg = "".join(raw_msg[1:])
-#         print(msg)
-        client_token = os.environ['api_ai']
+        #         print(msg)
+        client_token = '63e5a62853d747b3bc8d9e0f19446c7e'
         ai = apiai.ApiAI(client_token)
         request = ai.text_request()
         request.lang = 'en'
@@ -51,25 +51,25 @@ async def on_message(message):
         rope = str(response.read())
         rope = rope[rope.index("speech") + 10:]
         rope = rope[0:rope.index("\"")]
-        await bot.send_message(message.channel, rope)    
-    
-    
-    
-    
-    
+        await bot.send_message(message.channel, rope)
 
 
-        
-        
-        
+
+
+
+
+
+
+
+
 @bot.command(pass_context=True)
 async def ping(ctx):
     """PINGS THE BOT"""
     await bot.say(":ping_pong: ping!!")
     print ("user has pinged")
 
-        
-        
+
+
 @bot.command(pass_context=True)
 async def echo(ctx):
     """REPEATS WHATEVER THE USER SAYS"""
@@ -77,8 +77,8 @@ async def echo(ctx):
     repeat=" ".join(mesg[1:])
     await bot.say(repeat)
 
-    
-    
+
+
 
 @bot.command(pass_context=True)
 async def logout(ctx):
@@ -92,20 +92,20 @@ async def logout(ctx):
     else:
         await bot.say("Can not restart bot because you are not the creator")
 
-        
-        
-        
+
+
+
 @bot.command(pass_context=True)
 async def game(ctx):
     raw_msg = ctx.message.content.split("~game ")
     mesg = "".join(raw_msg[1:])
     await bot.change_presence(game=discord.Game(name=mesg))
-    
-    
-   
-    
-    
-    
+
+
+
+
+
+
 
 @bot.command(pass_context=True)
 async def info(ctx, user: discord.Member):
@@ -115,28 +115,28 @@ async def info(ctx, user: discord.Member):
 
 
 
-    
-    
-    
+
+
+
 @bot.command(pass_context=True)
 async def catfact(ctx):
     url = 'https://cat-fact.herokuapp.com/facts/random?amount=1'
     rq_url=rq.get(url).text
     rq_json=json.loads(rq_url)
     await bot.say(rq_json['text'])
-    
-    
-    
 
-    
+
+
+
+
 @bot.command(pass_context=True)
 async def invite(ctx):
     await bot.say("Here is the invite link for {}\n{}".format(bot.user.name,'https://discordapp.com/oauth2/authorize?client_id=317092788376436736&scope=bot'))
-    
-    
-    
-    
-    
+
+
+
+
+
 @bot.command(pass_context=True)
 async def weather(ctx):
     t = u"\u00b0"
@@ -160,12 +160,12 @@ async def weather(ctx):
         rq_url=rq.get(url).text
         rq_json=json.loads(rq_url)
         await bot.say("Country: {}\nState: {}\nCity: {}\nTemperature: {}{}F ({}{}C)\nRelative Humidity: {}\nWind Speed: {}MPH\nPowered By: {}".format(rq_json['current_observation']['display_location']['country'],rq_json['current_observation']['display_location']['state_name'],rq_json['current_observation']['display_location']['city'],rq_json['current_observation']['temp_f'],t,rq_json['current_observation']['temp_c'],t,rq_json['current_observation']['relative_humidity'],rq_json['current_observation']['wind_mph'],image_links.wu))
-    
-    
-    
 
-    
-    
+
+
+
+
+
 @bot.command(pass_context=True)
 async def cat(ctx):
     raw_msg=ctx.message.content.lower().split("~cat ")
@@ -174,9 +174,9 @@ async def cat(ctx):
     rq_json=json.loads(rq_url)
     pic=rq_json['file']
     await bot.say("{}".format(pic))
-    
-    
-    
+
+
+
 
 @bot.command(pass_context=True)
 async def img(ctx):
@@ -186,11 +186,11 @@ async def img(ctx):
     url ='http://version1.api.memegenerator.net//Generators_Search?q={}&apiKey={}'.format(query,api)
     rq_link = rq.get(url).text
     rq_json = json.loads(rq_link)
-    await bot.say(rq_json['result'][0]['imageUrl'])    
-    
-    
-    
-    
+    await bot.say(rq_json['result'][0]['imageUrl'])
+
+
+
+
 
 
 
@@ -282,8 +282,8 @@ async def mal(ctx):
     embed.add_field(name="Premiered",value=premiered)
     await bot.say(embed=embed)
     await bot.say("Summary: {}\n{}".format(summary,anime_picture))
-         
-            
+
+
 
 @bot.command(pass_context=True)
 async def kick(ctx, user: discord.Member):
@@ -307,42 +307,42 @@ async def summoner(ctx):
     except KeyError:
         await bot.say("{} is currently unable process your command.".format(bot.user.name))
 
-@bot.command(pass_context=True)
-async def lore(ctx):
-    """GETS THE LORE OF A CHAMPION GIVEN"""
-    champ_name = ctx.message.content.split("~lore ")
-    new_msg = " ".join(champ_name[1:]).lower()
-    champ = rq.get('https://na1.api.riotgames.com/lol/static-data/v3/champions/{}?locale=en_US&champData=lore&api_key={}'.format(champs['keys'][new_msg],api)).text
-    champ_json=json.loads(champ)
-    await bot.say("Champion Name: {}\nTitle: {}\nLore: {}".format(champ_json['name'],champ_json['title'],champ_json['lore']))
+# @bot.command(pass_context=True)
+# async def lore(ctx):
+#     """GETS THE LORE OF A CHAMPION GIVEN"""
+#     champ_name = ctx.message.content.split("~lore ")
+#     new_msg = " ".join(champ_name[1:]).lower()
+#     champ = rq.get('https://na1.api.riotgames.com/lol/static-data/v3/champions/{}?locale=en_US&champData=lore&api_key={}'.format(champs['keys'][new_msg],api)).text
+#     champ_json=json.loads(champ)
+#     await bot.say("Champion Name: {}\nTitle: {}\nLore: {}".format(champ_json['name'],champ_json['title'],champ_json['lore']))
 
 
-    
-    
-    
-@bot.command(pass_context=True)
-async def champ_mastery(ctx):
-    raw_msg=ctx.message.content.split("~champ_mastery ")
-    msg="".join(raw_msg[1:])
-    bett=msg.find(",")
-    summoner=msg[0:bett]
-    champ=msg[bett+1:]
-    url1="https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(summoner,api)
-    sum_info = rq.get(url1).text
-    info_json=json.loads(sum_info)
-    name=info_json['name']
-    sum_id=info_json['id']
-    url2="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{}/by-champion/{}?api_key={}".format(sum_id,champs['keys'][champ],api)
-    mast_info=rq.get(url2).text
-    mast_json=json.loads(mast_info)
-    champ_lvl=mast_json['championLevel']
-    champ_points=mast_json['championPoints']
-    chest=mast_json['chestGranted']
-    await bot.say("Level: {}\nPoints: {}\nChest: {}".format(champ_lvl,champ_points,chest))
-#     await bot.say(mast_json)
-        
-        
-        
+
+
+
+# @bot.command(pass_context=True)
+# async def champ_mastery(ctx):
+#     raw_msg=ctx.message.content.split("~champ_mastery ")
+#     msg="".join(raw_msg[1:])
+#     bett=msg.find(",")
+#     summoner=msg[0:bett]
+#     champ=msg[bett+1:]
+#     url1="https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(summoner,api)
+#     sum_info = rq.get(url1).text
+#     info_json=json.loads(sum_info)
+#     name=info_json['name']
+#     sum_id=info_json['id']
+#     url2="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/{}/by-champion/{}?api_key={}".format(sum_id,champs['keys'][champ],api)
+#     mast_info=rq.get(url2).text
+#     mast_json=json.loads(mast_info)
+#     champ_lvl=mast_json['championLevel']
+#     champ_points=mast_json['championPoints']
+#     chest=mast_json['chestGranted']
+#     await bot.say("Level: {}\nPoints: {}\nChest: {}".format(champ_lvl,champ_points,chest))
+# #     await bot.say(mast_json)
+
+
+
 
 @bot.command(pass_context=True)
 async def masterytotal(ctx):
@@ -361,7 +361,7 @@ async def masterytotal(ctx):
 async def status(ctx):
     raw_inp = ctx.message.content.split("~status ")
     region=" ".join(raw_inp[1:]).lower()
-    try: 
+    try:
         if region == "kr" or "ru":
             link1 = 'https://{}.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(region, api)
             rq_link1=rq.get(link1).text
@@ -424,4 +424,4 @@ async def urban(ctx):
 
 
 
-bot.run(os.environ['BOT_TOKEN'])
+bot.run('MzE3MDkyNzg4Mzc2NDM2NzM2.DbbPhw.aXi2XLIiIRYuJcm_u8OTN5e73mc')
