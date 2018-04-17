@@ -207,7 +207,7 @@ async def weather(ctx):
 
 
 
-@bot.command(pass_context=True,case_insensitive=False)
+@bot.command(pass_context=True,case_insensitive=True)
 async def cat(ctx):
     raw_msg=ctx.message.content.lower().split("a.cat ")
     url='http://aws.random.cat/meow'
