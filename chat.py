@@ -1,3 +1,12 @@
+import discord
+from discord.ext import commands
+from discord.ext.commands import bot
+import asyncio
+import apiai
+import time
+
+
+
 @bot.event
 async def on_message(message):
     mention = bot.user.mention
