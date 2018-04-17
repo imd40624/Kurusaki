@@ -28,8 +28,8 @@ bot = commands.Bot(command_prefix='~')
 async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print ("I am running on " + bot.user.name)
-#     await bot.change_prescence(game=discord.Game(name="Discord.gg"))
-
+    mesg="Hello Kitty"
+    await bot.change_presence(game=discord.Game(name=mesg))
 
 
 @bot.event
@@ -50,7 +50,7 @@ async def on_message(message):
         rope = rope[rope.index("speech") + 10:]
         rope = rope[0:rope.index("\"")]
         await bot.send_message(message.channel, rope)
-
+        await bot.process_commands(message)
 
 
 
