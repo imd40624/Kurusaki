@@ -1,1 +1,1 @@
-worker: python golden_boy.py
+worker: python bot.py
