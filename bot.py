@@ -119,6 +119,55 @@ async def catfact(ctx):
 
 
 
+    
+    
+@bot.command(pass_context=True)
+async def randomanime(ctx):
+    ra1=rq.get('https://private-anon-589c768a77-popcornofficial.apiary-proxy.com/random/anime')
+    ra2=rq.get('https://tv-v2.api-fetch.website/random/anime')
+    if ra1.status_code == 200:
+        text=ra1.text
+        rq_json=json.loads(text)
+        title=rq_json['title']
+        anime_id=rq_json['mal_id']
+        genres=rq_json['genres']
+        gen=" ".join(genres[1:])
+        url2 = 'https://api.jikan.me/anime/{}/stats/'.format(anime_id)
+        r2=rq.get(url2).text
+        r2j=json.loads(r2)
+        summary=r2j['synopsis']
+        await bot.say("Title: {}\nGenres: {}\nSynopsis: {}".format(title,gen,summary))
+
+
+
+
+@bot.command(pass_context=True)
+async def randommovie(ctx):
+    movie=rq.get('https://tv-v2.api-fetch.website/random/movie')
+    if movie.status_code == 200:
+        rest=movie.text
+        rq_json=json.loads(rest)
+        title=rq_json['title']
+        summary=rq_json['synopsis']
+        runtime=rq_json['runtime']
+        genres=rq_json['genres']
+        gen = " ".join(genres[1:])
+        await bot.say("Title: {}\nGenres: {}\nLength: {} Minutes\nSynopsis: {}".format(title, gen, runtime, summary))
+
+
+
+
+@bot.command(pass_context=True)
+async def randomshow(ctx):
+    movie = rq.get('https://tv-v2.api-fetch.website/random/show')
+    if movie.status_code == 200:
+        rest = movie.text
+        rq_json = json.loads(rest)
+        title = rq_json['title']
+        await bot.say(title)    
+    
+    
+    
 
 
 @bot.command(pass_context=True)
