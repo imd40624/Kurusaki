@@ -18,7 +18,7 @@ import time
 
 
 
-api = os.environ['RIOT']
+api = os.environ['RIOT_KEY']
 wu_key=os.environ['WU_API']
 
 
