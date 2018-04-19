@@ -195,7 +195,7 @@ async def weather(ctx):
 #         await bot.say("Open Weather Map currently not available attempting to try Wunderground")
 #     try:
     if " " in city_state:
-    remove_space=city_state.split()
+    remove_space=city_state.split("")
     o_space="".join(remove_space[0:])
     bett=no_space.find(',')
     state=no_space[bett+1:]
