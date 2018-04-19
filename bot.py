@@ -196,7 +196,7 @@ async def weather(ctx):
 #     try:
     if " " in city_state:
     remove_space=city_state.split()
-                o_space="".join(remove_space[0:])
+    o_space="".join(remove_space[0:])
     bett=no_space.find(',')
     state=no_space[bett+1:]
     city=no_space[0:bett]
