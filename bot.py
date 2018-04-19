@@ -18,7 +18,7 @@ import time
 
 api = os.environ['RIOT_KEY']
 wu_key=os.environ['WU_API']
-
+owm=os.environ['open_weather']
 
 An=Pymoe.Anilist()
 
@@ -183,10 +183,9 @@ async def weather(ctx):
     wu_key = 'c8034bd5f8c70795'
     try:
         t = u"\u00b0"
-        remove_command = ctx.message.content.split("s.weather ")
+        remove_command = ctx.message.content.split("a.weather ")
         city_state = " ".join(remove_command[1:])
-        token = 'e3d03bf7f7df7af0bbcc77784637a3dd'
-        url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}'.format(city_state,token)
+        url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}'.format(city_state,owm)
         ser = rq.get(url).text
         rq_json = json.loads(ser)   
         temp = rq_json['main']['temp']
