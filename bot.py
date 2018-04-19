@@ -195,23 +195,23 @@ async def weather(ctx):
 #         await bot.say("Open Weather Map currently not available attempting to try Wunderground")
 #     try:
     if " " in city_state:
-    remove_space=city_state.split("")
-    o_space="".join(remove_space[0:])
-    bett=no_space.find(',')
-    state=no_space[bett+1:]
-    city=no_space[0:bett]
-    url='http://api.wunderground.com/api/{}/conditions/q/{}/{}.json'.format(wu_key,state,city)
-    rq_url=rq.get(url).text
-    rq_json=json.loads(rq_url)
-    await bot.say("Country: {}\nState: {}\nCity: {}\nTemperature: {}{}F ({}{}C)\nRelative Humidity: {}\nWind Speed: {}MPH\nPowered By: {}".format(rq_json['current_observation']['display_location']['country'],rq_json['current_observation']['display_location']['state_name'],rq_json['current_observation']['display_location']['city'],rq_json['current_observation']['temp_f'],t,rq_json['current_observation']['temp_c'],t,rq_json['current_observation']['relative_humidity'],rq_json['current_observation']['wind_mph'],image_links.wu))
-    else:
-    bett=city_state.find(',')
-    state=city_state[bett+1:]
-    city=city_state[0:bett]
-    url='http://api.wunderground.com/api/{}/conditions/q/{}/{}.json'.format(wu_key,state,city)
-    rq_url=rq.get(url).text
-    rq_json=json.loads(rq_url)
-    await bot.say("Country: {}\nState: {}\nCity: {}\nTemperature: {}{}F ({}{}C)\nRelative Humidity: {}\nWind Speed: {}MPH\nPowered By: {}".format(rq_json['current_observation']['display_location']['country'],rq_json['current_observation']['display_location']['state_name'],rq_json['current_observation']['display_location']['city'],rq_json['current_observation']['temp_f'],t,rq_json['current_observation']['temp_c'],t,rq_json['current_observation']['relative_humidity'],rq_json['current_observation']['wind_mph'],image_links.wu))
+        remove_space=city_state.split()
+        o_space="".join(remove_space[0:])
+        bett=no_space.find(',')
+        state=no_space[bett+1:]
+        city=no_space[0:bett]
+        url='http://api.wunderground.com/api/{}/conditions/q/{}/{}.json'.format(wu_key,state,city)
+        rq_url=rq.get(url).text
+        rq_json=json.loads(rq_url)
+        await bot.say("Country: {}\nState: {}\nCity: {}\nTemperature: {}{}F ({}{}C)\nRelative Humidity: {}\nWind Speed: {}MPH\nPowered By: {}".format(rq_json['current_observation']['display_location']['country'],rq_json['current_observation']['display_location']['state_name'],rq_json['current_observation']['display_location']['city'],rq_json['current_observation']['temp_f'],t,rq_json['current_observation']['temp_c'],t,rq_json['current_observation']['relative_humidity'],rq_json['current_observation']['wind_mph'],image_links.wu))
+        else:
+        bett=city_state.find(',')
+        state=city_state[bett+1:]
+        city=city_state[0:bett]
+        url='http://api.wunderground.com/api/{}/conditions/q/{}/{}.json'.format(wu_key,state,city)
+        rq_url=rq.get(url).text
+        rq_json=json.loads(rq_url)
+        await bot.say("Country: {}\nState: {}\nCity: {}\nTemperature: {}{}F ({}{}C)\nRelative Humidity: {}\nWind Speed: {}MPH\nPowered By: {}".format(rq_json['current_observation']['display_location']['country'],rq_json['current_observation']['display_location']['state_name'],rq_json['current_observation']['display_location']['city'],rq_json['current_observation']['temp_f'],t,rq_json['current_observation']['temp_c'],t,rq_json['current_observation']['relative_humidity'],rq_json['current_observation']['wind_mph'],image_links.wu))
 #         except:
 #             await bot.say("Weather command is currently not available. D:")
 
