@@ -186,12 +186,16 @@ async def weather(ctx):
     try:
         city=ctx.message.content[8:]
         token='e3d03bf7f7df7af0bbcc77784637a3dd'
-        token='e3d03bf7f7df7af0bbcc77784637a3dd'
         url='http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}'.format(city,token)
         ser=rq.get(url).text
         rq_json=json.loads(ser)
         temp=rq_json['main']['temp']
-        await bot.say("The temperature in {} is around {}{}F".format(city,temp,t))
+        max_temp=rq_json['main']['temp_max']
+        min_temp=rq_json['main']['temp_min']
+        hum=rq_json['main']['humidity']
+        wind=rq_json['main']['speed']
+        await bot.say("The temperature in {} is around {}{}F\nThe minimum Temperature is: {}\nThe maximum Temperature is: {}\nThe humidity is around: {}%\nWind speed is around: {}MPH".format(city, temp, t,min_temp,max_temp,hum,wind))
+
     except:
         await bot.say("Open Weather Map currently not available attempting to try Wunderground")
     #     try:
