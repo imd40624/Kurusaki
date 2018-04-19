@@ -188,9 +188,9 @@ async def weather(ctx):
     token='e3d03bf7f7df7af0bbcc77784637a3dd'
     url='http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}'.format(city,token)
     result=rq.get(url).text
-    rq_json=json.loads(results)
+    rq_json=json.loads(result)
     temp=rq_json['main']['temp']
-    await bot.say("The temperature in {} is around {}{}F".format(city,temp,t))
+#     await bot.say("The temperature in {} is around {}{}F".format(city,temp,t))
 #     except:
 #         await bot.say("Open Weather Map currently not available attempting to try Wunderground")
 #     try:
