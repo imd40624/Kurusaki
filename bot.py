@@ -180,6 +180,7 @@ async def invite(ctx):
 
 @bot.command(pass_context=True)
 async def weather(ctx):
+    wu_key = 'c8034bd5f8c70795'
     try:
         t = u"\u00b0"
         remove_command = ctx.message.content.split("s.weather ")
@@ -187,7 +188,7 @@ async def weather(ctx):
         token = 'e3d03bf7f7df7af0bbcc77784637a3dd'
         url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}'.format(city_state,token)
         ser = rq.get(url).text
-        rq_json = json.loads(ser)
+        rq_json = json.loads(ser)   
         temp = rq_json['main']['temp']
         max_temp = rq_json['main']['temp_max']
         min_temp = rq_json['main']['temp_min']
@@ -197,7 +198,6 @@ async def weather(ctx):
         await bot.say("The temperature in {} is around {}{}F\nThe minimum Temperature is: {}\nThe maximum Temperature is: {}\nThe humidity is around: {}%\nWind speed is around: {}MPH".format(city_state, temp, t, min_temp, max_temp, hum, wind))
     except:
 
-        #     try:
         if " " in city_state:
             remove_space = city_state.split()
             no_space = "".join(remove_space[0:])
