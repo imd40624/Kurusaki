@@ -186,9 +186,10 @@ async def weather(ctx):
 #     try:
     city=ctx.message.content[8:]
     token='e3d03bf7f7df7af0bbcc77784637a3dd'
+    token='e3d03bf7f7df7af0bbcc77784637a3dd'
     url='http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}'.format(city,token)
-    result=rq.get(url).text
-    rq_json=json.loads(result)
+    ser=rq.get(url).text
+    rq_json=json.loads(ser)
     temp=rq_json['main']['temp']
 #     await bot.say("The temperature in {} is around {}{}F".format(city,temp,t))
 #     except:
