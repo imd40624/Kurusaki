@@ -49,8 +49,12 @@ async def on_message(message):
         rope = str(response.read())
         rope = rope[rope.index("speech") + 10:]
         rope = rope[0:rope.index("\"")]
-        await bot.send_message(message.channel, rope)
-    await bot.process_commands(message)
+        if '$anime' in rope:
+            anime=rope.replace('$anime',anime)
+            await bot.send_message(message.channel, anime)
+        else:
+            await bot.send_message(message.channel, rope)
+        await bot.process_commands(message)
 
 
 
