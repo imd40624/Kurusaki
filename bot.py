@@ -198,10 +198,8 @@ async def weather(ctx):
         min_temp = rq_json['main']['temp_min']
         hum = rq_json['main']['humidity']
         wind = rq_json['wind']['speed']
-        await bot.say("Hi")
         await bot.say("The temperature in {} is around {}{}F\nThe minimum Temperature is: {}\nThe maximum Temperature is: {}\nThe humidity is around: {}%\nWind speed is around: {}MPH".format(city_state, temp, t, min_temp, max_temp, hum, wind))
     except:
-
         if " " in city_state:
             remove_space = city_state.split()
             no_space = "".join(remove_space[0:])
