@@ -1,6 +1,6 @@
 import requests as rq
 import json
-
+import os
 
 
 wu_key=os.environ['WU_API']
