@@ -12,7 +12,7 @@ import apiai
 import image_links
 import random
 import time
-
+import random_anime as ra
 
 
 
@@ -36,7 +36,7 @@ async def on_ready():
 async def on_message(message):
     mention = bot.user.mention
     if message.content.startswith(mention):
-        anime=rq.get('https://kurusaki-webhook.herokuapp.com/').text
+        anime= ra.title
         raw_msg = message.content.split("{}".format(mention))
         msg = "".join(raw_msg[1:])
         #         print(msg)
