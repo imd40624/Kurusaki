@@ -36,7 +36,7 @@ async def on_ready():
 async def on_message(message):
     mention = bot.user.mention
     if message.content.startswith(mention):
-        anime= ra.title
+        title= ra.title
         raw_msg = message.content.split("{}".format(mention))
         msg = "".join(raw_msg[1:])
         #         print(msg)
@@ -51,7 +51,7 @@ async def on_message(message):
         rope = rope[rope.index("speech") + 10:]
         rope = rope[0:rope.index("\"")]
         if '$anime' in rope:
-            anime=rope.replace('$anime',anime)
+            anime=rope.replace('$anime',title)
             await bot.send_message(message.channel, anime)
         else:
             await bot.send_message(message.channel, rope)
