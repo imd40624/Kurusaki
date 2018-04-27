@@ -1,7 +1,7 @@
 import requests as rq
 import json
 import os
-
+import bot
 
 wu_key=os.environ['WU_API']
 owm=os.environ['open_weather']
@@ -16,8 +16,7 @@ class rq_ra():
   
 class Weather():
   t = u"\u00b0"
-  remove_command = ctx.message.content.split("a.weather ")
-  city_state = " ".join(remove_command[1:])
+  city_state = bot.city_state
   url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}'.format(city_state,owm)
   ser = rq.get(url).text
   rq_json = json.loads(ser)   
