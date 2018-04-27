@@ -185,6 +185,9 @@ async def invite(ctx):
 
 @bot.command(pass_context=True)
 async def weather(ctx):
+    remove_command = ctx.message.content.split("a.weather ")
+    global city_state
+    city_state = " ".join(remove_command[1:])
     try:
         temp = tools.Weather.temp
         max_temp = tools.Weather.max_temp
