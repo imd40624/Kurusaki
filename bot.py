@@ -186,18 +186,12 @@ async def invite(ctx):
 @bot.command(pass_context=True)
 async def weather(ctx):
     try:
-        t = u"\u00b0"
-        remove_command = ctx.message.content.split("a.weather ")
-        city_state = " ".join(remove_command[1:])
-        url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}'.format(city_state,owm)
-        ser = rq.get(url).text
-        rq_json = json.loads(ser)   
-        temp = rq_json['main']['temp']
-        max_temp = rq_json['main']['temp_max']
-        min_temp = rq_json['main']['temp_min']
-        hum = rq_json['main']['humidity']
-        wind = rq_json['wind']['speed']
-        await bot.say("The temperature in {} is around {}{}F\nThe minimum Temperature is: {}\nThe maximum Temperature is: {}\nThe humidity is around: {}%\nWind speed is around: {}MPH".format(city_state, temp, t, min_temp, max_temp, hum, wind))
+        temp = tools.Weather.temp
+        max_temp = tools.Weather.max_temp
+        min_temp = tools.Weather.min_temp
+        dis = tools.Weather.dis
+        wind = tools.Weather.wind
+        await bot.say("The temperature in {} is around {}{}F\nThe minimum Temperature is: {}\nThe maximum Temperature is: {}\nMainly: {}%\nWind speed is around: {}MPH".format(city_state, temp, t, min_temp, max_temp, hum, wind))
     except:
         if " " in city_state:
             remove_space = city_state.split()
