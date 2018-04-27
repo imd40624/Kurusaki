@@ -185,7 +185,6 @@ async def invite(ctx):
 
 @bot.command(pass_context=True)
 async def weather(ctx):
-    wu_key = 'c8034bd5f8c70795'
     try:
         t = u"\u00b0"
         remove_command = ctx.message.content.split("a.weather ")
