@@ -12,7 +12,7 @@ import apiai
 import image_links
 import random
 import time
-import random_anime as ra
+import tools
 
 
 
@@ -36,7 +36,7 @@ async def on_ready():
 async def on_message(message):
     mention = bot.user.mention
     if message.content.startswith(mention):
-        title= ra.title
+        title= tools.rq_ra.title
         raw_msg = message.content.split("{}".format(mention))
         msg = "".join(raw_msg[1:])
         #         print(msg)
@@ -128,7 +128,7 @@ async def catfact(ctx):
     
 @bot.command(pass_context=True)
 async def randomanime(ctx):
-    ra1=rq.get('https://private-anon-589c768a77-popcornofficial.apiary-proxy.com/random/anime')
+#     ra1=rq.get('https://private-anon-589c768a77-popcornofficial.apiary-proxy.com/random/anime')
     ra2=rq.get('https://tv-v2.api-fetch.website/random/anime')
     if ra1.status_code == 200:
         text=ra1.text
