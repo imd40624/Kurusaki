@@ -24,5 +24,5 @@ class Weather():
   temp = rq_json['main']['temp']
   max_temp = rq_json['main']['temp_max']
   min_temp = rq_json['main']['temp_min']
-  hum = rq_json['main']['humidity']
+  dis = rq_json['weather'][0]['description']
   wind = rq_json['wind']['speed']
