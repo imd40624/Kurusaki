@@ -1,5 +1,7 @@
 import requests as rq
 import json
+import datetime
+
 
 
 
@@ -12,3 +14,6 @@ class Req():
   rq_json=json.loads(text)
   title=rq_json['title']
   
+
+ class Time():
+  c_time=datetime.datetime.now()
