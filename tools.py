@@ -16,3 +16,4 @@ class Req():
   
 class Time():
   c_time=datetime.datetime.now()
+  s_t=str(c_time)
