@@ -36,7 +36,7 @@ async def on_ready():
 async def on_message(message):
     mention = bot.user.mention
     if message.content.startswith(mention):
-        title= tools.rq_ra.title
+        title= tools.Req.title
         raw_msg = message.content.split("{}".format(mention))
         msg = "".join(raw_msg[1:])
         #         print(msg)
