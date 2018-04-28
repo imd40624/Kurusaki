@@ -54,7 +54,7 @@ async def on_message(message):
             anime=rope.replace('$anime',title)
             await bot.send_message(message.channel, anime)
         if '$time' in rope:
-            t=rope.replace('$time',tools.Time.c_time)
+            t=rope.replace('$time',tools.Time.s_t)
             await bot.send_message(message.channel, t)
         else:
             await bot.send_message(message.channel, rope)
