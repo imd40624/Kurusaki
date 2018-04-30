@@ -97,6 +97,7 @@ async def logout(ctx):
 
 @bot.command(pass_context=True)
 async def game(ctx):
+    """CHANGES THE PLAYING STATUS OF THE BOT"""
     raw_msg = ctx.message.content.split("a.game ")
     mesg = "".join(raw_msg[1:])
     await bot.change_presence(game=discord.Game(name=mesg))
@@ -120,6 +121,7 @@ async def info(ctx, user: discord.Member):
 
 @bot.command(pass_context=True)
 async def catfact(ctx):
+    """SENDS YOU A RANDOM FACT ABOUT CATS"""
     url = 'https://cat-fact.herokuapp.com/facts/random?amount=1'
     rq_url=rq.get(url).text
     rq_json=json.loads(rq_url)
@@ -131,6 +133,7 @@ async def catfact(ctx):
     
 @bot.command(pass_context=True)
 async def randomanime(ctx):
+    """GENERATES A RANDOM ANIME WITH 10 SECOND COOL DOWN"""
 #     ra1=rq.get('https://private-anon-589c768a77-popcornofficial.apiary-proxy.com/random/anime')
     ra2=rq.get('https://tv-v2.api-fetch.website/random/anime')
     if ra1.status_code == 200:
@@ -151,6 +154,7 @@ async def randomanime(ctx):
 
 @bot.command(pass_context=True)
 async def randommovie(ctx):
+    """GENERATES A RANDOM MOVIE"""
     movie=rq.get('https://tv-v2.api-fetch.website/random/movie')
     if movie.status_code == 200:
         rest=movie.text
@@ -167,6 +171,7 @@ async def randommovie(ctx):
 
 @bot.command(pass_context=True)
 async def randomshow(ctx):
+    """GENERATES RANDOM MOVIE"""
     movie = rq.get('https://tv-v2.api-fetch.website/random/show')
     if movie.status_code == 200:
         rest = movie.text
@@ -180,6 +185,7 @@ async def randomshow(ctx):
 
 @bot.command(pass_context=True)
 async def invite(ctx):
+    """GET AN INVITE LINK FOR THIS DISCORD BOT"""
     await bot.say("Here is the invite link for {}\n{}".format(bot.user.name,'https://discordapp.com/oauth2/authorize?client_id=403402614454353941&scope=bot'))
 
 
@@ -188,6 +194,7 @@ async def invite(ctx):
 
 @bot.command(pass_context=True)
 async def weather(ctx):
+    """GET THE WEATHER IN YOUR CITY. EX: a.weather austin"""
     remove_command = ctx.message.content.split("a.weather ")
     t = u"\u00b0"
     city_state = " ".join(remove_command[1:])
@@ -225,6 +232,7 @@ async def weather(ctx):
 
 @bot.command(pass_context=True,case_insensitive=True)
 async def cat(ctx):
+    """GET A RANDOM PICTURE OF A CAT. EX: a.cat"""
     raw_msg=ctx.message.content.lower().split("a.cat ")
     url='http://aws.random.cat/meow'
     rq_url=rq.get(url).text
@@ -237,6 +245,7 @@ async def cat(ctx):
 
 @bot.command(pass_context=True)
 async def img(ctx):
+    """GENERATE IMAGE a.img dog"""
     api = 'f4237223-a9fc-4a7a-b789-e7d2beebcbef'
     raw_inp = ctx.message.content.split("a.img ")
     query=" ".join(raw_inp[1:])
@@ -253,7 +262,7 @@ async def img(ctx):
 
 @bot.command(pass_context=True)
 async def al(ctx):
-    """SEARCHES FOR AN ANIME THAT THE USER INPUTS FROM DISCORD USING a.ANIME (ANIME NAME)"""
+    """SEARCH FOR ANIME WITH Anilist. EX: a.al School Rumble"""
     try:
         title=ctx.message.content.split("a.al ")
         new_msg = " ".join(title[1:])
@@ -293,6 +302,7 @@ async def al(ctx):
 
 @bot.command(pass_context=True)
 async def mal(ctx):
+    """SEARCH FOR ANIME USING MyAnimeList. EX: a.mal Mushishi"""
     _raw_input = ctx.message.content.lower().split("a.mal ")
     query = "".join(_raw_input[1:])
     url = 'https://api.jikan.me/search/anime/{}'.format(query)
@@ -354,6 +364,7 @@ async def kick(ctx, user: discord.Member):
 
 @bot.command(pass_context=True)
 async def summoner(ctx):
+    """GET BASIC INFO OF A GIVEN SUMMONER. EX: a.summoner Charming Mother"""
     try:
         raw_name = ctx.message.content.split("a.summoner ")
         name = " ".join(raw_name[1:])
@@ -366,7 +377,7 @@ async def summoner(ctx):
 
 @bot.command(pass_context=True)
 async def lore(ctx):
-    """GETS THE LORE OF A CHAMPION GIVEN"""
+    """GETS THE LORE OF A CHAMPION GIVEN. EX: a.lore Ashe"""
     champ_name = ctx.message.content.split("a.lore ")
     new_msg = " ".join(champ_name[1:]).lower()
     champ = rq.get('https://na1.api.riotgames.com/lol/static-data/v3/champions/{}?locale=en_US&champData=lore&api_key={}'.format(champs['keys'][new_msg],api)).text
@@ -379,6 +390,7 @@ async def lore(ctx):
 
 @bot.command(pass_context=True)
 async def champ_mastery(ctx):
+    """GET A CHAMP MASTERY OF A SUMMONER. EX: a.champ_mastery Charming Mother,Vayne"""
     raw_msg=ctx.message.content.split("a.champ_mastery ")
     msg="".join(raw_msg[1:])
     bett=msg.find(",")
@@ -403,7 +415,7 @@ async def champ_mastery(ctx):
 
 @bot.command(pass_context=True)
 async def masterytotal(ctx):
-    """GETS THE SUMMONER'S TOTAL MASTERY POINTS"""
+    """GETS THE SUMMONER'S TOTAL MASTERY POINTS. EX: a.masterytotal Charming Mother"""
     raw_name=ctx.message.content.split("a.masterytotal ")
     name=" ".join(raw_name[1:]).lower()
     link = rq.get("https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(name, api)).text
@@ -416,16 +428,15 @@ async def masterytotal(ctx):
 
 @bot.command(pass_context=True)
 async def status(ctx):
+    """GET THE STATUS OF THE LEAGUE SERVER. EX: a.status na"""
     raw_inp = ctx.message.content.split("a.status ")
     region=" ".join(raw_inp[1:]).lower()
-    try:
-        if region == "kr" or "ru":
-            link1 = 'https://{}.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(region, api)
-            rq_link1=rq.get(link1).text
-            rq_json1=json.loads(rq_link1)
-            await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(rq_json1['name'],rq_json1['services'][0]['status'],rq_json1['services'][1]['status'],rq_json1['services'][2]['status'],rq_json1['services'][3]['status']))
-
-    except:
+    if region == "kr" or "ru":
+        link1 = 'https://{}.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(region, api)
+        rq_link1=rq.get(link1).text
+        rq_json1=json.loads(rq_link1)
+        await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(rq_json1['name'],rq_json1['services'][0]['status'],rq_json1['services'][1]['status'],rq_json1['services'][2]['status'],rq_json1['services'][3]['status']))
+    else:
         link = 'https://{}1.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(region, api)
         rq_link=rq.get(link).text
         rq_json=json.loads(rq_link)
@@ -435,7 +446,7 @@ async def status(ctx):
 
 @bot.command(pass_context=True)
 async def rank(ctx):
-    """GETS THE SUMMONER'S RANK INFO, ONLY SOLODUO"""
+    """GETS THE SUMMONER'S RANK INFO, ONLY SOLODUO. EX: a.rank Charming Mother"""
     try:
         raw_name=ctx.message.content.split("a.rank ")
         name=" ".join(raw_name[1:])
@@ -472,6 +483,7 @@ async def rank(ctx):
 
 @bot.command(pass_context=True)
 async def urban(ctx):
+    """USES URBAN DICT TO FIND DEFINITION OF WORDS. EX: a.urban neko"""
     word1=ctx.message.content.split("a.urban ")
     word=" ".join(word1[1:])
     link='http://api.urbandictionary.com/v0/define?term={}'.format(word)
