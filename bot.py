@@ -303,12 +303,12 @@ async def al(ctx):
 @bot.command(pass_context=True)
 async def mal(ctx):
     """SEARCH FOR ANIME USING MyAnimeList. EX: a.mal Mushishi"""
-    _raw_input = ctx.message.content.lower().split("a.mal ")
-    query = "".join(_raw_input[1:])
+    raw_msg = ctx.message.content.lower().split("a.mal ")
+    query = " ".join(raw_msg[1:])
     url = 'https://api.jikan.me/search/anime/{}'.format(query)
     rq_url = rq.get(url).text
     rq_json = json.loads(rq_url)
-    anime_id = rq_json['result'][0]['id']
+    anime_id = rq_json['result'][0]['mal_id']
     url2 = 'https://api.jikan.me/anime/{}/stats/'.format(anime_id)
     rq_url2 = rq.get(url2).text
     rq_json2 = json.loads(rq_url2)
