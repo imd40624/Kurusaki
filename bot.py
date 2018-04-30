@@ -97,7 +97,7 @@ async def logout(ctx):
 
 @bot.command(pass_context=True)
 async def game(ctx):
-    """CHANGES THE PLAYING STATUS OF THE BOT"""
+    """CHANGES THE PLAYING STATUS OF THE BOT. EX: a.game OSU!"""
     raw_msg = ctx.message.content.split("a.game ")
     mesg = "".join(raw_msg[1:])
     await bot.change_presence(game=discord.Game(name=mesg))
@@ -110,7 +110,7 @@ async def game(ctx):
 
 @bot.command(pass_context=True)
 async def info(ctx, user: discord.Member):
-    """GETS THE BASIC INFORMATION OF A USER IN DISCORD"""
+    """GETS THE BASIC INFORMATION OF A USER IN DISCORD. EX: a.info @Kurusaki#4763"""
     await bot.say("The user's name is: {}\n{}'s ID is: {}\n{} is: {}\n{}'s highest role is: {}\n{} joined at: {}".format(user.name,user.name,user.id,user.name,user.status,user.name,user.top_role,user.name,user.joined_at))
 
 
@@ -121,7 +121,7 @@ async def info(ctx, user: discord.Member):
 
 @bot.command(pass_context=True)
 async def catfact(ctx):
-    """SENDS YOU A RANDOM FACT ABOUT CATS"""
+    """SENDS YOU A RANDOM FACT ABOUT CATS. EX: a.catfact"""
     url = 'https://cat-fact.herokuapp.com/facts/random?amount=1'
     rq_url=rq.get(url).text
     rq_json=json.loads(rq_url)
@@ -133,7 +133,7 @@ async def catfact(ctx):
     
 @bot.command(pass_context=True)
 async def randomanime(ctx):
-    """GENERATES A RANDOM ANIME WITH 10 SECOND COOL DOWN"""
+    """GENERATES A RANDOM ANIME TITLE WITH 10 SECOND COOL DOWN. EX: a.randomanime"""
 #     ra1=rq.get('https://private-anon-589c768a77-popcornofficial.apiary-proxy.com/random/anime')
     ra2=rq.get('https://tv-v2.api-fetch.website/random/anime')
     if ra1.status_code == 200:
@@ -154,7 +154,7 @@ async def randomanime(ctx):
 
 @bot.command(pass_context=True)
 async def randommovie(ctx):
-    """GENERATES A RANDOM MOVIE"""
+    """GENERATES A RANDOM MOVIE TITLE. EX: a.randommovie"""
     movie=rq.get('https://tv-v2.api-fetch.website/random/movie')
     if movie.status_code == 200:
         rest=movie.text
@@ -171,7 +171,7 @@ async def randommovie(ctx):
 
 @bot.command(pass_context=True)
 async def randomshow(ctx):
-    """GENERATES RANDOM MOVIE"""
+    """GENERATES RANDOM MOVIE TITLE. EX: a.randomshow"""
     movie = rq.get('https://tv-v2.api-fetch.website/random/show')
     if movie.status_code == 200:
         rest = movie.text
@@ -185,7 +185,7 @@ async def randomshow(ctx):
 
 @bot.command(pass_context=True)
 async def invite(ctx):
-    """GET AN INVITE LINK FOR THIS DISCORD BOT"""
+    """GET AN INVITE LINK FOR THIS DISCORD BOT. EX: a.invite"""
     await bot.say("Here is the invite link for {}\n{}".format(bot.user.name,'https://discordapp.com/oauth2/authorize?client_id=403402614454353941&scope=bot'))
 
 
