@@ -357,7 +357,7 @@ async def kick(ctx, user: discord.Member):
     """KICKS USER THAT IS TAGGED"""
     if ctx.message.author.id != 185181025104560128:
         await bot.say("you do not have premission to kick out members.")
-    if ctx.message.author.id == https://discord.gg/Z6ZNsM:
+    if ctx.message.author.id == 185181025104560128:
         await bot.say(":boot: Bye bye, {}.".format(user.name))
         await bot.kick(user)
     else:
