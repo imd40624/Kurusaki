@@ -19,3 +19,6 @@ class Time():
   s_t=str(c_time)
 
   
+
+class Apiai():
+  words=['#anime','$time']
