@@ -134,7 +134,7 @@ async def catfact(ctx):
 @bot.command(pass_context=True)
 async def randomanime(ctx):
     """GENERATES A RANDOM ANIME TITLE WITH 10 SECOND COOL DOWN. EX: a.randomanime"""
-#     ra1=rq.get('https://private-anon-589c768a77-popcornofficial.apiary-proxy.com/random/anime')
+    ra1=rq.get('https://private-anon-589c768a77-popcornofficial.apiary-proxy.com/random/anime')
     ra2=rq.get('https://tv-v2.api-fetch.website/random/anime')
     if ra1.status_code == 200:
         text=ra1.text
