@@ -355,8 +355,11 @@ async def mal(ctx):
 @bot.command(pass_context=True)
 async def kick(ctx, user: discord.Member):
     """KICKS USER THAT IS TAGGED"""
-    await bot.say(":boot: Bye bye, {}.".format(user.name))
-    await bot.kick(user)
+    if ctx.message.author.id != 185181025104560128:
+        await bot.say("you do not have premission to kick out members.")
+    else:
+        await bot.say(":boot: Bye bye, {}.".format(user.name))
+        await bot.kick(user)
 
 
 
