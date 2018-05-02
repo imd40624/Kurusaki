@@ -19,7 +19,3 @@ class Time():
   s_t=str(c_time)
 
   
-
-class Random():
-  num=range(1,7)
-  r=random.choice(num)
