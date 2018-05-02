@@ -1,7 +1,7 @@
 import requests as rq
 import json
 import datetime
-
+import random
 
 
 
@@ -17,3 +17,9 @@ class Req():
 class Time():
   c_time=datetime.datetime.now()
   s_t=str(c_time)
+
+  
+
+class Random():
+  num=range(1,7)
+  r=random.choice(num)
