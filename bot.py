@@ -34,6 +34,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+    """CHAT WITH THE BOT. EX: @kurusaki#4763"""
     mention = bot.user.mention
     if message.content.startswith(mention):
         title= tools.Req.title
@@ -94,6 +95,10 @@ async def logout(ctx):
 
 
 
+        
+@bot.command(pass_context=True)
+async def dice(ctx):
+    await bot.say("{}".format(tools.Random.r))
 
 @bot.command(pass_context=True)
 async def game(ctx):
