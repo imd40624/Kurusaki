@@ -57,8 +57,8 @@ async def on_message(message):
         if '$time' in rope:
             t=rope.replace('$time',tools.Time.s_t)
             await bot.send_message(message.channel, t)
-        else:
-            await bot.send_message(message.channel, rope)
+#         elif tools.Apiai.words not in rope:
+#             await bot.send_message(message.channel, rope)
     await bot.process_commands(message)
 
 
