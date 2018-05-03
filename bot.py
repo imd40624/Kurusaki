@@ -60,7 +60,7 @@ async def on_message(message):
         if "$right" or "$left" in rope:
             mid=msg.find('or')
             left=msg[0:mid]
-            right=msg[mid+1:]
+            right=msg[mid+2:]
             options=(left,right)
             r=random.choice(options)
             await bot.send_message(message.channel, r)
