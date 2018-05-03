@@ -98,7 +98,8 @@ async def logout(ctx):
         
 @bot.command(pass_context=True)
 async def dice(ctx):
-    await bot.say("{}".format(tools.Random.r))
+    r=random.choice(range(1,7))
+    await bot.say("{}".format(r))
 
 @bot.command(pass_context=True)
 async def game(ctx):
