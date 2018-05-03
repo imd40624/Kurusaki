@@ -57,6 +57,13 @@ async def on_message(message):
         if '$time' in rope:
             t=rope.replace('$time',tools.Time.s_t)
             await bot.send_message(message.channel, t)
+        if "$left" or "$right" in rope:
+            mid=msg.find('or')
+            left=msg[0:mid]
+            right=msg[mid+1:]
+            options=(left,right)
+            r=random.choice(options)
+            await bot.say(r)
 #         elif tools.Apiai.words not in rope:
 #             await bot.send_message(message.channel, rope)
     await bot.process_commands(message)
