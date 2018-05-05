@@ -64,8 +64,8 @@ async def on_message(message):
             options=(left,right)
             r=random.choice(options)
             await bot.send_message(message.channel, r)
-#         elif tools.Apiai.words not in rope:
-#             await bot.send_message(message.channel, rope)
+        elif tools.Apiai.words not in rope:
+            await bot.send_message(message.channel, rope)
     await bot.process_commands(message)
 
 
