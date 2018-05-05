@@ -34,13 +34,12 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    """CHAT WITH THE BOT. EX: @kurusaki#4763"""
+    """CHAT WITH THE BOT. EX: @kurusaki#4763 how are you?"""
     mention = bot.user.mention
     if message.content.startswith(mention):
         title= tools.Req.title
         raw_msg = message.content.split("{}".format(mention))
         msg = "".join(raw_msg[1:])
-        #         print(msg)
         client_token = os.environ['api_ai']
         ai = apiai.ApiAI(client_token)
         request = ai.text_request()
