@@ -34,13 +34,12 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    """CHAT WITH THE BOT. EX: @kurusaki#4763 how are you?"""
     mention = bot.user.mention
     if message.content.startswith(mention):
-        title= tools.Req.title
+        anime=rq.get('https://kurusaki-webhook.herokuapp.com/').text
         raw_msg = message.content.split("{}".format(mention))
         msg = "".join(raw_msg[1:])
-        client_token = os.environ['api_ai']
+        client_token = '32c8ffebbae9445e970e8737987ed470'
         ai = apiai.ApiAI(client_token)
         request = ai.text_request()
         request.lang = 'en'
@@ -51,18 +50,8 @@ async def on_message(message):
         rope = rope[rope.index("speech") + 10:]
         rope = rope[0:rope.index("\"")]
         if '$anime' in rope:
-            anime=rope.replace('$anime',title)
+            anime=rope.replace('$anime',anime)
             await bot.send_message(message.channel, anime)
-        if '$time' in rope:
-            t=rope.replace('$time',tools.Time.s_t)
-            await bot.send_message(message.channel, t)
-        if "$right" or "$left" in rope:
-            mid=msg.find('or')
-            left=msg[0:mid]
-            right=msg[mid+2:]
-            options=(left,right)
-            r=random.choice(options)
-            await bot.send_message(message.channel, r)
         else:
             await bot.send_message(message.channel, rope)
         await bot.process_commands(message)
