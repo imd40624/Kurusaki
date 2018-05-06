@@ -54,7 +54,7 @@ async def on_message(message):
             await bot.send_message(message.channel, anime)
         else:
             await bot.send_message(message.channel, rope)
-        await bot.process_commands(message)
+    await bot.process_commands(message)
 
 
 
