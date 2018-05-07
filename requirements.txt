@@ -5,4 +5,3 @@ requests
 simplejson
 apiai
 bs4
-urllib
