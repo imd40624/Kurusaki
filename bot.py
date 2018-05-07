@@ -99,7 +99,7 @@ async def dog(ctx):
   hal=se[23:]
   img=hal[:-3]
   new='https://random.dog/{}'.format(img)
-  await bot.say(new    
+  await bot.say(new)
     
     
     
