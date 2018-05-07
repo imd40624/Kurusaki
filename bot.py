@@ -5,6 +5,7 @@ from discord.ext.commands import Bot
 import asyncio
 import Pymoe
 import simplejson as json
+import datetime
 import requests as rq
 from champs import champs
 import os
@@ -54,6 +55,8 @@ async def on_message(message):
             await bot.send_message(message.channel, anime)
         else:
             await bot.send_message(message.channel, rope)
+        if "$time" in rope:
+            await bot.say(datetime.datetime.now())
     await bot.process_commands(message)
 
 
@@ -116,7 +119,15 @@ async def info(ctx, user: discord.Member):
 
 
 
-
+    
+@bot.command(pass_context=True)
+async def serverinfo(ctx):
+    g=ctx.message.author.server
+    name=ctx.message.author.server.name
+    member_count=g.members
+    owner=g.owner
+    m_c=g.member_count
+    await bot.say("{}".format(name,member_count,m_c,owner))
 
 
 
