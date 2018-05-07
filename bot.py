@@ -14,6 +14,13 @@ import image_links
 import random
 import time
 import tools
+import bs4 as bs
+import urllib
+import urllib.request
+
+
+
+
 
 
 
@@ -78,6 +85,24 @@ async def say(ctx):
 
 
 
+
+
+@bot.command(pass_context=True)
+async def dog(ctx):
+  source='https://random.dog/'
+  page=urllib.request.urlopen(source)
+  sp=bs.BeautifulSoup(page,'html.parser')
+  
+  # print(rq.get('https://random.dog/').text)
+  pic=sp.img
+  se=str(pic)
+  hal=se[23:]
+  img=hal[:-3]
+  new='https://random.dog/{}'.format(img)
+  await bot.say(new    
+    
+    
+    
 
 @bot.command(pass_context=True)
 async def logout(ctx):
