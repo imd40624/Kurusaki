@@ -119,15 +119,7 @@ async def info(ctx, user: discord.Member):
 
 
 
-    
-@bot.command(pass_context=True)
-async def serverinfo(ctx):
-    g=ctx.message.author.server
-    name=ctx.message.author.server.name
-    member_count=g.members
-    owner=g.owner
-    m_c=g.member_count
-    await bot.say("{}".format(name,member_count,m_c,owner))
+
 
 
 
