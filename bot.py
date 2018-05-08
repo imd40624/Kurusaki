@@ -480,8 +480,8 @@ async def status(ctx):
         rq_json1=json.loads(rq_link1)
         await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(rq_json1['name'],rq_json1['services'][0]['status'],rq_json1['services'][1]['status'],rq_json1['services'][2]['status'],rq_json1['services'][3]['status']))
     else:
-        region=region+"1"
-        link = 'https://{}1.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(region, api)
+        region1="{}{}".format(region,1)
+        link = 'https://{}1.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(region1, api)
         rq_link=rq.get(link).text
         rq_json=json.loads(rq_link)
         await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(rq_json['name'],rq_json['services'][0]['status'],rq_json['services'][1]['status'],rq_json['services'][2]['status'],rq_json['services'][3]['status']))
