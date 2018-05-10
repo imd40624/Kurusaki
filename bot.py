@@ -469,24 +469,50 @@ async def masterytotal(ctx):
 
 
 
+    
+   
 @bot.command(pass_context=True)
 async def status(ctx):
-    """GET THE STATUS OF THE LEAGUE SERVER. EX: a.status na"""
-    raw_inp = ctx.message.content.split("a.status ")
-    region=" ".join(raw_inp[1:]).lower()
-    if region == "kr" or "ru":
-        link1 = 'https://{}.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(region, api)
-        rq_link1=rq.get(link1).text
-        rq_json1=json.loads(rq_link1)
-        await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(rq_json1['name'],rq_json1['services'][0]['status'],rq_json1['services'][1]['status'],rq_json1['services'][2]['status'],rq_json1['services'][3]['status']))
+    raw_msg=ctx.message.content
+    msg=raw_msg[8:]
+    no_space=msg.split(" ")
+    mg="".join(no_space[1:])
+    api = 'RGAPI-19108c34-9de3-476a-82c9-fde460944240'
+    if mg== "kr":
+        url = 'https://{}.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(mg,api)
+        r = rq.get(url).text
+        r_json=json.loads(r)
+        region=r_json['name']
+        game=r_json['services'][0]['status']
+        store = r_json['services'][1]['status']
+        website = r_json['services'][2]['status']
+        client = r_json['services'][3]['status']
+        await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(region,game,store,website,client))
+    if mg=="ru":
+        url = 'https://{}.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(mg,api)
+        r = rq.get(url).text
+        r_json=json.loads(r)
+        region=r_json['name']
+        game=r_json['services'][0]['status']
+        store = r_json['services'][1]['status']
+        website = r_json['services'][2]['status']
+        client = r_json['services'][3]['status']
+        await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(region,game,store,website,client))
     else:
-        r=region+"1"
-        link = 'https://{}.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(r, api)
-        rq_link=rq.get(link).text
-        rq_json=json.loads(rq_link)
-        await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(rq_json['name'],rq_json['services'][0]['status'],rq_json['services'][1]['status'],rq_json['services'][2]['status'],rq_json['services'][3]['status']))
+        url = 'https://{}1.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(mg,api)
+        r = rq.get(url).text
+        r_json=json.loads(r)
+        region=r_json['name']
+        game=r_json['services'][0]['status']
+        store = r_json['services'][1]['status']
+        website = r_json['services'][2]['status']
+        client = r_json['services'][3]['status']
+        await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(region,game,store,website,client))
 
 
+
+    
+    
 
 @bot.command(pass_context=True)
 async def rank(ctx):
