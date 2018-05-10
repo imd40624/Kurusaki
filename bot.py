@@ -347,7 +347,7 @@ async def mal(ctx):
     rq_url = rq.get(url).text
     rq_json = json.loads(rq_url)
     anime_id = rq_json['result'][0]['mal_id']
-    url2 = 'https://api.jikan.me/anime/{}/stats/'.format(anime_id)
+    url2 = 'https://api.jikan.moe/anime/{}/stats/'.format(anime_id)
     rq_url2 = rq.get(url2).text
     rq_json2 = json.loads(rq_url2)
     summary = rq_json2['synopsis']
