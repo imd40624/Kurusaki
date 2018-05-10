@@ -451,7 +451,6 @@ async def champ_mastery(ctx):
     champ_points=mast_json['championPoints']
     chest=mast_json['chestGranted']
     await bot.say("Level: {}\nPoints: {}\nChest: {}".format(champ_lvl,champ_points,chest))
-    await bot.say(mast_json)
 
 
 
