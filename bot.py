@@ -342,7 +342,7 @@ async def al(ctx):
 async def mal(ctx):
     """SEARCH FOR ANIME USING MyAnimeList. EX: a.mal Mushishi"""
     raw_msg = ctx.message.content
-    query =raw_msg[5:]
+    query =raw_msg[6:]
     url = 'ttps://api.jikan.moe/search/anime/{}/'.format(query)
     rq_url = rq.get(url).text
     rq_json = json.loads(rq_url)
