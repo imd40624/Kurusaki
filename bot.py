@@ -523,7 +523,6 @@ import json
 @bot.command(pass_context=True)  
 async def rank(ctx):
   raw_msg=ctx.message.content[6:]
-  api='RGAPI-996d4a01-66e1-4b04-ba31-0a1a06b3cbc9'
   basic_json=json.loads(url)
   r=rq.get(url).text
   r_json=json.loads(r)
