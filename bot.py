@@ -514,41 +514,67 @@ async def status(ctx):
 
     
     
+import requests as  rq
+import json
 
-@bot.command(pass_context=True)
+
+
+
+@bot.command(pass_context=True)  
 async def rank(ctx):
-    """GETS THE SUMMONER'S RANK INFO, ONLY SOLODUO. EX: a.rank Charming Mother"""
+  raw_msg=ctx.message.content[6:]
+  api='RGAPI-996d4a01-66e1-4b04-ba31-0a1a06b3cbc9'
+  basic_json=json.loads(url)
+  r=rq.get(url).text
+  r_json=json.loads(r)
+  name=basic_json['name']
+  sum_id=basic_json['id']
+  url2='https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/{}?api_key={}'.format(id,api)
+  url='https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}'.format(raw_msg,api)
+  
+  try:  
+    if r_json[1] in r_json:
+      
+      #FLEX RANK
+      rank2=r_json[1]
+      q_type2=rank2['queueType']
+      wins2=rank2['wins']
+      losses2=rank2['losses']
+      total_game2=wins2+losses2
+      league_name2=rank2['leagueName']
+      division2=rank2['rank']
+      fresh_blood2=rank2['freshBlood']
+      tier2=rank2['tier']
+      points2=rank2['leaguePoints']
+      #SOLO/DUO RANK
+      rank=r_json[0]
+      q_type=rank['queueType']
+      wins=rank['wins']
+      losses=rank['losses']
+      total_game=wins+losses
+      league_name=rank['leagueName']
+      division=rank['rank']
+      fresh_blood=rank['freshBlood']
+      tier=rank['tier']
+      points=rank['leaguePoints']
+      await bot.say("Queue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}\nQueue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}".format(q_type,tier,division,league_name,points,wins,losses,total_game,fresh_blood,q_type2,tier2,division2,league_name2,points2,wins2,losses2,total_game2,fresh_blood2))
+      
+  except IndexError:
     try:
-        raw_name=ctx.message.content.split("a.rank ")
-        name=" ".join(raw_name[1:])
-        link = rq.get("https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(name, api)).text
-        rq_json = json.loads(link)
-        ide = rq_json['id']
-        link2 = rq.get("https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/{}?api_key={}".format(ide,api)).text
-        rq_json1 = json.loads(link2)
-        #solo/duo rank info
-        solo_rank = rq_json1[1]['queueType']
-        league_name_solo = rq_json1[1]['leagueName']
-        tier_solo = rq_json1[1]['tier']
-        wins_solo = rq_json1[1]['wins']
-        losses_solo = rq_json1[1]['losses']
-        division_solo = rq_json1[1]['rank']
-        points_solo = rq_json1[1]['leaguePoints']
-        await bot.say("Rank Type: {}\nLeague Name: {}\nTier: {}\nWins: {}\nLosses: {}\nDivision: {}\nPoints: {}".format(solo_rank,league_name_solo,tier_solo,wins_solo,losses_solo,division_solo,points_solo))
+      if r_json[0]['queueType']=="RANKED_SOLO_5x5":
+        rank=r_json[0]
+        q_type=rank['queueType']
+        wins=rank['wins']
+        losses=rank['losses']
+        total_game=wins+losses
+        league_name=rank['leagueName']
+        division=rank['rank']
+        fresh_blood=rank['freshBlood']
+        tier=rank['tier']
+        points=rank['leaguePoints']
+        await bot.say("Queue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}".format(q_type,tier,division,league_name,points,wins,losses,total_game,fresh_blood))
     except IndexError:
-        if link2 == "[]":
-            await bot.say("Summoner {} is not ranked".format(name))
-
-    except:
-        solo_rank = rq_json1[0]['queueType']
-        league_name_solo = rq_json1[0]['leagueName']
-        tier_solo = rq_json1[0]['tier']
-        wins_solo = rq_json1[0]['wins']
-        losses_solo = rq_json1[0]['losses']
-        division_solo = rq_json1[0]['rank']
-        points_solo = rq_json1[0]['leaguePoints']
-        await bot.say("Rank Type: {}\nLeague Name: {}\nTier: {}\nWins: {}\nLosses: {}\nDivision: {}\nPoints: {}".format(solo_rank, league_name_solo, tier_solo, wins_solo,losses_solo, division_solo, points_solo))
-
+      await bot.say("Summoner{} has no rank")
 
 
 
