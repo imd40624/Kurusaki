@@ -518,7 +518,6 @@ import requests as  rq
 import json
 
 
-
 @bot.command(pass_context=True)  
 async def rank(ctx):
   raw_msg=ctx.message.content[6:]
@@ -528,6 +527,8 @@ async def rank(ctx):
   basic_json=json.loads(r_basic)
   ide=basic_json['id']
   url2='https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/{}?api_key={}'.format(ide,api)
+  r=rq.get(url2).text
+  r_json=json.loads(r)
   try:  
     if r_json[1] in r_json:
       
