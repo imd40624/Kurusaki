@@ -209,7 +209,7 @@ async def randommovie(ctx):
 
 @bot.command(pass_context=True)
 async def randomshow(ctx):
-    """GENERATES RANDOM MOVIE TITLE. EX: a.randomshow"""
+    """GENERATES RANDOM TV SHOW. EX: a.randomshow"""
     movie = rq.get('https://tv-v2.api-fetch.website/random/show')
     if movie.status_code == 200:
         rest = movie.text
@@ -236,8 +236,10 @@ async def weather(ctx):
     remove_command = ctx.message.content.split("a.weather ")
     t = u"\u00b0"
     city_state = " ".join(remove_command[1:])
+    cent=city_state.find(',')
+    city=city_state[1:cent]
     try:
-        url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}'.format(city_state,owm)
+        url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}'.format(city,owm)
         ser = rq.get(url).text
         rq_json = json.loads(ser)   
         temp = rq_json['main']['temp']
