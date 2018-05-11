@@ -30,7 +30,7 @@ owm=os.environ['open_weather']
 
 An=Pymoe.Anilist()
 
-bot = commands.Bot(command_prefix='a.')
+bot = commands.Bot(command_prefix='s.')
 
 @bot.event
 async def on_ready():
