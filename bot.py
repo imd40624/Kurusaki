@@ -27,6 +27,7 @@ import urllib.request
 api = os.environ['RIOT_KEY']
 wu_key=os.environ['WU_API']
 owm=os.environ['open_weather']
+img_api=os.environ['img_api']
 
 An=Pymoe.Anilist()
 
@@ -79,8 +80,7 @@ async def ping(ctx):
 @bot.command(pass_context=True)
 async def say(ctx):
     """REPEATS WHATEVER THE USER SAYS"""
-    mesg=ctx.message.content.split("a.say ")
-    repeat=" ".join(mesg[1:])
+    repeat=ctx.message.content[5:]
     await bot.say(repeat)
 
 
@@ -89,17 +89,17 @@ async def say(ctx):
 
 @bot.command(pass_context=True)
 async def dog(ctx):
-  source='https://random.dog/'
-  page=urllib.request.urlopen(source)
-  sp=bs.BeautifulSoup(page,'html.parser')
-  
-  # print(rq.get('https://random.dog/').text)
-  pic=sp.img
-  se=str(pic)
-  hal=se[23:]
-  img=hal[:-3]
-  new='https://random.dog/{}'.format(img)
-  await bot.say(new)
+    """GENERATES A RANDOM PICTURE OF A DOG"""
+    source='https://random.dog/'
+    page=urllib.request.urlopen(source)
+    sp=bs.BeautifulSoup(page,'html.parser')
+    # print(rq.get('https://random.dog/').text)
+    pic=sp.img
+    se=str(pic)
+    hal=se[23:]
+    img=hal[:-3]
+    new='https://random.dog/{}'.format(img)
+    await bot.say(new)
     
     
     
@@ -121,17 +121,15 @@ async def logout(ctx):
         
 @bot.command(pass_context=True)
 async def dice(ctx):
+    """GENERATES A RANDOM BETWEEN 1-6"""
     r=random.choice(range(1,7))
     await bot.say("{}".format(r))
 
 @bot.command(pass_context=True)
 async def game(ctx):
     """CHANGES THE PLAYING STATUS OF THE BOT. EX: a.game OSU!"""
-    raw_msg = ctx.message.content.split("a.game ")
-    mesg = "".join(raw_msg[1:])
+    mesg = ctx.message.content[6:]
     await bot.change_presence(game=discord.Game(name=mesg))
-
-
 
 
 
@@ -233,7 +231,7 @@ async def invite(ctx):
 @bot.command(pass_context=True)
 async def weather(ctx):
     """GET THE WEATHER IN YOUR CITY. EX: a.weather austin"""
-    remove_command = ctx.message.content.split("a.weather ")
+    remove_command = ctx.message.content[9:]
     t = u"\u00b0"
     city_state = " ".join(remove_command[1:])
     cent=city_state.find(',')
@@ -273,7 +271,6 @@ async def weather(ctx):
 @bot.command(pass_context=True,case_insensitive=True)
 async def cat(ctx):
     """GET A RANDOM PICTURE OF A CAT. EX: a.cat"""
-    raw_msg=ctx.message.content.lower().split("a.cat ")
     url='http://aws.random.cat/meow'
     rq_url=rq.get(url).text
     rq_json=json.loads(rq_url)
@@ -286,10 +283,8 @@ async def cat(ctx):
 @bot.command(pass_context=True)
 async def img(ctx):
     """GENERATE IMAGE a.img dog"""
-    api = 'f4237223-a9fc-4a7a-b789-e7d2beebcbef'
-    raw_inp = ctx.message.content.split("a.img ")
-    query=" ".join(raw_inp[1:])
-    url ='http://version1.api.memegenerator.net//Generators_Search?q={}&apiKey={}'.format(query,api)
+    query=ctx.message.content[5:]
+    url ='http://version1.api.memegenerator.net//Generators_Search?q={}&apiKey={}'.format(query,img_api)
     rq_link = rq.get(url).text
     rq_json = json.loads(rq_link)
     await bot.say(rq_json['result'][0]['imageUrl'])
@@ -304,8 +299,7 @@ async def img(ctx):
 async def al(ctx):
     """SEARCH FOR ANIME WITH Anilist. EX: a.al School Rumble"""
     try:
-        title=ctx.message.content.split("a.al ")
-        new_msg = " ".join(title[1:])
+        new_msg =ctx.message.content[4:]
         search = An.search.anime(new_msg)
         episodes = search['data']['Page']['media'][0]['episodes']
         episodes_dumps=json.dumps(episodes)
@@ -343,8 +337,7 @@ async def al(ctx):
 @bot.command(pass_context=True)
 async def mal(ctx):
     """SEARCH FOR ANIME USING MyAnimeList. EX: a.mal Mushishi"""
-    raw_msg = ctx.message.content
-    query =raw_msg[6:]
+    query =ctx.message.content[5:]
     url = 'ttps://api.jikan.moe/search/anime/{}/'.format(query)
     rq_url = rq.get(url).text
     rq_json = json.loads(rq_url)
@@ -411,8 +404,7 @@ async def kick(ctx, user: discord.Member):
 async def summoner(ctx):
     """GET BASIC INFO OF A GIVEN SUMMONER. EX: a.summoner Charming Mother"""
     try:
-        raw_name = ctx.message.content.split("a.summoner ")
-        name = " ".join(raw_name[1:])
+        name =ctx.message.content[10:]
         """GETS THE SUMMONER'S BASIC INFORMATION; NAME,LEVEL"""
         link = rq.get("https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(name, api)).text
         rq_json = json.loads(link)
@@ -423,8 +415,7 @@ async def summoner(ctx):
 @bot.command(pass_context=True)
 async def lore(ctx):
     """GETS THE LORE OF A CHAMPION GIVEN. EX: a.lore Ashe"""
-    champ_name = ctx.message.content.split("a.lore ")
-    new_msg = " ".join(champ_name[1:]).lower()
+    new_msg =ctx.message.content[6:]
     champ = rq.get('https://na1.api.riotgames.com/lol/static-data/v3/champions/{}?locale=en_US&champData=lore&api_key={}'.format(champs['keys'][new_msg],api)).text
     champ_json=json.loads(champ)
     await bot.say("Champion Name: {}\nTitle: {}\nLore: {}".format(champ_json['name'],champ_json['title'],champ_json['lore']))
@@ -434,10 +425,9 @@ async def lore(ctx):
 
 
 @bot.command(pass_context=True)
-async def champ_mastery(ctx):
-    """GET A CHAMP MASTERY OF A SUMMONER. EX: a.champ_mastery Charming Mother,Vayne"""
-    raw_msg=ctx.message.content.split("a.champ_mastery ")
-    msg="".join(raw_msg[1:])
+async def champmastery(ctx):
+    """GET A CHAMP MASTERY OF A SUMMONER. EX: a.champmastery Charming Mother,Vayne"""
+    msg=ctx.message.content[14:]
     bett=msg.find(",")
     summoner=msg[0:bett]
     champ=msg[bett+1:]
@@ -460,8 +450,7 @@ async def champ_mastery(ctx):
 @bot.command(pass_context=True)
 async def masterytotal(ctx):
     """GETS THE SUMMONER'S TOTAL MASTERY POINTS. EX: a.masterytotal Charming Mother"""
-    raw_name=ctx.message.content.split("a.masterytotal ")
-    name=" ".join(raw_name[1:]).lower()
+    name=ctx.message.content[14:]
     link = rq.get("https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(name, api)).text
     rq_json = json.loads(link)
     ide = rq_json['id']
@@ -474,9 +463,7 @@ async def masterytotal(ctx):
    
 @bot.command(pass_context=True)
 async def status(ctx):
-    raw_msg=ctx.message.content
-    msg=raw_msg[8:]
-    no_space=msg.split(" ")
+    no_space=ctx.message.content[8:]
     mg="".join(no_space[1:])
     api = 'RGAPI-19108c34-9de3-476a-82c9-fde460944240'
     if mg== "kr":
@@ -513,10 +500,6 @@ async def status(ctx):
 
 
     
-    
-import requests as  rq
-import json
-
 
 @bot.command(pass_context=True)  
 async def rank(ctx):
@@ -578,8 +561,7 @@ async def rank(ctx):
 @bot.command(pass_context=True)
 async def urban(ctx):
     """USES URBAN DICT TO FIND DEFINITION OF WORDS. EX: a.urban neko"""
-    word1=ctx.message.content.split("a.urban ")
-    word=" ".join(word1[1:])
+    word=ctx.message.content[7:]
     link='http://api.urbandictionary.com/v0/define?term={}'.format(word)
     rq_link=rq.get(link).text
     rq_json=json.loads(rq_link)
