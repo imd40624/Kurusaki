@@ -500,7 +500,6 @@ async def status(ctx):
 @bot.command(pass_context=True)  
 async def rank(ctx):
   raw_msg=ctx.message.content[6:]
-  api='RGAPI-996d4a01-66e1-4b04-ba31-0a1a06b3cbc9'
   url='https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}'.format(raw_msg,api)
   r_basic=rq.get(url).text
   basic_json=json.loads(r_basic)
