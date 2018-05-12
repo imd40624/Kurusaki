@@ -19,17 +19,14 @@ import urllib
 import urllib.request
 
 
-
-
-
-
-
 api = os.environ['RIOT_KEY']
-wu_key=os.environ['WU_API']
-owm=os.environ['open_weather']
-img_api=os.environ['img_api']
+wu_key = os.environ['WU_API']
+owm = os.environ['open_weather']
+img_api = os.environ['img_api']
+apiai_token = os.environ['api_ai']
+bot_token = os.environ['BOT_TOKEN']
+An = Pymoe.Anilist()
 
-An=Pymoe.Anilist()
 
 bot = commands.Bot(command_prefix='s.')
 
@@ -48,8 +45,7 @@ async def on_message(message):
         anime=rq.get('https://kurusaki-webhook.herokuapp.com/').text
         raw_msg = message.content.split("{}".format(mention))
         msg = "".join(raw_msg[1:])
-        client_token = '32c8ffebbae9445e970e8737987ed470'
-        ai = apiai.ApiAI(client_token)
+        ai = apiai.ApiAI(apiai_token)
         request = ai.text_request()
         request.lang = 'en'
         request.session_id = "<SESSION ID, UNIQUE FOR EACH USER>"
@@ -76,13 +72,24 @@ async def ping(ctx):
     print ("user has pinged")
 
 
+@bot.command(pass_context=True)
+async def tts(ctx):
+    """REPEATS WHATEVER THE USER SAYS USING TEXT TO SPEECH"""
+    msg_id = ctx.message
+    repeat = ctx.message.content[5:]
+    await bot.say(repeat, tts=True)
+    await asyncio.sleep(120)
+    await bot.delete_message(msg_id)
+
 
 @bot.command(pass_context=True)
 async def say(ctx):
     """REPEATS WHATEVER THE USER SAYS"""
-    repeat=ctx.message.content[5:]
+    msg_id = ctx.message
+    repeat = ctx.message.content[5:]
     await bot.say(repeat)
-
+    await asyncio.sleep(120)
+    await bot.delete_message(msg_id)
 
 
 
@@ -90,18 +97,37 @@ async def say(ctx):
 @bot.command(pass_context=True)
 async def dog(ctx):
     """GENERATES A RANDOM PICTURE OF A DOG"""
-    source='https://random.dog/'
-    page=urllib.request.urlopen(source)
-    sp=bs.BeautifulSoup(page,'html.parser')
-    # print(rq.get('https://random.dog/').text)
-    pic=sp.img
-    se=str(pic)
-    hal=se[23:]
-    img=hal[:-3]
-    new='https://random.dog/{}'.format(img)
-    await bot.say(new)
-    
-    
+    try:
+        source = 'https://random.dog/'
+        page = urllib.request.urlopen(source)
+        sp = bs.BeautifulSoup(page, 'html.parser')
+        pic = sp.img
+        se = str(pic)
+        hal = se[23:-3]
+        # char=str(hal)
+        url='https://random.dog/{}'.format(hal)
+        # print(url)
+        if url == 'https://random.dog/':
+            # print("is a video")
+            while True:
+                src = 'https://random.dog/'
+                pg = urllib.request.urlopen(source)
+                s = bs.BeautifulSoup(pg, 'html.parser')
+                pi = s.img
+                e = str(pi)
+                ha = e[23:-3]
+                ul = 'https://random.dog/{}'.format(ha)
+                if ul !='https://random.dog':
+                    await bot.say(ul);
+                    break;
+        elif url != 'https://random.dog/':
+            await bot.say(url)
+
+
+
+    except:
+        await bot.say("Command is currently not available.")
+
     
 
 @bot.command(pass_context=True)
@@ -142,14 +168,14 @@ async def info(ctx, user: discord.Member):
 
 
 
-@bot.command(pass_context=True)
-async def serverinfo(ctx):
-    g=ctx.message.author.server
-    name=ctx.message.author.server.name
-    member_count=g.members
-    owner=g.owner
-    m_c=g.member_count
-    await bot.say("{}{}{}{}".format(name,member_count,m_c,owner))
+# @bot.command(pass_context=True)
+# async def serverinfo(ctx):
+#     g=ctx.message.author.server
+#     name=ctx.message.author.server.name
+#     member_count=g.members
+#     owner=g.owner
+#     m_c=g.member_count
+#     await bot.say("{}{}{}{}".format(name,member_count,m_c,owner))
   
   
 
@@ -204,18 +230,16 @@ async def randommovie(ctx):
 
 
 
-
 @bot.command(pass_context=True)
 async def randomshow(ctx):
-    """GENERATES RANDOM TV SHOW. EX: a.randomshow"""
-    movie = rq.get('https://tv-v2.api-fetch.website/random/show')
-    if movie.status_code == 200:
-        rest = movie.text
-        rq_json = json.loads(rest)
-        title = rq_json['title']
-        await bot.say(title)    
-    
-    
+    url = 'https://tv-v2.api-fetch.website/random/show'
+    r=rq.get(url).text
+    r_json=json.loads(r)
+    name=r_json['title']
+    year=r_json['year']
+    img=r_json['images']['poster']
+    await bot.say("Name: {}\nYear: {}\nPoster: {}".format(name,year,img))
+
     
 
 
@@ -225,19 +249,13 @@ async def invite(ctx):
     await bot.say("Here is the invite link for {}\n{}".format(bot.user.name,'https://discordapp.com/oauth2/authorize?client_id=403402614454353941&scope=bot'))
 
 
-
-
-
 @bot.command(pass_context=True)
 async def weather(ctx):
     """GET THE WEATHER IN YOUR CITY. EX: a.weather austin"""
-    remove_command = ctx.message.content[9:]
+    city_state=ctx.message.content[10:]
     t = u"\u00b0"
-    city_state = " ".join(remove_command[1:])
-    cent=city_state.find(',')
-    city=city_state[1:cent]
     try:
-        url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}'.format(city,owm)
+        url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid={}'.format(city_state,owm)
         ser = rq.get(url).text
         rq_json = json.loads(ser)   
         temp = rq_json['main']['temp']
@@ -245,53 +263,34 @@ async def weather(ctx):
         min_temp = rq_json['main']['temp_min']
         dis = rq_json['weather'][0]['description']
         wind = rq_json['wind']['speed']
-        await bot.say("The temperature in {} is around {}{}F\nThe minimum Temperature is: {}\nThe maximum Temperature is: {}\nMainly: {}%\nWind speed is around: {}MPH".format(city_state, temp, t, min_temp, max_temp, hum, wind))
+        await bot.say("Temperature in {} is around {}{}F\nMinimum Temperature is: {}{}F\nMaximum Temperature is: {}{}F\nMainly: {} Wind speed is around: {} MPH".format(city_state,temp,t,min_temp,t,max_temp,t,dis,wind))
     except:
-        if " " in city_state:
-            remove_space = city_state.split()
-            no_space = "".join(remove_space[0:])
-            bett = no_space.find(',')
-            state = no_space[bett + 1:]
-            city = no_space[0:bett]
-            url = 'http://api.wunderground.com/api/{}/conditions/q/{}/{}.json'.format(wu_key, state, city)
-            rq_url = rq.get(url).text
-            rq_json = json.loads(rq_url)
-            await bot.say("Country: {}\nState: {}\nCity: {}\nTemperature: {}{}F ({}{}C)\nRelative Humidity: {}\nWind Speed: {}MPH\nPowered By: {}".format(rq_json['current_observation']['display_location']['country'],rq_json['current_observation']['display_location']['state_name'],rq_json['current_observation']['display_location']['city'],rq_json['current_observation']['temp_f'], t,rq_json['current_observation']['temp_c'], t,rq_json['current_observation']['relative_humidity'],rq_json['current_observation']['wind_mph'], image_links.wu))
-        else:
-            bett = city_state.find(',')
-            state = city_state[bett + 1:]
-            city = city_state[0:bett]
-            url = 'http://api.wunderground.com/api/{}/conditions/q/{}/{}.json'.format(wu_key, state, city)
-            rq_url = rq.get(url).text
-            rq_json = json.loads(rq_url)
-            await bot.say("Country: {}\nState: {}\nCity: {}\nTemperature: {}{}F ({}{}C)\nRelative Humidity: {}\nWind Speed: {}MPH\nPowered By: {}".format(rq_json['current_observation']['display_location']['country'],rq_json['current_observation']['display_location']['state_name'],rq_json['current_observation']['display_location']['city'],rq_json['current_observation']['temp_f'], t,rq_json['current_observation']['temp_c'], t,rq_json['current_observation']['relative_humidity'],rq_json['current_observation']['wind_mph'], image_links.wu))
-
+        await bot.say("Looks like something went wrong. Your spelling may be incorrect or the bot may just be able to process this command at the moment.")
 
 
 @bot.command(pass_context=True,case_insensitive=True)
 async def cat(ctx):
     """GET A RANDOM PICTURE OF A CAT. EX: a.cat"""
-    url='http://aws.random.cat/meow'
-    rq_url=rq.get(url).text
-    rq_json=json.loads(rq_url)
-    pic=rq_json['file']
-    await bot.say("{}".format(pic))
-
+    pictures = range(1, 1600)
+    num = random.choice(pictures)
+    url = 'https://random.cat/view/{}'.format(num)
+    page = urllib.request.urlopen(url)
+    sp = bs.BeautifulSoup(page, 'lxml')
+    pic = sp.img
+    se = str(pic)
+    img=se[26:-12]
+    await bot.say(img)
 
 
 
 @bot.command(pass_context=True)
 async def img(ctx):
-    """GENERATE IMAGE a.img dog"""
+    """FAILED IMAGE GENERATOR BY KEYWORDS a.img dog"""
     query=ctx.message.content[5:]
     url ='http://version1.api.memegenerator.net//Generators_Search?q={}&apiKey={}'.format(query,img_api)
     rq_link = rq.get(url).text
     rq_json = json.loads(rq_link)
     await bot.say(rq_json['result'][0]['imageUrl'])
-
-
-
-
 
 
 
@@ -332,13 +331,11 @@ async def al(ctx):
 
 
 
-
-
 @bot.command(pass_context=True)
 async def mal(ctx):
     """SEARCH FOR ANIME USING MyAnimeList. EX: a.mal Mushishi"""
     query =ctx.message.content[5:]
-    url = 'ttps://api.jikan.moe/search/anime/{}/'.format(query)
+    url = 'https://api.jikan.moe/search/anime/{}/'.format(query)
     rq_url = rq.get(url).text
     rq_json = json.loads(rq_url)
     anime_id = rq_json['result'][0]['mal_id']
@@ -366,7 +363,6 @@ async def mal(ctx):
     score = rq_json2['score']
     #anime formatting output
     anime_picture = rq_json2['image_url']
-    await bot.say('Here is what I could find about your query')
     embed = discord.Embed(title="Title: {}".format(query), description=title_en+":"+title_jp, color=0xDEADBF)
     embed.add_field(name="Type",value=anime_type)
     embed.add_field(name="Status",value=status)
@@ -385,16 +381,16 @@ async def mal(ctx):
 
 
 
-@bot.command(pass_context=True)
-async def kick(ctx, user: discord.Member):
-    """KICKS USER THAT IS TAGGED"""
-    if ctx.message.author.id != 185181025104560128:
-        await bot.say("you do not have premission to kick out members.")
-    if ctx.message.author.id == 185181025104560128:
-        await bot.say(":boot: Bye bye, {}.".format(user.name))
-        await bot.kick(user)
-    else:
-        await bot.say("Huh?")
+# @bot.command(pass_context=True)
+# async def kick(ctx, user: discord.Member):
+#     """KICKS USER THAT IS TAGGED"""
+#     if ctx.message.author.id != 185181025104560128:
+#         await bot.say("you do not have premission to kick out members.")
+#     if ctx.message.author.id == 185181025104560128:
+#         await bot.say(":boot: Bye bye, {}.".format(user.name))
+#         await bot.kick(user)
+#     else:
+#         await bot.say("Huh?")
 
 
 
@@ -568,7 +564,4 @@ async def urban(ctx):
     await bot.say("Word: {}\nVotes: {}\nDefinitioin: {}\nExample: {}".format(rq_json['list'][0]['word'],rq_json['list'][0]['thumbs_up'],rq_json['list'][0]['definition'],rq_json['list'][0]['example']))
 
     
-
-
-
-bot.run(os.environ['BOT_TOKEN'])
+bot.run(bot_token)
