@@ -532,7 +532,7 @@ async def rank(ctx):
       fresh_blood=rank['freshBlood']
       tier=rank['tier']
       points=rank['leaguePoints']
-      await bot.say("Queue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}\n\n\n\nQueue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}".format(q_type2,tier2,division2,league_name2,points2,wins2,losses2,total_game2,fresh_blood2,q_type,tier,division,league_name,points,wins,losses,total_game,fresh_blood))
+      await bot.say("Queue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}\n\n\nQueue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}".format(q_type2,tier2,division2,league_name2,points2,wins2,losses2,total_game2,fresh_blood2,q_type,tier,division,league_name,points,wins,losses,total_game,fresh_blood))
       
   except IndexError:
     try:
@@ -549,7 +549,7 @@ async def rank(ctx):
         points=rank['leaguePoints']
         await bot.say("Queue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}".format(q_type,tier,division,league_name,points,wins,losses,total_game,fresh_blood))
     except IndexError:
-      await bot.say("Summoner{} has no rank")
+      await bot.say("Summoner{} has no rank".format(raw_msg))
 
 
 
