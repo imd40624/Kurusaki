@@ -549,7 +549,11 @@ async def rank(ctx):
         points=rank['leaguePoints']
         await bot.say("Queue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}".format(q_type,tier,division,league_name,points,wins,losses,total_game,fresh_blood))
     except IndexError:
-      await bot.say("Summoner{} has no rank".format(raw_msg))
+        if basic_json['status']['status_code'] == 404:
+            await bot.say("No summoner by the name of {} exist".format(raw_msg))
+        else:
+            await bot.say("Summoner {} does not have a rank".format(raw_msg))
+
 
 
 
