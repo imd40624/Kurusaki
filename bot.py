@@ -19,12 +19,12 @@ import urllib
 import urllib.request
 
 
-api = 'RGAPI-dfdac736-09f2-454f-a6b7-6e91949da787'
-wu_key = 'c8034bd5f8c70795'
-owm = 'e3d03bf7f7df7af0bbcc77784637a3dd'
-img_api = 'f4237223-a9fc-4a7a-b789-e7d2beebcbef'
-apiai_token = '32c8ffebbae9445e970e8737987ed470'
-bot_token = 'MzE3MDkyNzg4Mzc2NDM2NzM2.DdjbGw.q6c1QtVasC1SxjZ0nexJvnl2-4s'
+api = os.environ['RIOT_KEY']
+wu_key = os.environ['WU_API']
+owm = os.environ['open_weather']
+img_api = os.environ['img_api']
+apiai_token = os.environ['api_ai']
+bot_token = os.environ['BOT_TOKEN']
 An = Pymoe.Anilist()
 
 
