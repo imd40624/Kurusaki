@@ -28,7 +28,7 @@ bot_token = os.environ['BOT_TOKEN']
 An = Pymoe.Anilist()
 
 
-bot = commands.Bot(command_prefix='v.')
+bot = commands.Bot(command_prefix='s.')
 
 @bot.event
 async def on_ready():
