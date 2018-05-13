@@ -19,16 +19,16 @@ import urllib
 import urllib.request
 
 
-api = os.environ['RIOT_KEY']
-wu_key = os.environ['WU_API']
-owm = os.environ['open_weather']
-img_api = os.environ['img_api']
-apiai_token = os.environ['api_ai']
-bot_token = os.environ['BOT_TOKEN']
+api = 'RGAPI-dfdac736-09f2-454f-a6b7-6e91949da787'
+wu_key = 'c8034bd5f8c70795'
+owm = 'e3d03bf7f7df7af0bbcc77784637a3dd'
+img_api = 'f4237223-a9fc-4a7a-b789-e7d2beebcbef'
+apiai_token = '32c8ffebbae9445e970e8737987ed470'
+bot_token = 'MzE3MDkyNzg4Mzc2NDM2NzM2.DdjbGw.q6c1QtVasC1SxjZ0nexJvnl2-4s'
 An = Pymoe.Anilist()
 
 
-bot = commands.Bot(command_prefix='s.')
+bot = commands.Bot(command_prefix='v.')
 
 @bot.event
 async def on_ready():
@@ -499,62 +499,67 @@ async def status(ctx):
 
 @bot.command(pass_context=True)  
 async def rank(ctx):
-  raw_msg=ctx.message.content[6:]
-  url='https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}'.format(raw_msg,api)
-  r_basic=rq.get(url).text
-  basic_json=json.loads(r_basic)
-  ide=basic_json['id']
-  url2='https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/{}?api_key={}'.format(ide,api)
-  r=rq.get(url2).text
-  r_json=json.loads(r)
-  try:  
-    if r_json[1] in r_json:
-      
-      #FLEX RANK
-      rank2=r_json[1]
-      q_type2=rank2['queueType']
-      wins2=rank2['wins']
-      losses2=rank2['losses']
-      total_game2=wins2+losses2
-      league_name2=rank2['leagueName']
-      division2=rank2['rank']
-      fresh_blood2=rank2['freshBlood']
-      tier2=rank2['tier']
-      points2=rank2['leaguePoints']
-      #SOLO/DUO RANK
-      rank=r_json[0]
-      q_type=rank['queueType']
-      wins=rank['wins']
-      losses=rank['losses']
-      total_game=wins+losses
-      league_name=rank['leagueName']
-      division=rank['rank']
-      fresh_blood=rank['freshBlood']
-      tier=rank['tier']
-      points=rank['leaguePoints']
-      await bot.say("Queue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}\n\n\nQueue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}".format(q_type2,tier2,division2,league_name2,points2,wins2,losses2,total_game2,fresh_blood2,q_type,tier,division,league_name,points,wins,losses,total_game,fresh_blood))
-      
-  except IndexError:
+    raw_msg=ctx.message.content[6:]
+    url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}'.format(
+    raw_msg, api)
+    r_basic = rq.get(url).text
+    basic_json = json.loads(r_basic)
     try:
-      if r_json[0]['queueType']=="RANKED_SOLO_5x5":
-        rank=r_json[0]
-        q_type=rank['queueType']
-        wins=rank['wins']
-        losses=rank['losses']
-        total_game=wins+losses
-        league_name=rank['leagueName']
-        division=rank['rank']
-        fresh_blood=rank['freshBlood']
-        tier=rank['tier']
-        points=rank['leaguePoints']
-        await bot.say("Queue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}".format(q_type,tier,division,league_name,points,wins,losses,total_game,fresh_blood))
-    except IndexError:
-        if basic_json['status']['status_code'] == 404:
-            await bot.say("No summoner by the name of {} exist".format(raw_msg))
-        else:
-            await bot.say("Summoner {} does not have a rank".format(raw_msg))
+        code = basic_json['status']['status_code']
+        if code ==404:
+            await bot.say("Summoner by the name of {} does not exist".format(raw_msg))
+    except:
+        pass
+    try:
+        ide = basic_json['id']
+        url2 = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/{}?api_key={}'.format(
+        ide, api)
+        r = rq.get(url2).text
+        r_json = json.loads(r)
+        try:  
+            if r_json[1] in r_json:
+                #FLEX RANK
+                rank2=r_json[1]
+                q_type2=rank2['queueType']
+                wins2=rank2['wins']
+                losses2=rank2['losses']
+                total_game2=wins2+losses2
+                league_name2=rank2['leagueName']
+                division2=rank2['rank']
+                fresh_blood2=rank2['freshBlood']
+                tier2=rank2['tier']
+                points2=rank2['leaguePoints']
+                #SOLO/DUO RANK
+                rank=r_json[0]
+                q_type=rank['queueType']
+                wins=rank['wins']
+                losses=rank['losses']
+                total_game=wins+losses
+                league_name=rank['leagueName']
+                division=rank['rank']
+                fresh_blood=rank['freshBlood']
+                tier=rank['tier']
+                points=rank['leaguePoints']
+                await bot.say("Queue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}\n\n\n\nQueue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}".format(q_type2,tier2,division2,league_name2,points2,wins2,losses2,total_game2,fresh_blood2,q_type,tier,division,league_name,points,wins,losses,total_game,fresh_blood))
 
-
+        except IndexError:
+            try:
+                if r_json[0]['queueType']=="RANKED_SOLO_5x5":
+                    rank=r_json[0]
+                    q_type=rank['queueType']
+                    wins=rank['wins']
+                    losses=rank['losses']
+                    total_game=wins+losses
+                    league_name=rank['leagueName']
+                    division=rank['rank']
+                    fresh_blood=rank['freshBlood']
+                    tier=rank['tier']
+                    points=rank['leaguePoints']
+                    await bot.say("Queue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}".format(q_type,tier,division,league_name,points,wins,losses,total_game,fresh_blood))
+            except IndexError:
+                await bot.say("Summoner{} has no rank".format(raw_msg))
+    except:
+        pass
 
 
 @bot.command(pass_context=True)
