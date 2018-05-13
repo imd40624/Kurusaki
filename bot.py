@@ -555,6 +555,18 @@ async def rank(ctx):
                     tier=rank['tier']
                     points=rank['leaguePoints']
                     await bot.say("Queue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}".format(q_type,tier,division,league_name,points,wins,losses,total_game,fresh_blood))
+                if r_json[0]['queueType']=="RANKED_FLEX_SR":
+                    rank=r_json[0]
+                    q_type=rank['queueType']
+                    wins=rank['wins']
+                    losses=rank['losses']
+                    total_game=wins+losses
+                    league_name=rank['leagueName']
+                    division=rank['rank']
+                    fresh_blood=rank['freshBlood']
+                    tier=rank['tier']
+                    points=rank['leaguePoints']
+                    await bot.say("Queue Type: {}\nTier: {}\nDivision:{}\nLeague Name:{}\nPoints:{}\nWins: {}\nLosses: {}\nTotal Wins: {}\nFresh Blood: {}".format(q_type,tier,division,league_name,points,wins,losses,total_game,fresh_blood))
             except IndexError:
                 await bot.say("Summoner{} has no rank".format(raw_msg))
     except:
