@@ -461,7 +461,6 @@ async def masterytotal(ctx):
 async def status(ctx):
     no_space=ctx.message.content[8:]
     mg="".join(no_space[1:])
-    api = 'RGAPI-19108c34-9de3-476a-82c9-fde460944240'
     if mg== "kr":
         url = 'https://{}.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(mg,api)
         r = rq.get(url).text
