@@ -38,7 +38,6 @@ async def on_message(message):
     if message.author.id in sp:
       await bot.say("Someone has messaged!")
     elif message.author.id not in sp:
-      add_user=wks.append(message.author.name,message.author.id,".1")
       await bot.say("Author id is not in database yet, let's add it")
   except:
     await bot.say("looks like it didn't work")
