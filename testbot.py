@@ -17,7 +17,7 @@ wks=gc.open("Kurusaki_database_discord").sheet1
 
 
 print(wks.get_all_records())
-ex_result='[{'Discord Name': 'Dong Cheng', 'ID': 185181025104560128, 'Points': 1}]'
+#[{'Discord Name': 'Dong Cheng', 'ID': 185181025104560128, 'Points': 1}]
 
 bot = commands.Bot(command_prefix='a.')
 
