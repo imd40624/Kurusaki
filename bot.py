@@ -64,6 +64,36 @@ async def on_message(message):
     await bot.process_commands(message)
 
 
+    
+
+@bot.event
+async def on_message(message):
+  try:
+    
+    msg=message.content
+    user_id=message.author.id
+    name=message.author.name
+    a=wks.find(user_id)
+    
+    #seting up spreadsheet
+    row=wks.find(user_id).row
+    points=wks.cell(row,3).value
+    if points == "":
+      new_value=wks.update_cell(row,3,"0.1")
+    num_points=float(points)
+    if len(msg) <= 2:
+      num_points=float(points)+.01
+      new_value=wks.update_cell(row,3,num_points)
+    if len(msg) <=10 and len(msg) >2:
+      num_points=num_points+.5
+      new_value=wks.update_cell(row,3,num_points)
+  except gspread.exceptions.CellNotFound:
+    print("User not in database\n adding to database now...")
+    adding_user=wks.append_row([name,user_id,".1"])
+  await bot.process_commands(message)
+
+
+    
 
 @bot.command(pass_context=True)
 async def ping(ctx):
