@@ -38,9 +38,9 @@ async def on_message(message):
     if message.author.id in sp:
       await bot.say("Someone has messaged!")
     elif message.author.id not in sp:
-      await bot.say("Author id is not in database yet, let's add it")
+      await bot.send_message(message.channel,"Author id is not in database yet, let's add it")
   except:
-    await bot.say("looks like it didn't work")
+    await bot.send_message(message.channel,"looks like it didn't work")
     
 
 
