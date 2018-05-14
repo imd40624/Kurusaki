@@ -16,7 +16,7 @@ gc= gspread.authorize(credentials)
 wks=gc.open("Kurusaki_database_discord").sheet1
 
 
-print(wks.get_all_records())
+sp=wks.get_all_records()
 #[{'Discord Name': 'Dong Cheng', 'ID': 185181025104560128, 'Points': 1}]
 
 bot = commands.Bot(command_prefix='a.')
@@ -35,9 +35,9 @@ async def on_ready():
 async def on_message(message):
   try:
     msg=message.content
-    if message.author.id in wks:
+    if message.author.id in sp:
       await bot.say("Someone has messaged!")
-    elif message.author.id not in wks:
+    elif message.author.id not in sp:
       add_user=wks.append(message.author.name,message.author.id,".1")
       await bot.say("Author id is not in database yet, let's add it")
   except:
