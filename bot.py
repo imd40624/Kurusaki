@@ -67,6 +67,13 @@ async def on_message(message):
 
 
     
+scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+
+
+credentials=ServiceAccountCredentials.from_json_keyfile_name("Annie-e432eb58860b.json",scope)
+gc= gspread.authorize(credentials)
+wks=gc.open("Kurusaki_database_discord").sheet1
+
 
 @bot.event
 async def on_message(message):
