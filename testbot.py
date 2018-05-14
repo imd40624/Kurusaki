@@ -13,7 +13,7 @@ scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/au
 
 credentials=ServiceAccountCredentials.from_json_keyfile_name("Annie-e432eb58860b.json",scope)
 gc= gspread.authorize(credentials)
-wks=gc.open("Kurusaki_database_discord".sheet1)
+wks=gc.open("Kurusaki_database_discord").sheet1
 
 
 print(wks.get_all_records())
