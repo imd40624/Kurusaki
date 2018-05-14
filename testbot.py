@@ -45,4 +45,4 @@ async def on_message(message):
     
 
 
-bot.run('MzE3MDkyNzg4Mzc2NDM2NzM2.DddL0Q.hF6RoIJ2bzXYHq_4H9ndlZAgfis')
+bot.run('MzE3MDkyNzg4Mzc2NDM2NzM2.Ddsvww.ofp-IDE7rgMlsGRF243yCwbfoao')
