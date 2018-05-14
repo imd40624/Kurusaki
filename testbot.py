@@ -13,7 +13,7 @@ scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/au
 
 credentials=ServiceAccountCredentials.from_json_keyfile_name("Annie-e432eb58860b.json".scope)
 gc= gspread.authorize(credentials)
-wks=gc.open("spred name".sheet1
+wks=gc.open("Kurusaki_database_discord".sheet1
 
 
 print(wks.get_all_records())
@@ -34,8 +34,16 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-  msg=message.content
-  
+  try:
+    msg=message.content
+    if message.author.id in wks:
+      await bot.say("Someone has messaged!")
+    elif message.author.id not in wks:
+      add_user=wks.append(message.author.name,message.author.id,".1")
+      await bot.say("Author id is not in database yet, let's add it")
+  except:
+    await bot.say("looks like it didn't work")
+    
 
 
 bot.run('MzE3MDkyNzg4Mzc2NDM2NzM2.DddL0Q.hF6RoIJ2bzXYHq_4H9ndlZAgfis')
