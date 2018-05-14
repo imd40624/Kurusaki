@@ -314,7 +314,7 @@ async def cat(ctx):
     num = random.choice(pictures)
     url = 'https://random.cat/view/{}'.format(num)
     page = urllib.request.urlopen(url)
-    sp = bs.BeautifulSoup(page, 'lxml')
+    sp = bs.BeautifulSoup(page, 'html.parser')
     pic = sp.img
     se = str(pic)
     img=se[26:-12]
