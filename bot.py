@@ -180,8 +180,10 @@ async def check(ctx, user:discord.Member):
         target_name=user.name
         target_row=wks.find(target_id).row
         target_credits=wks.cell(target_row,3).value
+        target_float=float(target_credits)
         checker_row=wks.find(checker).row
         checker_credits=wks.cell(checker_row,3).value
+        checker_float=float(checker_credits)
         update_checker=wks.update_cell(checker_row,3,checker_credits-tax)
         update_target=wks.update_cell(target_row,3,target_credits)
         await bot.say("{} credits have been removed from you as tax.\n{} The user {} has a total of {} credits.".format(tax,ctx.message.author.mention,target_name,target_credits))
