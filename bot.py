@@ -21,14 +21,17 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-api = os.environ['RIOT_KEY']
+
+
+
+
+api = os.environ["RIOT_KEY"]
 wu_key = os.environ['WU_API']
 owm = os.environ['open_weather']
 img_api = os.environ['img_api']
 apiai_token = os.environ['api_ai']
 bot_token = os.environ['BOT_TOKEN']
 An = Pymoe.Anilist()
-
 
 bot = commands.Bot(command_prefix='s.')
 
@@ -63,45 +66,32 @@ async def on_message(message):
             await bot.send_message(message.channel, rope)
         if "$time" in rope:
             await bot.say(datetime.datetime.now())
+
+    scope = ['https://www.spreadsheets.google.com/feeds','https://www.google.com/auth/drive']
+    credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb5886Ob.json', scope)
+    gc = gspread.authorize(credentials)
+    wks = gc.open('Kurusaki_database_discord').sheet1
+    try:
+        msg = message.content
+        user_id = message.author.id
+        name = message.author.name
+        find_user_id = wks.find(user_id)
+
+        #setting up spreadsheets for updates
+        row = wks.find(user_id).row
+        points = wks.cell(row, 3).value
+        num_points = float(points)
+        if len(msg) <= 2:
+            new_value = wks.update_cell(row, 3, num_points+.0050)
+        if len(msg) <=10 and len(msg) >2:
+            new_value=wks.update_cell(row,3,num_points+0.1)
+    except gspread.exceptions.CellNotFound:
+        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.")
+        adding_user = wks.append_row([name, user_id, ".1"])
     await bot.process_commands(message)
 
 
-    
-scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
-
-credentials=ServiceAccountCredentials.from_json_keyfile_name("Annie-e432eb58860b.json",scope)
-gc= gspread.authorize(credentials)
-wks=gc.open("Kurusaki_database_discord").sheet1
-
-
-@bot.event
-async def on_message(message):
-  try:
-    
-    msg=message.content
-    user_id=message.author.id
-    name=message.author.name
-    a=wks.find(user_id)
-    
-    #seting up spreadsheet
-    row=wks.find(user_id).row
-    points=wks.cell(row,3).value
-    if points == "":
-      new_value=wks.update_cell(row,3,"0.1")
-    num_points=float(points)
-    if len(msg) <= 2:
-new_value=wks.update_cell(row,3,num_points+.01)
-    if len(msg) <=10 and len(msg) >2:
-      num_points=num_points+.5
-      new_value=wks.update_cell(row,3,num_points)
-  except gspread.exceptions.CellNotFound:
-    print("User not in database\n adding to database now...")
-    adding_user=wks.append_row([name,user_id,".1"])
-  await bot.process_commands(message)
-
-
-    
 
 @bot.command(pass_context=True)
 async def ping(ctx):
@@ -243,7 +233,7 @@ async def randomanime(ctx):
         anime_id=rq_json['mal_id']
         genres=rq_json['genres']
         gen=" ".join(genres[1:])
-        url2 = 'https://api.jikan.moe/anime/{}/stats/'.format(anime_id)
+        url2 = 'https://api.jikan.me/anime/{}/stats/'.format(anime_id)
         r2=rq.get(url2).text
         r2j=json.loads(r2)
         summary=r2j['synopsis']
