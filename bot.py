@@ -189,9 +189,7 @@ async def scoreboard(ctx):
 
 @bot.command(pass_context=True)
 async def gift(ctx, user:discord.Member):
-    limit=ctx.message.content.find("@")
-    am=ctx.message.content[6:limit]
-    amount=float(am)
+    amount=50
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
     gc = gspread.authorize(credentials)
@@ -209,7 +207,7 @@ async def gift(ctx, user:discord.Member):
         new_receiver_value=receiver_float+amount
         update_sender=wks.update_cell(row,3,new_sender_value)
         update_receiver=wks.update_cell(row,3,new_receiver_value)
-        await bot.say("Attempted success")
+        await bot.say("{} credits have been sent to {} from your credits".format(amount,ctx.message.author.name))
     except:
         await bot.say("Something went wrong while attempting to gift credits to {}.".format(user.name))
 
