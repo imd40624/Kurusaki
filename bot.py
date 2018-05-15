@@ -100,7 +100,7 @@ async def on_message(message):
         adding_user = wks.append_row([name, user_id, ".1"])
     try:
         if "gay" in message.content:
-            msg=message.emoji(':okay_hand:')
+            msg=message.emoji(':ok_hand:')
     except:
         await bot.send_typing(message.channel)
         await bot.send_message(message.channel, "Something went wrong while trying to react to the message sent.")
