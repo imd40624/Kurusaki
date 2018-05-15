@@ -195,9 +195,9 @@ async def gift(ctx, user:discord.Member):
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
     try:
-        recveier=user.id
+        receiver=user.id
         sender=ctx.message.author.id
-        receiver_row=wks.find(user.id).row
+        receiver_row=wks.find(receiver).row
         sender_row=wks.find(sender).row
         sender_credits=wks.cell(sender_row,3).value
         receiver_credits=wks.cell(receiver_row,3).value
