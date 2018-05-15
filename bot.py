@@ -175,6 +175,40 @@ async def check(ctx, user:discord.Member):
         await bot.say("Something went wrong while checking for {}'s credits".foramt(user.name))
 
 @bot.command(pass_context=True)
+async def scoreboard(ctx):
+    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+    credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
+    gc = gspread.authorize(credentials)
+    wks = gc.open('Kurusaki_database_discord').sheet1
+    try:
+        records=wks.get_all_records()
+        await bot.say(records)
+    except:
+        await bot.say("Something went wrong while trying to get all the recors.")
+
+
+@bot.command(pass_context=True)
+async def gift(ctx, user:discord.Member,amount):
+    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+    credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
+    gc = gspread.authorize(credentials)
+    wks = gc.open('Kurusaki_database_discord').sheet1
+    try:
+        recveier=user.id
+        sender=ctx.message.author.id
+        receiver_row=wks.find(user.id).row
+        sender_row=wks.find(ctx.message.author.id).row
+        sender_credits=wks.cell(sender_row).value
+        receiver_credits=wks.cell(receiver_row).value
+        new_sender_value=sender_credits-amount
+        new_receiver_value=receiver_credits+amount
+        update_sender=wks.update_cell(row,3,new_sender_value)
+        update_receiver=wks.update_cell(row,3,new_receiver_value)
+        await bot.say("Attempted success")
+    except:
+        await bot.say("Something went wrong while attempting to gift credits to {}.".format(user.name))
+
+@bot.command(pass_context=True)
 async def dog(ctx):
     """GENERATES A RANDOM PICTURE OF A DOG"""
     try:
