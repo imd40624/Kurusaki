@@ -25,6 +25,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 
 
+
+
 api = os.environ["RIOT_KEY"]
 wu_key = os.environ['WU_API']
 owm = os.environ['open_weather']
@@ -67,9 +69,9 @@ async def on_message(message):
         if "$time" in rope:
             await bot.say(datetime.datetime.now())
 
-    scope = ['https://www.spreadsheets.google.com/feeds','https://www.google.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
-    gc = gspread.authorize(credentials)
+    scope=['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+    credentials=ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json',scope)
+    gc= gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
     try:
         msg = message.content
