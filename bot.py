@@ -69,11 +69,13 @@ async def on_message(message):
         if "$time" in rope:
             await bot.say(datetime.datetime.now())
         if '$yukinno' in rope:
-            if message.author.id == 287369884940238849:
+            author_id=message.author.id
+            if author_id == 287369884940238849:
                 love=['I love you Yukinno','Yukkino, I love you!','I love you!','<3']
-                yukinno_love=rope.replace(rope,love)
+                ran_love=random.choice(love)
+                yukinno_love=rope.replace(rope,ran_love)
                 await bot.send_message(message.channel, yukinno_love)
-            if message.author.id !=287369884940238849:
+            elif message.author.id !=287369884940238849:
                 await bot.send_message(message.channel, rope)
     scope=['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     credentials=ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json',scope)
