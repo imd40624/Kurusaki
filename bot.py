@@ -91,8 +91,7 @@ async def on_message(message):
       new_value=wks.update_cell(row,3,"0.1")
     num_points=float(points)
     if len(msg) <= 2:
-      num_points=float(points)+.01
-      new_value=wks.update_cell(row,3,num_points)
+new_value=wks.update_cell(row,3,num_points+.01)
     if len(msg) <=10 and len(msg) >2:
       num_points=num_points+.5
       new_value=wks.update_cell(row,3,num_points)
