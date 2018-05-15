@@ -103,7 +103,7 @@ async def on_message(message):
             new_value=wks.update_cell(row,3,num_points+19.55)
     except gspread.exceptions.CellNotFound:
         print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name,name))
-        adding_user = wks.append_row([name, user_id, ".1"])
+        adding_user = wks.append_row([name, user_id, ".5.00"])
     try:
         if "gay" in message.content:
             msg=message.reaction.emoji(':ok_hand:')
