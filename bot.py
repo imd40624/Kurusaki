@@ -83,16 +83,22 @@ async def on_message(message):
         row = wks.find(user_id).row
         points = wks.cell(row, 3).value
         num_points = float(points)
-        if len(msg) <= 2 and len(msg) >0:
+        if len(msg) <= 2 and len(msg)>0:
             new_value = wks.update_cell(row, 3, num_points+.50)
-        if len(msg) <=10 and len(msg) >2:
+        if len(msg) <=10 and len(msg)>2:
             new_value=wks.update_cell(row,3,num_points+1.50)
-        if len(msg) <=20 and len(msg) >10:
+        if len(msg) <=20 and len(msg)>10:
             new_value=wks.update_cell(row,3,num_points+2.50)
-        if len(msg) <=30 and len(msg) > 20:
+        if len(msg) <=30 and len(msg)> 20:
             new_value=wks.update_cell(row,3,num_points+4.75)
-        if len(msg) <=40 and len(msg) > 30:
+        if len(msg) <=40 and len(msg)>30:
             new_value=wks.update_cell(row,3,num_points+7.00)
+        if len(msg) <=50 and len(msg)>40:
+            new_value=wks.update_cell(row,3,num_points+13.00)
+        if len(msg) <=60 and len(msg) >50:
+            new_value=wks.update_cell(row,3,num_points+17.50)
+        if len(msg) <=70 and len(msg) >60:
+            new_value=wks.update_cell(row,3,num_points+24.00)
         if len(msg) <=100 and len(msg) > 90:
             new_value=wks.update_cell(row,3,num_points+20)
     except gspread.exceptions.CellNotFound:
@@ -100,7 +106,7 @@ async def on_message(message):
         adding_user = wks.append_row([name, user_id, ".1"])
     try:
         if "gay" in message.content:
-            msg=message.emoji(':ok_hand:')
+            msg=message.reaction.emoji(':ok_hand:')
     except:
         await bot.send_typing(message.channel)
         await bot.send_message(message.channel, "Something went wrong while trying to react to the message sent.")
