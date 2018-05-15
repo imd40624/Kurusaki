@@ -194,22 +194,19 @@ async def gift(ctx, user:discord.Member):
     credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
-    try:
-        receiver=user.id
-        sender=ctx.message.author.id
-        receiver_row=wks.find(receiver).row
-        sender_row=wks.find(sender).row
-        sender_credits=wks.cell(sender_row,3).value
-        receiver_credits=wks.cell(receiver_row,3).value
-        send_float=float(sender_credits)
-        receiver_float=float(receiver_credits)
-        new_sender_value=send_float-amount
-        new_receiver_value=receiver_float+amount
-        update_sender=wks.update_cell(row,3,new_sender_value)
-        update_receiver=wks.update_cell(row,3,new_receiver_value)
-        await bot.say("{} credits have been sent to {} from your credits".format(amount,ctx.message.author.name))
-    except:
-        await bot.say("Something went wrong while attempting to gift credits to {}.".format(user.name))
+    receiver=user.id
+    sender=ctx.message.author.id
+    receiver_row=wks.find(receiver).row
+    sender_row=wks.find(sender).row
+    sender_credits=wks.cell(sender_row,3).value
+    receiver_credits=wks.cell(receiver_row,3).value
+    send_float=float(sender_credits)
+    receiver_float=float(receiver_credits)
+    new_sender_value=send_float-amount
+    new_receiver_value=receiver_float+amount
+    update_sender=wks.update_cell(row,3,new_sender_value)
+    update_receiver=wks.update_cell(row,3,new_receiver_value)
+    await bot.say("{} credits have been sent to {} from your credits".format(amount,ctx.message.author.name))
 
 @bot.command(pass_context=True)
 async def dog(ctx):
