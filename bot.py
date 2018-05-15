@@ -190,6 +190,8 @@ async def scoreboard(ctx):
 @bot.command(pass_context=True)
 async def gift(ctx, user:discord.Member):
     amount=50
+    sender_name=ctx.message.author.name
+    receiver_name=user.name
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
     gc = gspread.authorize(credentials)
@@ -206,7 +208,7 @@ async def gift(ctx, user:discord.Member):
     new_receiver_value=receiver_float+amount
     update_sender=wks.update_cell(sender_row,3,new_sender_value)
     update_receiver=wks.update_cell(receiver_row,3,new_receiver_value)
-    await bot.say("{} credits have been sent to {} from your credits".format(amount,ctx.message.author.name))
+    await bot.say("{} credits have been sent to {} from your credits".format(amount,sender_name,))
 
 @bot.command(pass_context=True)
 async def dog(ctx):
