@@ -200,8 +200,10 @@ async def gift(ctx, user:discord.Member,amount):
         sender_row=wks.find(sender).row
         sender_credits=wks.cell(sender_row).value
         receiver_credits=wks.cell(receiver_row).value
-        new_sender_value=sender_credits-amount
-        new_receiver_value=receiver_credits+amount
+        send_float=float(sender_credits)
+        receiver_float=float(receiver_credits)
+        new_sender_value=send_float-amount
+        new_receiver_value=receiver_float+amount
         update_sender=wks.update_cell(row,3,new_sender_value)
         update_receiver=wks.update_cell(row,3,new_receiver_value)
         await bot.say("Attempted success")
