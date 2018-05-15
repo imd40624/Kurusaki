@@ -188,7 +188,9 @@ async def scoreboard(ctx):
 
 
 @bot.command(pass_context=True)
-async def gift(ctx, user:discord.Member,amount):
+async def gift(ctx, user:discord.Member):
+    limit=ctx.message.content.find("@")
+    amount=ctx.message.content[6:limit]
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
     gc = gspread.authorize(credentials)
