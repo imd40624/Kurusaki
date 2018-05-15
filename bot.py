@@ -101,7 +101,6 @@ async def on_message(message):
             new_value=wks.update_cell(row,3,num_points+16.00)
         if len(msg) <=100 and len(msg) > 90:
             new_value=wks.update_cell(row,3,num_points+19.55)
-        if points => 1000 and points <=999.999
     except gspread.exceptions.CellNotFound:
         print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name,name))
         adding_user = wks.append_row([name, user_id, ".1"])
