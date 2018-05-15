@@ -204,8 +204,8 @@ async def gift(ctx, user:discord.Member):
     receiver_float=float(receiver_credits)
     new_sender_value=send_float-amount
     new_receiver_value=receiver_float+amount
-    update_sender=wks.update_cell(row,3,new_sender_value)
-    update_receiver=wks.update_cell(row,3,new_receiver_value)
+    update_sender=wks.update_cell(sender_row,3,new_sender_value)
+    update_receiver=wks.update_cell(receiver_row,3,new_receiver_value)
     await bot.say("{} credits have been sent to {} from your credits".format(amount,ctx.message.author.name))
 
 @bot.command(pass_context=True)
