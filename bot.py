@@ -68,7 +68,7 @@ async def on_message(message):
             await bot.say(datetime.datetime.now())
 
     scope = ['https://www.spreadsheets.google.com/feeds','https://www.google.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb5886Ob.json', scope)
+    credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
     try:
