@@ -101,6 +101,7 @@ async def on_message(message):
             new_value=wks.update_cell(row,3,num_points+16.00)
         if len(msg) <=100 and len(msg) > 90:
             new_value=wks.update_cell(row,3,num_points+19.55)
+        if points => 1000 and points <=999.999
     except gspread.exceptions.CellNotFound:
         print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name,name))
         adding_user = wks.append_row([name, user_id, ".1"])
@@ -197,7 +198,7 @@ async def gift(ctx, user:discord.Member,amount):
         recveier=user.id
         sender=ctx.message.author.id
         receiver_row=wks.find(user.id).row
-        sender_row=wks.find(ctx.message.author.id).row
+        sender_row=wks.find(sender).row
         sender_credits=wks.cell(sender_row).value
         receiver_credits=wks.cell(receiver_row).value
         new_sender_value=sender_credits-amount
