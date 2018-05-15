@@ -103,7 +103,7 @@ async def on_message(message):
             new_value=wks.update_cell(row,3,num_points+19.55)
     except gspread.exceptions.CellNotFound:
         print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name,name))
-        adding_user = wks.append_row([name, user_id, ".5.00"])
+        adding_user = wks.append_row([name, user_id, "5.00"])
     try:
         if "gay" in message.content:
             msg=message.reaction.emoji(':ok_hand:')
@@ -189,27 +189,32 @@ async def scoreboard(ctx):
 
 @bot.command(pass_context=True)
 async def gift(ctx, user:discord.Member):
-    amount=50
-    sender_name=ctx.message.author.name
-    receiver_name=user.name
-    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
-    gc = gspread.authorize(credentials)
-    wks = gc.open('Kurusaki_database_discord').sheet1
-    receiver=user.id
-    sender=ctx.message.author.id
-    receiver_row=wks.find(receiver).row
-    sender_row=wks.find(sender).row
-    sender_credits=wks.cell(sender_row,3).value
-    receiver_credits=wks.cell(receiver_row,3).value
-    send_float=float(sender_credits)
-    receiver_float=float(receiver_credits)
-    new_sender_value=send_float-amount
-    new_receiver_value=receiver_float+amount
-    update_sender=wks.update_cell(sender_row,3,new_sender_value)
-    update_receiver=wks.update_cell(receiver_row,3,new_receiver_value)
-    await bot.say("{} credits have been sent to {} from your credits".format(amount,receiver_name,))
-
+    try:
+        amount=50
+        sender_name=ctx.message.author.name
+        receiver_name=user.name
+        scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
+        gc = gspread.authorize(credentials)
+        wks = gc.open('Kurusaki_database_discord').sheet1
+        receiver=user.id
+        sender=ctx.message.author.id
+        receiver_row=wks.find(receiver).row
+        sender_row=wks.find(sender).row
+        sender_credits=wks.cell(sender_row,3).value
+        receiver_credits=wks.cell(receiver_row,3).value
+        send_float=float(sender_credits)
+        receiver_float=float(receiver_credits)
+        new_sender_value=send_float-amount
+        new_receiver_value=receiver_float+amount
+        update_sender=wks.update_cell(sender_row,3,new_sender_value)
+        update_receiver=wks.update_cell(receiver_row,3,new_receiver_value)
+        await bot.say("{} credits have been sent to {} from your credits".format(amount,receiver_name,))
+    except gspread.exceptions.CellNotFound:
+        await bot.say("Dscord user {}\nAttempting to add use to {}".format(receiver_name,receiver_name))
+        adding_user = wks.append_row([name, user_id, "5.00"])
+        await bot.say("The user {} now has 55.00 credits.".format(receiver_name))
+        
 @bot.command(pass_context=True)
 async def dog(ctx):
     """GENERATES A RANDOM PICTURE OF A DOG"""
