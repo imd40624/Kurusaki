@@ -215,7 +215,7 @@ async def gift(ctx, user:discord.Member):
     except gspread.exceptions.CellNotFound:
         await bot.say("Dscord user {} has no credits data".format(receiver_name))
         await bot.say("Attempting to add the data")
-        adding_user = wks.append_row([name, user_id, "5.00"])
+        adding_user = wks.append_row([name, user_id, "55.00"])
         await bot.say("The user {} now has 55.00 credits.".format(receiver_name))
         
 @bot.command(pass_context=True)
