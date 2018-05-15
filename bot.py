@@ -199,7 +199,7 @@ async def check(ctx, user:discord.Member):
         adding_user = wks.append_row([target_name, target_id, 55.00])
         update_checker = wks.update_cell(checker_row, 3,checker_float-tax)
         await bot.say("{} now has 55.00 credits".format(target_name))
-        await bot.say("{} credits has been removed from your account as tax.".foramt(tax))
+        await bot.say("{} credits has been removed from your account as tax.".format(tax))
 
 # @bot.command(pass_context=True)
 # async def scoreboard(ctx):
