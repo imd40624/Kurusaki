@@ -132,6 +132,8 @@ async def tts(ctx):
     await bot.delete_message(msg_id)
 
 
+
+
 @bot.command(pass_context=True)
 async def say(ctx):
     """REPEATS WHATEVER THE USER SAYS"""
@@ -156,6 +158,21 @@ async def credits(ctx):
         await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention,credits))
     except:
         await bot.say("Something went wrong while trying to find your credits.")
+
+@bot.command(pass_context=True)
+async def check(ctx, user:discord.Member):
+    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+    credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
+    gc = gspread.authorize(credentials)
+    wks = gc.open('Kurusaki_database_discord').sheet1
+    try:
+        author_id=user.id
+        author_name=user.name
+        row=wks.find(author_id).row
+        credits=wks.cell(row,3).value
+        await bot.say("{} The user {} has a total of {} credits.".format(ctx.message.author.mention,user.name,credits))
+    except:
+        await bot.say("Something went wrong while checking for {}'s credits".foramt(user.name))
 
 @bot.command(pass_context=True)
 async def dog(ctx):
