@@ -106,7 +106,7 @@ async def on_message(message):
         adding_user = wks.append_row([name, user_id, "5.00"])
     try:
         if "gay" in message.content:
-            msg=message.reaction.emoji(':ok_hand:')
+            await bot.send_message(message.channel,":ok_hand:")
     except:
         await bot.send_typing(message.channel)
         await bot.send_message(message.channel, "Something went wrong while trying to react to the message sent.")
@@ -154,8 +154,8 @@ async def credits(ctx):
     try:
         author_id=ctx.message.author.id
         row=wks.find(author_id).row
-        credits=wks.cell(row,3).value
-        await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention,credits))
+        cred=wks.cell(row,3).value
+        await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention,cred))
     except:
         await bot.say("Something went wrong while trying to find your credits.")
 
@@ -195,7 +195,7 @@ async def gift(ctx, user:discord.Member):
     try:
         name=user.name
         user_id=user.id
-        amount=150
+        amount=100
         sender_name=ctx.message.author.name
         receiver_name=user.name
         scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
