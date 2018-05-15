@@ -171,8 +171,11 @@ async def check(ctx, user:discord.Member):
         row=wks.find(author_id).row
         credits=wks.cell(row,3).value
         await bot.say("{} The user {} has a total of {} credits.".format(ctx.message.author.mention,user.name,credits))
-    except:
-        await bot.say("Something went wrong while checking for {}'s credits".foramt(user.name))
+    except gspread.exceptions.CellNotFound:
+        await bot.say("User {} is not in database".format(author_name))
+        await bot.say("Attempting to adding user to database")
+        adding_user = wks.append_row([name, user_id, "55.00"])
+        await bot.say("{} now has 55.00 credits".format(author_name))
 
 @bot.command(pass_context=True)
 async def scoreboard(ctx):
@@ -184,7 +187,7 @@ async def scoreboard(ctx):
         records=wks.get_all_records()
         await bot.say(records)
     except:
-        await bot.say("Something went wrong while trying to get all the recors.")
+        await bot.say("Somethin went wrong")
 
 
 @bot.command(pass_context=True)
