@@ -195,7 +195,7 @@ async def gift(ctx, user:discord.Member):
     try:
         name=user.name
         user_id=user.id
-        amount=50
+        amount=150
         sender_name=ctx.message.author.name
         receiver_name=user.name
         scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
