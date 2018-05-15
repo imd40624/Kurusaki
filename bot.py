@@ -187,7 +187,7 @@ async def check(ctx, user:discord.Member):
         checker_float=float(checker_credits)
         update_checker=wks.update_cell(checker_row,3,checker_float-tax)
         update_target=wks.update_cell(target_row,3,target_credits)
-        await bot.say("{} credits have been removed from you as tax.\n{} The user {} has a total of {} credits.".format(tax,ctx.message.author.mention,target_name,target_credits))
+        await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits,tax))
     except gspread.exceptions.CellNotFound:
         tax=35
         checker=ctx.message.author.id
@@ -196,9 +196,8 @@ async def check(ctx, user:discord.Member):
         checker_float=float(checker_credits)
         await bot.say("User {} is not in database".format(target_name))
         await bot.say("Attempting to adding user to database")
-        update_target = wks.update_cell(target_row, 3, target_credits)
         adding_user = wks.append_row([target_name, target_id, 55.00])
-        update_checker = wks.update_cell(checker_row, 3,checker_flaot-tax)
+        update_checker = wks.update_cell(checker_row, 3,checker_float-tax)
         await bot.say("{} now has 55.00 credits".format(target_name))
         await bot.say("{} credits has been removed from your account as tax.".foramt(tax))
 
