@@ -160,6 +160,7 @@ async def credits(ctx):
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
     try:
+        tax=25
         author_id=ctx.message.author.id
         row=wks.find(author_id).row
         cred=wks.cell(row,3).value
@@ -174,75 +175,94 @@ async def check(ctx, user:discord.Member):
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
     try:
-        tax=25
+        tax=50
         checker=ctx.message.author.id
         target_id=user.id
         target_name=user.name
         target_row=wks.find(target_id).row
         target_credits=wks.cell(target_row,3).value
-        target_float=float(target_credits)
+        # target_float=float(target_credits)
         checker_row=wks.find(checker).row
         checker_credits=wks.cell(checker_row,3).value
         checker_float=float(checker_credits)
-        update_checker=wks.update_cell(checker_row,3,checker_credits-tax)
+        update_checker=wks.update_cell(checker_row,3,checker_float-tax)
         update_target=wks.update_cell(target_row,3,target_credits)
         await bot.say("{} credits have been removed from you as tax.\n{} The user {} has a total of {} credits.".format(tax,ctx.message.author.mention,target_name,target_credits))
     except gspread.exceptions.CellNotFound:
-        tax=20
+        tax=35
         checker=ctx.message.author.id
         checker_row=wks.find(checker).row
         checker_credits = wks.cell(checker_row, 3).value
+        checker_float=float(checker_credits)
         await bot.say("User {} is not in database".format(target_name))
         await bot.say("Attempting to adding user to database")
-        adding_user = wks.append_row([target_name, target_id, 55.00])
-        await bot.say("{} now has 55.00 credits".format(target_name))
-        await bot.say(type(checker_credits))
-        update_checker = wks.update_cell(checker_row, 3, checker_credits-tax)
         update_target = wks.update_cell(target_row, 3, target_credits)
+        adding_user = wks.append_row([target_name, target_id, 55.00])
+        update_checker = wks.update_cell(checker_row, 3,checker_flaot-tax)
+        await bot.say("{} now has 55.00 credits".format(target_name))
+        await bot.say("{} credits has been removed from your account as tax.".foramt(tax))
 
-@bot.command(pass_context=True)
-async def scoreboard(ctx):
-    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
-    gc = gspread.authorize(credentials)
-    wks = gc.open('Kurusaki_database_discord').sheet1
-    try:
-        records=wks.get_all_records()
-        await bot.say(records)
-    except:
-        await bot.say("Something went wrong")
+# @bot.command(pass_context=True)
+# async def scoreboard(ctx):
+#     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+#     credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
+#     gc = gspread.authorize(credentials)
+#     wks = gc.open('Kurusaki_database_discord').sheet1
+#     try:
+#         records=wks.get_all_records()
+#         await bot.say(records)
+#     except:
+#         await bot.say("Something went wrong")
 
 
 @bot.command(pass_context=True)
 async def gift(ctx, user:discord.Member):
     try:
+        tax = 50
+        #user setup
         name=user.name
         user_id=user.id
         amount=100
         sender_name=ctx.message.author.name
         receiver_name=user.name
+        receiver=user.id
+        sender=ctx.message.author.id
+        #google locations
         scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
         credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
         gc = gspread.authorize(credentials)
         wks = gc.open('Kurusaki_database_discord').sheet1
-        receiver=user.id
-        sender=ctx.message.author.id
+        #finding user row and value
         receiver_row=wks.find(receiver).row
         sender_row=wks.find(sender).row
         sender_credits=wks.cell(sender_row,3).value
         receiver_credits=wks.cell(receiver_row,3).value
         send_float=float(sender_credits)
         receiver_float=float(receiver_credits)
-        new_sender_value=send_float-amount
+        tax_gift=tax+amount
+        new_sender_value=send_float-tax_gift
         new_receiver_value=receiver_float+amount
         update_sender=wks.update_cell(sender_row,3,new_sender_value)
         update_receiver=wks.update_cell(receiver_row,3,new_receiver_value)
-        await bot.say("{} credits have been sent to {} from your credits".format(amount,receiver_name,))
+        user_tax=wks.update_cell(sender_row,7,tax)
+        await bot.say("{} credits have been sent to {} from your credits".format(amount,receiver_name))
+        await bot.say("{} credits have been removed from your accoutn as tax.".format(tax))
     except gspread.exceptions.CellNotFound:
+        tax=25
         await bot.say("Dscord user {} has no credits data".format(receiver_name))
         await bot.say("Attempting to add the data")
         adding_user = wks.append_row([name, user_id, 55.00])
         await bot.say("The user {} now has 55.00 credits.".format(receiver_name))
+        send_id=ctx.message.author.id
+        send_row=wks.find(send_id).row
+        send_credits=wks.cell(send_row,3).value
+        send_float=float(send_credits)
+        send_update=wks.update_cell(send_row,3,send_float-tax)
+        user_tax=wks.update_cell(send_row,7,tax)
+        await bot.say("{} credits have been removed from your accoutn as tax.".format(tax))
+
+
+
         
 @bot.command(pass_context=True)
 async def dog(ctx):
