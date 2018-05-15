@@ -111,7 +111,7 @@ async def on_message(message):
             new_value=wks.update_cell(row,3,num_points+19.55)
     except gspread.exceptions.CellNotFound:
         print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name,name))
-        adding_user = wks.append_row([name, user_id, "5.00"])
+        adding_user = wks.append_row([name, user_id, 5.00])
     try:
         if "gay" in message.content:
             await bot.send_message(message.channel,":ok_hand:")
@@ -174,16 +174,29 @@ async def check(ctx, user:discord.Member):
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
     try:
-        author_id=user.id
-        author_name=user.name
-        row=wks.find(author_id).row
-        credits=wks.cell(row,3).value
-        await bot.say("{} The user {} has a total of {} credits.".format(ctx.message.author.mention,user.name,credits))
+        tax=25
+        checker=ctx.message.author.id
+        target_id=user.id
+        target_name=user.name
+        target_row=wks.find(target_id).row
+        target_credits=wks.cell(target_row,3).value
+        checker_row=wks.find(checker).row
+        checker_credits=wks.cell(checker_row,3).value
+        update_checker=wks.update_cell(checker_row,3,checker_credits-tax)
+        update_target=wks.update_cell(target_row,3,target_credits)
+        await bot.say("{} credits have been removed from you as tax.\n{} The user {} has a total of {} credits.".format(tax,ctx.message.author.mention,target_name,target_credits))
     except gspread.exceptions.CellNotFound:
-        await bot.say("User {} is not in database".format(author_name))
+        tax=20
+        checker_credits = wks.cell(checker_row, 3).value
+        checker_row=wks.find(checker).row
+        checker=ctx.message.author.id
+        await bot.say("User {} is not in database".format(target_name))
         await bot.say("Attempting to adding user to database")
-        adding_user = wks.append_row([name, user_id, "55.00"])
-        await bot.say("{} now has 55.00 credits".format(author_name))
+        adding_user = wks.append_row([target_name, target_id, 55.00])
+        await bot.say("{} now has 55.00 credits".format(target_name))
+        await bot.say(type(checker_credits))
+        update_checker = wks.update_cell(checker_row, 3, checker_credits-tax)
+        update_target = wks.update_cell(target_row, 3, target_credits)
 
 @bot.command(pass_context=True)
 async def scoreboard(ctx):
@@ -195,7 +208,7 @@ async def scoreboard(ctx):
         records=wks.get_all_records()
         await bot.say(records)
     except:
-        await bot.say("Somethin went wrong")
+        await bot.say("Something went wrong")
 
 
 @bot.command(pass_context=True)
@@ -226,7 +239,7 @@ async def gift(ctx, user:discord.Member):
     except gspread.exceptions.CellNotFound:
         await bot.say("Dscord user {} has no credits data".format(receiver_name))
         await bot.say("Attempting to add the data")
-        adding_user = wks.append_row([name, user_id, "55.00"])
+        adding_user = wks.append_row([name, user_id, 55.00])
         await bot.say("The user {} now has 55.00 credits.".format(receiver_name))
         
 @bot.command(pass_context=True)
