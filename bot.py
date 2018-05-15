@@ -143,6 +143,19 @@ async def say(ctx):
 
 
 
+@bot.command(pass_context=True)
+async def credits(ctx):
+    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+    credentials=ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json',scope)
+    gc = gspread.authorize(credentials)
+    wks = gc.open('Kurusaki_database_discord').sheet1
+    try:
+        author_id=ctx.message.author.id
+        row=wks.find(author_id).row
+        credits=wks.cell(row,3).value
+        await bot.say("You have a total of {} credits".format(credits))
+    except:
+        await bot.say("Something went wrong while trying to find your credits.")
 
 @bot.command(pass_context=True)
 async def dog(ctx):
