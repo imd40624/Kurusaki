@@ -68,7 +68,7 @@ async def on_message(message):
             await bot.send_message(message.channel, rope)
         if "$time" in rope:
             await bot.say(datetime.datetime.now())
-        if $yukinno in rope:
+        if '$yukinno' in rope:
             if message.author.id == 287369884940238849:
                 love=['I love you Yukinno','Yukkino, I love you!','I love you!','<3']
                 yukinno_love=rope.replace(rope,love)
