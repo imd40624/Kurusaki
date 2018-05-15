@@ -90,17 +90,17 @@ async def on_message(message):
         if len(msg) <=20 and len(msg)>10:
             new_value=wks.update_cell(row,3,num_points+2.50)
         if len(msg) <=30 and len(msg)> 20:
-            new_value=wks.update_cell(row,3,num_points+4.75)
+            new_value=wks.update_cell(row,3,num_points+3.75)
         if len(msg) <=40 and len(msg)>30:
-            new_value=wks.update_cell(row,3,num_points+7.00)
+            new_value=wks.update_cell(row,3,num_points+6.00)
         if len(msg) <=50 and len(msg)>40:
-            new_value=wks.update_cell(row,3,num_points+13.00)
+            new_value=wks.update_cell(row,3,num_points+9.00)
         if len(msg) <=60 and len(msg) >50:
-            new_value=wks.update_cell(row,3,num_points+17.50)
+            new_value=wks.update_cell(row,3,num_points+12.50)
         if len(msg) <=70 and len(msg) >60:
-            new_value=wks.update_cell(row,3,num_points+24.00)
+            new_value=wks.update_cell(row,3,num_points+16.00)
         if len(msg) <=100 and len(msg) > 90:
-            new_value=wks.update_cell(row,3,num_points+20)
+            new_value=wks.update_cell(row,3,num_points+19.55)
     except gspread.exceptions.CellNotFound:
         print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name,name))
         adding_user = wks.append_row([name, user_id, ".1"])
@@ -153,7 +153,7 @@ async def credits(ctx):
         author_id=ctx.message.author.id
         row=wks.find(author_id).row
         credits=wks.cell(row,3).value
-        await bot.say("You have a total of {} credits".format(credits))
+        await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention,credits))
     except:
         await bot.say("Something went wrong while trying to find your credits.")
 
