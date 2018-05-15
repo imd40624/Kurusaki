@@ -83,13 +83,27 @@ async def on_message(message):
         row = wks.find(user_id).row
         points = wks.cell(row, 3).value
         num_points = float(points)
-        if len(msg) <= 2:
-            new_value = wks.update_cell(row, 3, num_points+.0050)
+        if len(msg) <= 2 and len(msg) >0:
+            new_value = wks.update_cell(row, 3, num_points+.50)
         if len(msg) <=10 and len(msg) >2:
-            new_value=wks.update_cell(row,3,num_points+0.1)
+            new_value=wks.update_cell(row,3,num_points+1.50)
+        if len(msg) <=20 and len(msg) >10:
+            new_value=wks.update_cell(row,3,num_points+2.50)
+        if len(msg) <=30 and len(msg) > 20:
+            new_value=wks.update_cell(row,3,num_points+4.75)
+        if len(msg) <=40 and len(msg) > 30:
+            new_value=wks.update_cell(row,3,num_points+7.00)
+        if len(msg) <=100 and len(msg) > 90:
+            new_value=wks.update_cell(row,3,num_points+20)
     except gspread.exceptions.CellNotFound:
-        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.")
+        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name,name))
         adding_user = wks.append_row([name, user_id, ".1"])
+    try:
+        if "gay" in message.content:
+            msg=message.emoji(':okay_hand:')
+    except:
+        await bot.send_typing(message.channel)
+        await bot.send_message(message.channel, "Something went wrong while trying to react to the message sent.")
     await bot.process_commands(message)
 
 
