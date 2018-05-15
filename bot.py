@@ -189,9 +189,9 @@ async def check(ctx, user:discord.Member):
         await bot.say("{} credits have been removed from you as tax.\n{} The user {} has a total of {} credits.".format(tax,ctx.message.author.mention,target_name,target_credits))
     except gspread.exceptions.CellNotFound:
         tax=20
-        checker_credits = wks.cell(checker_row, 3).value
-        checker_row=wks.find(checker).row
         checker=ctx.message.author.id
+        checker_row=wks.find(checker).row
+        checker_credits = wks.cell(checker_row, 3).value
         await bot.say("User {} is not in database".format(target_name))
         await bot.say("Attempting to adding user to database")
         adding_user = wks.append_row([target_name, target_id, 55.00])
