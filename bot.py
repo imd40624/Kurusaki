@@ -124,7 +124,7 @@ async def on_message(message):
     try:
         if "gay" in message.content.lower():
             await bot.add_reaction(message,emoji='👌')
-            await bot.add_reaction(message, emoji='‍‍‍🏳️‍')
+            await bot.add_reaction(message, emoji=🏳️‍')
         if "yukinno" in message.content.lower():
             await bot.add_reaction(message,emoji='❤')
             await bot.add_reaction(message,emoji='🌸')
@@ -197,11 +197,11 @@ async def credits(ctx):
         author_id=ctx.message.author.id
         row=wks.find(author_id).row
         cred=wks.cell(row,3).value
+        msg=await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention,cred))
         if cred >1200:
-            await bot.add_reaction(ctx.message, emoji='💰')
-            await bot.add_reaction(ctx.message, emoji='💸')
-            await bot.add_reaction(ctx.message, emoji='🤑')
-        await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention,cred))
+            await bot.add_reaction(msg, emoji='💰')
+            await bot.add_reaction(msg, emoji='💸')
+            await bot.add_reaction(msg, emoji='🤑')
     except:
         await bot.say("Something went wrong while trying to find your credits.")
 
@@ -226,11 +226,11 @@ async def check(ctx, user:discord.Member):
         target_float=float(target_credits)
         update_checker=wks.update_cell(checker_row,3,checker_float-tax)
         update_target=wks.update_cell(target_row,3,target_credits)
-        await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits,tax))
+        msg=await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits,tax))
         if target_float > 1200:
-            await bot.add_reaction(bot.message, emoji='💰')
-            await bot.add_reaction(bot.message, emoji='💸')
-            await bot.add_reaction(bot.message, emoji='🤑')
+            await bot.add_reaction(msg, emoji='💰')
+            await bot.add_reaction(msg, emoji='💸')
+            await bot.add_reaction(msg, emoji='🤑')
         try:
             checker_tax_value = wks.cell(checker_row, 7).value
             updating_tax = wks.update_cell(checker_row, 7, checker_tax_value+tax)
