@@ -112,20 +112,38 @@ async def on_message(message):
     except gspread.exceptions.CellNotFound:
         print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name,name))
         adding_user = wks.append_row([name, user_id, 5.00])
+
+
+    #reacting to discord user's message
     try:
+
         if "gay" in message.content.lower():
             await bot.add_reaction(message,emoji='👌')
         if "yukinno" in message.content.lower():
-            await bot.add_reaction(message,emoji='👌')
+            await bot.add_reaction(message,emoji='❤')
+            await bot.add_reaction(message,emoji='🌸')
+        if 'okay' in message.content.lower():
+            await bot.add_reaction(message, emoji='👌')
+        if 'gj' in message.content.lower():
+            await bot.add_reaction(message,emoji='👏')
+        if 'good job' in message.content.lower():
+            await bot.add_reaction(message,emoji='👏')
+        if 'goodjob' in message.content.lower():
+            await bot.add_reaction(message,emoji='👏')
+        if 'bye' in message.content.lower():
+            await bot.add_reaction(message,emoji='👋')
+        if 'bai' in message.content.lower():
+            await bot.add_reaction(message, emoji='👋')
+        if "<@287369884940238849>" in message.content.lower():
+            await bot.add_reaction(message,emoji='❤')
+            await bot.add_reaction(message,emoji='🌸')
+        if "michelle" in message.content.lower():
+            await bot.add_reaction(message,emoji='❤')
+            await bot.add_reaction(message,emoji='🌸')
     except:
         await bot.send_typing(message.channel)
         await bot.send_message(message.channel, "Something went wrong while trying to react to the message sent.")
     await bot.process_commands(message)
-
-# @bot.command(pass_context=True)
-# async def ok(ctx):
-#     await bot.add_reaction(emoji='👌')
-
 
 @bot.command(pass_context=True)
 async def ping(ctx):
