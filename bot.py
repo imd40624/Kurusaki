@@ -281,7 +281,7 @@ async def check(ctx, user: discord.Member):
 @bot.command(pass_context=True)
 async def rewards(ctx):
     await bot.say("Currently only reaction rewards are available.")
-    await bot.say(":rolling_eyes:\n:cherry_bloosom:,:ok_hand:\n:kiss:\n:thinking:\n:poop:\n:zzz:\n:scream:\n:innocent:")
+    await bot.say(":rolling_eyes:\n:cherry_bloosom:,\n:ok_hand:\n:kiss:\n:thinking:\n:poop:\n:zzz:\n:scream:\n:innocent:")
 @bot.command(pass_context=True)
 async def gift(ctx, user: discord.Member):
     try:
