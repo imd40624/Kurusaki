@@ -114,15 +114,14 @@ async def on_message(message):
         if len(msg) <= 110 and len(msg) > 100:
             new_value = wks.update_cell(row, 3, num_points+12.20)
     except gspread.exceptions.CellNotFound:
-        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(
-            name, name))
+        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name, name))
         adding_user = wks.append_row([name, user_id, 2.00])
 
     #reacting to discord user's message
     try:
         if "gay" in message.content.lower():
             await bot.add_reaction(message, emoji='👌')
-            await bot.add_reaction(message, emoji='🏳️‍🌈'')
+            await bot.add_reaction(message, emoji=""🏳️‍🌈'"")
         if "yukinno" in message.content.lower():
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
