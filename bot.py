@@ -123,7 +123,7 @@ async def on_message(message):
 
 @bot.command(pass_context=True)
 async def ok(ctx):
-    await ctx.message.add_reation(emoji='👌')
+    await bot.add_reaction(emoji='👌')
 
 
 @bot.command(pass_context=True)
