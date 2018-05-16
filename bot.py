@@ -94,31 +94,37 @@ async def on_message(message):
         if len(msg) <= 2 and len(msg)>0:
             new_value = wks.update_cell(row, 3, num_points+.50)
         if len(msg) <=10 and len(msg)>2:
-            new_value=wks.update_cell(row,3,num_points+1.50)
+            new_value=wks.update_cell(row,3,num_points+.60)
         if len(msg) <=20 and len(msg)>10:
-            new_value=wks.update_cell(row,3,num_points+2.50)
+            new_value=wks.update_cell(row,3,num_points+1.20)
         if len(msg) <=30 and len(msg)> 20:
-            new_value=wks.update_cell(row,3,num_points+3.75)
+            new_value=wks.update_cell(row,3,num_points+2.75)
         if len(msg) <=40 and len(msg)>30:
-            new_value=wks.update_cell(row,3,num_points+6.00)
+            new_value=wks.update_cell(row,3,num_points+3.00)
         if len(msg) <=50 and len(msg)>40:
-            new_value=wks.update_cell(row,3,num_points+9.00)
+            new_value=wks.update_cell(row,3,num_points+2.00)
         if len(msg) <=60 and len(msg) >50:
-            new_value=wks.update_cell(row,3,num_points+12.50)
+            new_value=wks.update_cell(row,3,num_points+4.50)
         if len(msg) <=70 and len(msg) >60:
-            new_value=wks.update_cell(row,3,num_points+16.00)
+            new_value=wks.update_cell(row,3,num_points+6.00)
+        if len(msg) <=80 and len(msg)>70:
+            new_value=wks.update_cell(row,3,num_points+7.50)
+        if len(msg) <= 90 and len(msg) > 80:
+            new_value = wks.update_cell(row, 3, num_points+9.20)
         if len(msg) <=100 and len(msg) > 90:
-            new_value=wks.update_cell(row,3,num_points+19.55)
+            new_value=wks.update_cell(row,3,num_points+10.55)
+        if len(msg) <=110 and len(msg)>100:
+            new_value=wks.update_cell(row,3,num_points+12.20)
     except gspread.exceptions.CellNotFound:
         print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name,name))
-        adding_user = wks.append_row([name, user_id, 5.00])
+        adding_user = wks.append_row([name, user_id, 2.00])
 
 
     #reacting to discord user's message
     try:
-
         if "gay" in message.content.lower():
             await bot.add_reaction(message,emoji='👌')
+            await bot.add_reaction(message, emoji='‍‍‍🏳️‍')
         if "yukinno" in message.content.lower():
             await bot.add_reaction(message,emoji='❤')
             await bot.add_reaction(message,emoji='🌸')
@@ -140,6 +146,11 @@ async def on_message(message):
         if "michelle" in message.content.lower():
             await bot.add_reaction(message,emoji='❤')
             await bot.add_reaction(message,emoji='🌸')
+        if "poop" in message.content.lower():
+            await bot.add_reaction(message,emoji='🤔')
+            await bot.add_reaction(message, emoji='💩')
+        if "shit" in message.content.lower():
+            await bot.add_reaction(message, emoji='💩')
     except:
         await bot.send_typing(message.channel)
         await bot.send_message(message.channel, "Something went wrong while trying to react to the message sent.")
@@ -186,6 +197,10 @@ async def credits(ctx):
         author_id=ctx.message.author.id
         row=wks.find(author_id).row
         cred=wks.cell(row,3).value
+        if cred >1200:
+            await bot.add_reaction(ctx.message, emoji='💰')
+            await bot.add_reaction(ctx.message, emoji='💸')
+            await bot.add_reaction(ctx.message, emoji='🤑')
         await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention,cred))
     except:
         await bot.say("Something went wrong while trying to find your credits.")
@@ -208,12 +223,17 @@ async def check(ctx, user:discord.Member):
         checker_row=wks.find(checker).row
         checker_credits=wks.cell(checker_row,3).value
         checker_float=float(checker_credits)
+        target_float=float(target_credits)
         update_checker=wks.update_cell(checker_row,3,checker_float-tax)
         update_target=wks.update_cell(target_row,3,target_credits)
         await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits,tax))
+        if target_float > 1200:
+            await bot.add_reaction(ctx.message, emoji='💰')
+            await bot.add_reaction(ctx.message, emoji='💸')
+            await bot.add_reaction(ctx.message, emoji='🤑')
         try:
             checker_tax_value = wks.cell(checker_row, 7).value
-            updating_tax = wks.update_cell(checker_row, 7, checker_tax+tax)
+            updating_tax = wks.update_cell(checker_row, 7, checker_tax_value+tax)
         except gspread.exceptions.CellNotFound:
             adding_tax = wks.append_row([checker_row, 7, tax])
     except gspread.exceptions.CellNotFound:
@@ -230,7 +250,7 @@ async def check(ctx, user:discord.Member):
         await bot.say("{} credits has been removed from your account as tax.".format(tax))
         try:
             checker_tax_value=wks.cell(checker_row,7).value
-            updating_tax=wks.update_cell(checker_row,7,checker_tax+tax)
+            updating_tax=wks.update_cell(checker_row,7,checker_tax_value+tax)
         except gspread.exceptions.CellNotFound:
             adding_tax=wks.append_row([checker_row,7,tax])
         
