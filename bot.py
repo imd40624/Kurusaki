@@ -241,7 +241,7 @@ async def gift(ctx, user:discord.Member):
         tax_gift=tax+amount
         new_sender_value=send_float-tax_gift
         new_receiver_value=receiver_float+amount
-        update_sender=wks.update_cell(sender_row,3,send_float-new_sender_value)
+        update_sender=wks.update_cell(sender_row,3,send_float-tax_gift)
         update_receiver=wks.update_cell(receiver_row,3,new_receiver_value)
         user_tax=wks.update_cell(sender_row,7,tax)
         await bot.say("{} credits have been sent to {} from your credits".format(amount,receiver_name))
