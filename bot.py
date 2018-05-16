@@ -141,7 +141,8 @@ async def on_message(message):
         if "<@287369884940238849>" in message.content.lower():
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
-        
+            await bot.add_reaction(message, emoji='😇')
+            
         re=287369884940238849
         send_id=int(message.author.id)
         if send_id == re:
@@ -276,6 +277,12 @@ async def check(ctx, user: discord.Member):
 #     except:
 #         await bot.say("Something went wrong")
 
+
+
+@bot.command(pass_context=True)
+async def rewards(ctx):
+    await bot.say("Currently only reaction rewards are available.")
+    await bot.say(":Rolling_eyes::{}\n:cherry_blossom::{}\n:ok_hand::{}\n:kiss::{}\n:thinking::{}\n:poop::{}\n:zzz::{}\n:scream::{}\n:innocent::{}".format(rolling_eyes,cherry_blossom,ok_hand,kiss,thinking,poop,zzz,scream,innocent))
 
 @bot.command(pass_context=True)
 async def gift(ctx, user: discord.Member):
