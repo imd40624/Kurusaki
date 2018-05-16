@@ -121,6 +121,9 @@ async def on_message(message):
     await bot.process_commands(message)
 
 
+@bot.command(pass_context=True)
+async def ok(ctx):
+    await ctx.message.add_reation(emoji='👌')
 
 
 @bot.command(pass_context=True)
