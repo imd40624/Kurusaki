@@ -122,7 +122,7 @@ async def on_message(message):
     try:
         if "gay" in message.content.lower():
             await bot.add_reaction(message, emoji='👌')
-            await bot.add_reaction(message, emoji='🏳️‍🌈')
+            await bot.add_reaction(message, emoji='🏳️‍🌈'')
         if "yukinno" in message.content.lower():
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
@@ -282,8 +282,9 @@ async def check(ctx, user: discord.Member):
 @bot.command(pass_context=True)
 async def rewards(ctx):
     await bot.say("Currently only reaction rewards are available.")
-    await bot.say(""🙄:{}\n🌸:{}\n👌:{}\n💋:{}\n🤔:{}\n💩:{}\n💤:{}\n😱:{}\n😇:{}"".format(tools.Reaction.rolling_eyes,tools.Reaction.cherry_blossom,tools.Reaction.ok_hand,tools.Reaction.kiss,tools.Reaction.thinkingtools.Reaction,poop,tools.Reaction.zzz,tools.Reaction.scream,tools.Reaction.innocent))
-
+    await bot.say(""🙄:{}"".format(tools.Reaction.rolling_eyes))
+                                   #{}\n🌸:{}\n👌:{}\n💋:{}\n🤔:{}\n💩:{}\n💤:{}\n😱:{}\n😇:{}
+#tools.Reaction.cherry_blossom,tools.Reaction.ok_hand,tools.Reaction.kiss,tools.Reaction.thinkingtools.Reaction,poop,tools.Reaction.zzz,tools.Reaction.scream,tools.Reaction.innocent
 @bot.command(pass_context=True)
 async def gift(ctx, user: discord.Member):
     try:
