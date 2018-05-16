@@ -241,8 +241,8 @@ async def check(ctx, user: discord.Member):
             await bot.add_reaction(msg, emoji='🤑')
         try:
             checker_tax_value = wks.cell(checker_row, 7).value
-            updating_tax = wks.update_cell(
-            checker_row, 7, checker_tax_value+tax)
+            tax_float=float(checker_tax_value)
+            updating_tax = wks.update_cell(checker_row,7,tax_float+tax)
         except gspread.exceptions.CellNotFound:
             adding_tax = wks.append_row([checker_row, 7, tax])
     except gspread.exceptions.CellNotFound:
@@ -259,8 +259,8 @@ async def check(ctx, user: discord.Member):
         await bot.say("{} credits has been removed from your account as tax.".format(tax))
         try:
             checker_tax_value = wks.cell(checker_row, 7).value
-            updating_tax = wks.update_cell(
-                checker_row, 7, checker_tax_value+tax)
+            tax_float=float(checker_tax_value)
+            updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
         except gspread.exceptions.CellNotFound:
             adding_tax = wks.append_row([checker_row, 7, tax])
 
@@ -282,7 +282,7 @@ async def check(ctx, user: discord.Member):
 @bot.command(pass_context=True)
 async def rewards(ctx):
     await bot.say("Currently only reaction rewards are available.")
-    await bot.say(":Rolling_eyes::{}\n:cherry_blossom::{}\n:ok_hand::{}\n:kiss::{}\n:thinking::{}\n:poop::{}\n:zzz::{}\n:scream::{}\n:innocent::{}".format(rolling_eyes,cherry_blossom,ok_hand,kiss,thinking,poop,zzz,scream,innocent))
+    await bot.say("🙄:{}\n🌸:{}\n👌:{}\n💋:{}\n🤔:{}\n💩:{}\n💤:{}\n😱:{}\n😇:{}".format(tools.Reaction.rolling_eyes,tools.Reaction.cherry_blossom,tools.Reaction.ok_hand,tools.Reaction.kiss,tools.Reaction.thinkingtools.Reaction,poop,tools.Reaction.zzz,tools.Reaction.scream,tools.Reaction.innocent))
 
 @bot.command(pass_context=True)
 async def gift(ctx, user: discord.Member):
