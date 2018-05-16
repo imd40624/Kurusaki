@@ -147,8 +147,10 @@ async def on_message(message):
         if send_id == re:
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
+            await bot.add_reaction(message, emoji='😇')
         if "michelle" in message.content.lower():
             await bot.add_reaction(message, emoji='❤')
+            await bot.add_reaction(message, emoji='😇')
             await bot.add_reaction(message, emoji='🌸')
         if "poop" in message.content.lower():
             await bot.add_reaction(message, emoji='🤔')
