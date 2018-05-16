@@ -142,11 +142,10 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
         
-mi=185181025104560128
-yukinno_id=287369884940238849
+        mi=185181025104560128
+        yukinno_id=287369884940238849
         send_id=message.author.id
-        if send_id == 
-mi:
+        if send_id == mi:
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
         if "michelle" in message.content.lower():
