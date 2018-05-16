@@ -281,7 +281,15 @@ async def check(ctx, user: discord.Member):
 @bot.command(pass_context=True)
 async def rewards(ctx):
     await bot.say("Currently only reaction rewards are available.")
-    await bot.say(":rolling_eyes: :900\n:cherry_bloosom: :1150\n:ok_hand: :900\n:kiss: : 900\n:thinking: :700\n:poop: : 800\n:zzz: :550\n:scream: :800\n:innocent: :2000")
+    await bot.say(":rolling_eyes: :900\n:cherry_blossom: :1150\n:ok_hand: :900\n:kiss: : 900\n:thinking: :700\n:poop: : 800\n:zzz: :550\n:scream: :800\n:innocent: :2000")
+    await bot.add_reaction(bot.message.id, emoji='🌸')
+    await bot.add_reaction(bot.message.id, emoji='💋')
+    await bot.add_reaction(bot.message.id, emoji='👌')
+    await bot.add_reaction(bot.message.id, emoji='🙄')
+    await bot.add_reaction(bot.message.id, emoji='🤔')
+    await bot.add_reaction(bot.message.id, emoji='💩')
+    await bot.add_reaction(bot.message.id, emoji='😱')
+    await bot.add_reaction(bot.message.id, emoji='😇')
 @bot.command(pass_context=True)
 async def gift(ctx, user: discord.Member):
     try:
