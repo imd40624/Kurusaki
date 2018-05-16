@@ -124,7 +124,7 @@ async def on_message(message):
     try:
         if "gay" in message.content.lower():
             await bot.add_reaction(message,emoji='👌')
-            await bot.add_reaction(message, emoji=🏳️‍')
+            await bot.add_reaction(message, emoji='🏳️‍')
         if "yukinno" in message.content.lower():
             await bot.add_reaction(message,emoji='❤')
             await bot.add_reaction(message,emoji='🌸')
