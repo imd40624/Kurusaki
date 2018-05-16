@@ -141,9 +141,12 @@ async def on_message(message):
         if "<@287369884940238849>" in message.content.lower():
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
-        yukinno_id=287369884940238849
+        
+mi=185181025104560128
+yukinno_id=287369884940238849
         send_id=message.author.id
-        if send_id == yukinno_id:
+        if send_id == 
+mi:
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
         if "michelle" in message.content.lower():
