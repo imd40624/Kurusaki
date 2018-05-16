@@ -228,9 +228,9 @@ async def check(ctx, user:discord.Member):
         update_target=wks.update_cell(target_row,3,target_credits)
         await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits,tax))
         if target_float > 1200:
-            await bot.add_reaction(ctx.message, emoji='💰')
-            await bot.add_reaction(ctx.message, emoji='💸')
-            await bot.add_reaction(ctx.message, emoji='🤑')
+            await bot.add_reaction(botmsg, emoji='💰')
+            await bot.add_reaction(botmsg, emoji='💸')
+            await bot.add_reaction(botmsg, emoji='🤑')
         try:
             checker_tax_value = wks.cell(checker_row, 7).value
             updating_tax = wks.update_cell(checker_row, 7, checker_tax_value+tax)
