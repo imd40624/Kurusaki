@@ -143,7 +143,8 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='🌸')
         
         re=185181025104560128
-        if re in message.author.id:
+        send_id=int(message.author.id)
+        if send_id == re:
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
         if "michelle" in message.content.lower():
