@@ -113,8 +113,8 @@ async def on_message(message):
         print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name,name))
         adding_user = wks.append_row([name, user_id, 5.00])
     try:
-        if "gay" in message.content:
-            await bot.send_message(message.channel,":ok_hand:")
+        if "gay" in message.content.lower():
+            await message.add_reaction(emoji="👌")
     except:
         await bot.send_typing(message.channel)
         await bot.send_message(message.channel, "Something went wrong while trying to react to the message sent.")
@@ -175,6 +175,7 @@ async def check(ctx, user:discord.Member):
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
     try:
+        
         tax=50
         checker=ctx.message.author.id
         target_id=user.id
@@ -188,6 +189,11 @@ async def check(ctx, user:discord.Member):
         update_checker=wks.update_cell(checker_row,3,checker_float-tax)
         update_target=wks.update_cell(target_row,3,target_credits)
         await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits,tax))
+        try:
+            checker_tax_value = wks.cell(checker_row, 7).value
+            updating_tax = wks.update_cell(checker_row, 7, checker_tax+tax)
+        except gspread.exceptions.CellNotFound:
+            adding_tax = wks.append_row([checker_row, 7, tax])
     except gspread.exceptions.CellNotFound:
         tax=35
         checker=ctx.message.author.id
@@ -200,6 +206,12 @@ async def check(ctx, user:discord.Member):
         update_checker = wks.update_cell(checker_row, 3,checker_float-tax)
         await bot.say("{} now has 55.00 credits".format(target_name))
         await bot.say("{} credits has been removed from your account as tax.".format(tax))
+        try:
+            checker_tax_value=wks.cell(checker_row,7).value
+            updating_tax=wks.update_cell(checker_row,7,checker_tax+tax)
+        except gspread.exceptions.CellNotFound:
+            adding_tax=wks.append_row([checker_row,7,tax])
+        
 
 # @bot.command(pass_context=True)
 # async def scoreboard(ctx):
@@ -243,7 +255,11 @@ async def gift(ctx, user:discord.Member):
         new_receiver_value=receiver_float+amount
         update_sender=wks.update_cell(sender_row,3,send_float-tax_gift)
         update_receiver=wks.update_cell(receiver_row,3,new_receiver_value)
-        user_tax=wks.update_cell(sender_row,7,tax)
+        try:
+            tax_value=wks.cell(sender_row,7).value
+            command_tax=wks.update_cell(sender_row,7,tax_value+tax)
+        except gspread.exceptions.CellNotFound:
+            adding_tax=wks.append_row([sender_row,7,tax])
         await bot.say("{} credits have been sent to {} from your credits".format(amount,receiver_name))
         await bot.say("{} credits have been removed from your accoutn as tax.".format(tax))
     except gspread.exceptions.CellNotFound:
@@ -259,6 +275,11 @@ async def gift(ctx, user:discord.Member):
         send_update=wks.update_cell(send_row,3,send_float-tax)
         user_tax=wks.update_cell(send_row,7,tax)
         await bot.say("{} credits have been removed from your accoutn as tax.".format(tax))
+        try:
+            tax_value = wks.cell(sender_row, 7).value
+            command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
+        except gspread.exceptions.CellNotFound:
+            adding_tax = wks.append_row([sender_row, 7, tax])
 
 
 
