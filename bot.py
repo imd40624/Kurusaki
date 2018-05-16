@@ -235,7 +235,7 @@ async def check(ctx, user: discord.Member):
         try:
             checker_tax_value = wks.cell(checker_row, 7).value
             updating_tax = wks.update_cell(
-                checker_row, 7, checker_tax_value+tax)
+            checker_row, 7, checker_tax_value+tax)
         except gspread.exceptions.CellNotFound:
             adding_tax = wks.append_row([checker_row, 7, tax])
     except gspread.exceptions.CellNotFound:
@@ -481,7 +481,7 @@ async def weather(ctx):
         min_temp = rq_json['main']['temp_min']
         dis = rq_json['weather'][0]['description']
         wind = rq_json['wind']['speed']
-        await bot.say("Temperature in {} is around {}{}F\nMinimum Temperature is: {}{}F\nMaximum Temperature is: {}{}F\nMainly: {} Wind speed is around: {} MPH".format(city_state, temp, t, min_temp, t, max_temp, t, dis, wind))
+        await bot.say("Temperature in {} is around {}{}F\nMinimum Temperature is: {}{}F\nMaximum Temperature is: {}{}F\nMainly: {}\nWind speed is around: {} MPH".format(city_state, temp, t, min_temp, t, max_temp, t, dis, wind))
     except:
         await bot.say("Looks like something went wrong. Your spelling may be incorrect or the bot may just be able to process this command at the moment.")
 
