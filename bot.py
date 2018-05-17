@@ -147,7 +147,11 @@ async def on_message(message):
         if send_id == re:
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
-            await bot.add_reaction(message, emoji='😇')
+            curse=['bitch','hoe','whore','fuck','nigga','nigger','niga','fck','faggot','gay']
+            if curse in message.content.lower():
+                await bot.add_reaction(message, emoji='👿')
+            elif curse not in message.content.lower():
+                await bot.add_reaction(message, emoji='😇')
         if "michelle" in message.content.lower():
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='😇')
@@ -199,16 +203,22 @@ async def credits(ctx):
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
 
-    
+
     tax = 25
     author_id = ctx.message.author.id
     row = wks.find(author_id).row
     cred = wks.cell(row, 3).value
+    cred_float=float(cred)
     msg = await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention, cred))
-    if cred > 1200:
-        await bot.add_reaction(msg, emoji='💰')
-        await bot.add_reaction(msg, emoji='💸')
-        await bot.add_reaction(msg, emoji='🤑')
+    try:
+        if cred_float > 1200:
+                await bot.add_reaction(msg, emoji='💰')
+            if cred_float > 2200:
+                await bot.add_reaction(msg, emoji='💸')
+            if cred_float > 3500:
+                await bot.add_reaction(msg, emoji='🤑')
+    except:
+        await bot.say("Something went wrong while trying to react to your message")
 
 @bot.command(pass_context=True)
 async def check(ctx, user: discord.Member):
@@ -330,6 +340,7 @@ async def gift(ctx, user: discord.Member):
         new_receiver_value = receiver_float+amount
         update_sender = wks.update_cell(sender_row, 3, send_float-tax_gift)
         update_receiver = wks.update_cell(receiver_row, 3, new_receiver_value)
+
         try:
             tax_value = wks.cell(sender_row, 7).value
             command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
