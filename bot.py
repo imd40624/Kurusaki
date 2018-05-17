@@ -198,19 +198,17 @@ async def credits(ctx):
         'Annie-e432eb58860b.json', scope)
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
-    try:
-        tax = 25
-        author_id = ctx.message.author.id
-        row = wks.find(author_id).row
-        cred = wks.cell(row, 3).value
-        msg = await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention, cred))
-        if cred > 1200:
-            await bot.add_reaction(msg, emoji='💰')
-            await bot.add_reaction(msg, emoji='💸')
-            await bot.add_reaction(msg, emoji='🤑')
-    except:
-        await bot.say("Something went wrong while trying to find your credits.")
 
+    
+    tax = 25
+    author_id = ctx.message.author.id
+    row = wks.find(author_id).row
+    cred = wks.cell(row, 3).value
+    msg = await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention, cred))
+    if cred > 1200:
+        await bot.add_reaction(msg, emoji='💰')
+        await bot.add_reaction(msg, emoji='💸')
+        await bot.add_reaction(msg, emoji='🤑')
 
 @bot.command(pass_context=True)
 async def check(ctx, user: discord.Member):
@@ -336,7 +334,7 @@ async def gift(ctx, user: discord.Member):
             tax_value = wks.cell(sender_row, 7).value
             command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
         except gspread.exceptions.CellNotFound:
-            adding_tax = wks.append_row([sender_row, 7, tax])
+            adding_tax = wks.update_cell(sender_row, 7, tax)
         await bot.say("{} credits have been sent to {} from your credits".format(amount, receiver_name))
         await bot.say("{} credits have been removed from your accoutn as tax.".format(tax))
     except gspread.exceptions.CellNotFound:
@@ -356,7 +354,7 @@ async def gift(ctx, user: discord.Member):
             tax_value = wks.cell(sender_row, 7).value
             command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
         except gspread.exceptions.CellNotFound:
-            adding_tax = wks.append_row([sender_row, 7, tax])
+            adding_tax = wks.update_cell(sender_row, 7, tax)
 
 
 @bot.command(pass_context=True)
