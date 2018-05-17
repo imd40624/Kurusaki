@@ -214,56 +214,65 @@ async def credits(ctx):
 
 @bot.command(pass_context=True)
 async def check(ctx, user: discord.Member):
-    scope = ['https://spreadsheets.google.com/feeds',
-             'https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        'Annie-e432eb58860b.json', scope)
+    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+    credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
     try:
 
         tax = 50
-        checker = ctx.message.author.id
-        target_id = user.id
-        target_name = user.name
-        target_row = wks.find(target_id).row
-        target_credits = wks.cell(target_row, 3).value
-        # target_float=float(target_credits)
-        checker_row = wks.find(checker).row
+        checker = ctx.message.author.id #pserson who is checking someone's credits
+        target_id = user.id #the person that is getting his/her credits checked
+        target_name = user.name #target's name
+        target_row = wks.find(target_id).row #target's row
+        checker_row = wks.find(checker).row #checker's row 
+        target_credits = wks.cell(target_row, 3).value  #target's value
         checker_credits = wks.cell(checker_row, 3).value
-        checker_float = float(checker_credits)
-        target_float = float(target_credits)
-        update_checker = wks.update_cell(checker_row, 3, checker_float-tax)
-        update_target = wks.update_cell(target_row, 3, target_credits)
+        checker_float = float(checker_credits) #checker's credits in float
+        target_float = float(target_credits) #target's credits in float
+        update_checker = wks.update_cell(checker_row, 3, checker_float-tax) #taxing the checker
         msg = await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits, tax))
+
+        #reacting to high credits
         if target_float > 1200:
             await bot.add_reaction(msg, emoji='💰')
+        if target_float > 2300:
             await bot.add_reaction(msg, emoji='💸')
+        if target_float > 3400:
             await bot.add_reaction(msg, emoji='🤑')
         try:
-            checker_tax_value = wks.cell(checker_row, 7).value
-            tax_float=float(checker_tax_value)
-            updating_tax = wks.update_cell(checker_row,7,tax_float+tax)
-        except gspread.exceptions.CellNotFound:
-            adding_tax = wks.append_row([checker_row, 7, tax])
-    except gspread.exceptions.CellNotFound:
+            # updating the user's  tax    
+            checker_tax_value = wks.cell(checker_row, 7).value# current tax value
+            tax_float = float(checker_tax_value) #tax value into float
+            updating_tax = wks.update_cell(checker_row, 7, tax_float+tax) #updating the new tax value
+        except:
+            new_tax=wks.update_cell(checker_row,7,tax)
+            print("User had no current tax value, so it was added")
+
+
+
+    except gspread.exceptions.CellNotFound: #if user has no database in gspread
         tax = 35
-        checker = ctx.message.author.id
-        checker_row = wks.find(checker).row
-        checker_credits = wks.cell(checker_row, 3).value
-        checker_float = float(checker_credits)
-        await bot.say("User {} is not in database".format(target_name))
+        checker = ctx.message.author.id #checker id
+        checker_row = wks.find(checker).row #checker's row
+        checker_credits = wks.cell(checker_row, 3).value #checker's credits value
+        checker_float = float(checker_credits) #checker credits float
+        await bot.say("User {} is not in database".format(target_name)) 
         await bot.say("Attempting to adding user to database")
-        adding_user = wks.append_row([target_name, target_id, 55.00])
-        update_checker = wks.update_cell(checker_row, 3, checker_float-tax)
+        adding_user = wks.append_row([target_name, target_id, 55.00]) #adding value to no existing user
+        update_checker = wks.update_cell(checker_row, 3, checker_float-tax) #taxing user
         await bot.say("{} now has 55.00 credits".format(target_name))
         await bot.say("{} credits has been removed from your account as tax.".format(tax))
-        try:
-            checker_tax_value = wks.cell(checker_row, 7).value
-            tax_float=float(checker_tax_value)
-            updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
-        except gspread.exceptions.CellNotFound:
-            adding_tax = wks.append_row([checker_row, 7, tax])
+        
+        try: #updating the user's tax    
+            checker_tax_value = wks.cell(checker_row, 7).value #checker's tax value
+            if checker_tax_value == "":
+                new_tax=wks.update_cell(checker_row,7,tax)
+            else:                
+                tax_float = float(checker_tax_value)
+                updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
+        except:
+            print("Unable to add the user{} to tax database ".format(ctx.message.name))
 
 
 # @bot.command(pass_context=True)
