@@ -160,6 +160,12 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='💩')
     except:
         pass
+    try:
+        peasant=message
+        msg = await bot.wait_for_message(author=message.author, content='bow down')
+        await bot.add_reaction(peasant,emoji='🙇')
+    except:
+        print("somethin went wrong")
     await bot.process_commands(message)
 
 
