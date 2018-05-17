@@ -162,7 +162,9 @@ async def on_message(message):
         pass
     try:
         peasant=message
-        msg = await bot.wait_for_message(author=message.author, content='bow down')
+        triger=('bow down peasant','bow down','bow donw servant','bow down to your princess')
+        msg = await bot.wait_for_message(author=message.author, content.startswith(trigger))
+#         if int(message.author.id)== michelle_id:
         await bot.add_reaction(peasant,emoji='🙇')
     except:
         print("somethin went wrong")
