@@ -169,12 +169,12 @@ async def on_message(message):
         wks = gc.open('Kurusaki_database_discord').sheet1
         try:
             user_msg=1
-            user_id=message.author.id
-            user_row=wks.find(user_id).row
-            msg_value=wks.cell(user_row,10).value
-            if msg_value=="":
-                adding_value=wks.update_cell(user_row,10,1)
-            else:
+            user_id=message.author.id #user's id
+            user_row=wks.find(user_id).row #finds user's row
+            msg_value=wks.cell(user_row,10).value #get user's msg value
+            if msg_value=="": #check if the user has empty value 
+                adding_value=wks.update_cell(user_row,10,1) #if user value is empty add value =1
+            else: #updating the user's new message value
                 msg_int=int(msg_value)
                 update_msg=wks.update_cell(user_row,10,msg_int+user_msg)
         except:
