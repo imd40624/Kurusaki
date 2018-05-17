@@ -162,8 +162,7 @@ async def on_message(message):
         if "shit" in message.content.lower():
             await bot.add_reaction(message, emoji='💩')
     except:
-        await bot.send_typing(message.channel)
-        await bot.send_message(message.channel, "Something went wrong while trying to react to the message sent.")
+        pass
     await bot.process_commands(message)
 
 
