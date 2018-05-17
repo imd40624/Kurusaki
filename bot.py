@@ -142,8 +142,8 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
             await bot.add_reaction(message, emoji='😇')
-            
-        re=287369884940238849
+        global michelle_id
+        michelle_id=287369884940238849
         send_id=int(message.author.id)
         if send_id == re:
             await bot.add_reaction(message, emoji='❤')
@@ -164,7 +164,8 @@ async def on_message(message):
         peasant=message
         triger=('bow down peasant','bow down','bow donw servant','bow down to your princess')
         msg = await bot.wait_for_message(author=message.author, content='bow down peasant')
-        if int(message.author.id)== michelle_id:
+        user_id=int(message.author.id)
+        if user_id== michelle_id:
             await bot.add_reaction(peasant,emoji='🙇')
     except:
         print("somethin went wrong")
