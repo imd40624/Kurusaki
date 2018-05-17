@@ -258,6 +258,9 @@ async def check(ctx, user: discord.Member):
             print("User had no current tax value, so it was added")
 
 
+    except discord.ext.commands.errors.BadArgument:
+        await bot.say("Something went wrong")
+        await bot.say("Did you mention a user correctly?")
 
     except gspread.exceptions.CellNotFound: #if user has no database in gspread
         tax = 35
@@ -281,9 +284,6 @@ async def check(ctx, user: discord.Member):
                 updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
         except:
             print("Unable to add the user{} to tax database ".format(ctx.message.name))
-    except discord.ext.commands.errors.BadArgument:
-        await bot.say("Something went wrong")
-        await bot.say("Did you mention a user correctly?")
 
 
 # @bot.command(pass_context=True)
@@ -352,6 +352,9 @@ async def gift(ctx, user: discord.Member):
             adding_tax = wks.update_cell(sender_row, 7, tax)
         await bot.say("{} credits have been sent to {} from your credits".format(amount, receiver_name))
         await bot.say("{} credits have been removed from your accoutn as tax.".format(tax))
+    except discord.ext.commands.errors.BadArgument:
+        await bot.say("Something went wrong")
+        await bot.say("It looks like you mentioned a role or a non-member")
     except gspread.exceptions.CellNotFound:
         tax = 25
         await bot.say("Dscord user {} has no credits data".format(receiver_name))
@@ -370,9 +373,6 @@ async def gift(ctx, user: discord.Member):
             command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
         except gspread.exceptions.CellNotFound:
             adding_tax = wks.update_cell(sender_row, 7, tax)
-    except discord.ext.commands.errors.BadArgument:
-        await bot.say("Something went wrong")
-        await bot.say("It looks like you mentioned a role or a non-member")
 
 @bot.command(pass_context=True)
 async def dog(ctx):
