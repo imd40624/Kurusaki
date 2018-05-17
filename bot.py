@@ -152,8 +152,7 @@ async def on_message(message):
             rst=await bot.add_reaction(message, emoji='😇')
             curse=['bitch','fuck','fck','niga','nigga','gay','faggot','dick']
             if curse in message.content:
-                rev=message.author
-                await bot.remove_reaction(message, emoji='😇',rev)
+                await bot.remove_reaction(message, emoji='😇',member:discord.User)
                 await bot.add_reaction(message,emoji='👿')
         if "michelle" in message.content.lower():
             await bot.add_reaction(message, emoji='❤')
