@@ -114,8 +114,7 @@ async def on_message(message):
         if len(msg) <= 110 and len(msg) > 100:
             new_value = wks.update_cell(row, 3, num_points+12.20)
     except gspread.exceptions.CellNotFound:
-        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(
-            name, name))
+        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name, name))
         adding_user = wks.append_row([name, user_id, 2.00])
 
     #reacting to discord user's message
@@ -142,18 +141,13 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
             await bot.add_reaction(message, emoji='😇')
-        #reacting to messages
-        global michelle_id
-        michelle_id = 287369884940238849
-        send_id = int(message.author.id)
-        if send_id == michelle_id:
+            
+        re=287369884940238849
+        send_id=int(message.author.id)
+        if send_id == re:
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
-            curse=['bitch','fuck','fck','niga','nigga','gay','faggot','dick']
-            if curse not in message.content.lower():
-                await bot.add_reaction(message, emoji='😇')
-            elif curse in message.content.lower():
-                await bot.add_reaction(message,emoji='👿')
+            await bot.add_reaction(message, emoji='😇')
         if "michelle" in message.content.lower():
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='😇')
@@ -163,16 +157,6 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='💩')
         if "shit" in message.content.lower():
             await bot.add_reaction(message, emoji='💩')
-        try:
-            bow_msg=message
-            msg = await bot.wait_for_message(author=message.author, content='bow')
-            try:
-                await bot.add_reaction(bow_msg, emoji='🙇')
-            except:
-                pass
-        except:
-            print("did not catch message")
-
     except:
         await bot.send_typing(message.channel)
         await bot.send_message(message.channel, "Something went wrong while trying to react to the message sent.")
@@ -222,75 +206,65 @@ async def credits(ctx):
         msg = await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention, cred))
         if cred > 1200:
             await bot.add_reaction(msg, emoji='💰')
-        if cred > 2300:
             await bot.add_reaction(msg, emoji='💸')
-        if cred > 3600:
             await bot.add_reaction(msg, emoji='🤑')
-    except gspread.exceptions.CellNotFound:
+    except:
         await bot.say("Something went wrong while trying to find your credits.")
 
 
 @bot.command(pass_context=True)
 async def check(ctx, user: discord.Member):
-    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
+    scope = ['https://spreadsheets.google.com/feeds',
+             'https://www.googleapis.com/auth/drive']
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+        'Annie-e432eb58860b.json', scope)
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
     try:
 
         tax = 50
-        checker = ctx.message.author.id #pserson who is checking someone's credits
-        target_id = user.id #the person that is getting his/her credits checked
-        target_name = user.name #target's name
-        target_row = wks.find(target_id).row #target's row
-        checker_row = wks.find(checker).row #checker's row 
-        target_credits = wks.cell(target_row, 3).value  #target's value
+        checker = ctx.message.author.id
+        target_id = user.id
+        target_name = user.name
+        target_row = wks.find(target_id).row
+        target_credits = wks.cell(target_row, 3).value
+        # target_float=float(target_credits)
+        checker_row = wks.find(checker).row
         checker_credits = wks.cell(checker_row, 3).value
-        checker_float = float(checker_credits) #checker's credits in float
-        target_float = float(target_credits) #target's credits in float
-        update_checker = wks.update_cell(checker_row, 3, checker_float-tax) #taxing the checker
+        checker_float = float(checker_credits)
+        target_float = float(target_credits)
+        update_checker = wks.update_cell(checker_row, 3, checker_float-tax)
+        update_target = wks.update_cell(target_row, 3, target_credits)
         msg = await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits, tax))
-
-        #reacting to high credits
         if target_float > 1200:
             await bot.add_reaction(msg, emoji='💰')
-        if target_float > 2300:
             await bot.add_reaction(msg, emoji='💸')
-        if target_float > 3400:
             await bot.add_reaction(msg, emoji='🤑')
         try:
-            # updating the user's  tax    
-            checker_tax_value = wks.cell(checker_row, 7).value# current tax value
-            tax_float = float(checker_tax_value) #tax value into float
-            updating_tax = wks.update_cell(checker_row, 7, tax_float+tax) #updating the new tax value
-        except:
-            new_tax=wks.update_cell(checker_row,7,tax)
-            print("User had no current tax value, so it was added")
-
-
-
-    except gspread.exceptions.CellNotFound: #if user has no database in gspread
+            checker_tax_value = wks.cell(checker_row, 7).value
+            tax_float=float(checker_tax_value)
+            updating_tax = wks.update_cell(checker_row,7,tax_float+tax)
+        except gspread.exceptions.CellNotFound:
+            adding_tax = wks.append_row([checker_row, 7, tax])
+    except gspread.exceptions.CellNotFound:
         tax = 35
-        checker = ctx.message.author.id #checker id
-        checker_row = wks.find(checker).row #checker's row
-        checker_credits = wks.cell(checker_row, 3).value #checker's credits value
-        checker_float = float(checker_credits) #checker credits float
-        await bot.say("User {} is not in database".format(target_name)) 
+        checker = ctx.message.author.id
+        checker_row = wks.find(checker).row
+        checker_credits = wks.cell(checker_row, 3).value
+        checker_float = float(checker_credits)
+        await bot.say("User {} is not in database".format(target_name))
         await bot.say("Attempting to adding user to database")
-        adding_user = wks.append_row([target_name, target_id, 55.00]) #adding value to no existing user
-        update_checker = wks.update_cell(checker_row, 3, checker_float-tax) #taxing user
+        adding_user = wks.append_row([target_name, target_id, 55.00])
+        update_checker = wks.update_cell(checker_row, 3, checker_float-tax)
         await bot.say("{} now has 55.00 credits".format(target_name))
         await bot.say("{} credits has been removed from your account as tax.".format(tax))
-        
-        try: #updating the user's tax    
-            checker_tax_value = wks.cell(checker_row, 7).value #checker's tax value
-            if checker_tax_value == "":
-                new_tax=wks.update_cell(checker_row,7,tax)
-            else:                
-                tax_float = float(checker_tax_value)
-                updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
-        except:
-            print("Unable to add the user{} to tax database ".format(ctx.message.name))
+        try:
+            checker_tax_value = wks.cell(checker_row, 7).value
+            tax_float=float(checker_tax_value)
+            updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
+        except gspread.exceptions.CellNotFound:
+            adding_tax = wks.append_row([checker_row, 7, tax])
+
 
 # @bot.command(pass_context=True)
 # async def scoreboard(ctx):
@@ -305,10 +279,12 @@ async def check(ctx, user: discord.Member):
 #         await bot.say("Something went wrong")
 
 
+
 @bot.command(pass_context=True)
 async def rewards(ctx):
     await bot.say("Currently only reaction rewards are available.")
-    msg = await bot.say(":rolling_eyes: :900\n:cherry_blossom: :1150\n:ok_hand: :900\n:kiss: : 900\n:thinking: :700\n:poop: : 800\n:zzz: :550\n:scream: :800\n:innocent: :2000")
+    msg=await bot.say(":rolling_eyes: :900\n:cherry_blossom: :1150\n:ok_hand: :900\n:kiss: : 900\n:thinking: :700\n:poop: : 800\n:zzz: :550\n:scream: :800\n:innocent: :2000")
+    await bot.add_reaction(msg, emoji='🌸')
     await bot.add_reaction(msg, emoji='💋')
     await bot.add_reaction(msg, emoji='👌')
     await bot.add_reaction(msg, emoji='🙄')
@@ -316,11 +292,6 @@ async def rewards(ctx):
     await bot.add_reaction(msg, emoji='💩')
     await bot.add_reaction(msg, emoji='😱')
     await bot.add_reaction(msg, emoji='😇')
-    id_float=int(ctx.message.author.id)
-    if id_float == michelle_id:
-        await bot.add_reaction(msg, emoji='🌸')
-
-
 @bot.command(pass_context=True)
 async def gift(ctx, user: discord.Member):
     try:
@@ -356,7 +327,7 @@ async def gift(ctx, user: discord.Member):
             tax_value = wks.cell(sender_row, 7).value
             command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
         except gspread.exceptions.CellNotFound:
-            adding_tax = wks.update_cell(sender_row, 7, tax)
+            adding_tax = wks.append_row([sender_row, 7, tax])
         await bot.say("{} credits have been sent to {} from your credits".format(amount, receiver_name))
         await bot.say("{} credits have been removed from your accoutn as tax.".format(tax))
     except gspread.exceptions.CellNotFound:
@@ -374,10 +345,9 @@ async def gift(ctx, user: discord.Member):
         await bot.say("{} credits have been removed from your accoutn as tax.".format(tax))
         try:
             tax_value = wks.cell(sender_row, 7).value
-            tax_float=float(tax_value)
-            command_tax = wks.update_cell(sender_row, 7, tax_float+tax)
+            command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
         except gspread.exceptions.CellNotFound:
-            adding_tax = wks.update_cell(sender_row, 7, tax)
+            adding_tax = wks.append_row([sender_row, 7, tax])
 
 
 @bot.command(pass_context=True)
