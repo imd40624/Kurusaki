@@ -348,7 +348,7 @@ async def gift(ctx, user: discord.Member):
         except gspread.exceptions.CellNotFound:
             adding_tax = wks.update_cell(sender_row, 7, tax)
         await bot.say("{} {} credits have been sent to {} from your credits".format(ctx.message.author.mention,amount, receiver_name))
-        await bot.say("{} credits have been removed from your accoutn as tax.".format(tax))
+        await bot.say("{} credits have been removed from your account as tax.".format(tax))
 
     except gspread.exceptions.CellNotFound:
         tax = 25
@@ -362,7 +362,7 @@ async def gift(ctx, user: discord.Member):
         send_float = float(send_credits)
         send_update = wks.update_cell(send_row, 3, send_float-tax)
         user_tax = wks.update_cell(send_row, 7, tax)
-        await bot.say("{} {} credits have been removed from your accoutn as tax.".format(ctx.message.author.mention,tax))
+        await bot.say("{} {} credits have been removed from your account as tax.".format(ctx.message.author.mention,tax))
         try:
             tax_value = wks.cell(sender_row, 7).value
             command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
