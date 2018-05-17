@@ -343,7 +343,8 @@ async def gift(ctx, user: discord.Member):
 
         try:
             tax_value = wks.cell(sender_row, 7).value
-            command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
+            tax_float=float(tax_value)
+            command_tax = wks.update_cell(sender_row, 7, tax_float+tax)
         except gspread.exceptions.CellNotFound:
             adding_tax = wks.update_cell(sender_row, 7, tax)
         await bot.say("{} credits have been sent to {} from your credits".format(amount, receiver_name))
