@@ -244,7 +244,8 @@ async def check(ctx, user: discord.Member):
         checker_float = float(checker_credits) #checker's credits in float
         target_float = float(target_credits) #target's credits in float
         update_checker = wks.update_cell(checker_row, 3, checker_float-tax) #taxing the checker
-        msg = await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits, tax))
+        mention=ctx.message.author.mention
+        msg = await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(mention,target_name, target_credits, tax))
 
         #reacting to high credits
         if target_float > 1200:
