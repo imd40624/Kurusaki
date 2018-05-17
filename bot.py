@@ -69,7 +69,8 @@ async def on_message(message):
                 love = ['I love you Yukinno',
                         'Yukkino, I love you!', 'I love you!', '<3']
                 ran_love = random.choice(love)
-                yukinno_love = rope.replace(rope, ran_love)
+                love_str="".join(ran_love)
+                yukinno_love = rope.replace(rope, love_str)
                 await bot.send_message(message.channel, yukinno_love)
             elif message.author.id != 287369884940238849:
                 await bot.send_message(message.channel, rope)
@@ -296,7 +297,6 @@ async def check(ctx, user: discord.Member):
 async def rewards(ctx):
     await bot.say("Currently only reaction rewards are available.")
     msg=await bot.say(":rolling_eyes: :900\n:cherry_blossom: :1150\n:ok_hand: :900\n:kiss: : 900\n:thinking: :700\n:poop: : 800\n:zzz: :550\n:scream: :800\n:innocent: :2000")
-    await bot.add_reaction(msg, emoji='🌸')
     await bot.add_reaction(msg, emoji='💋')
     await bot.add_reaction(msg, emoji='👌')
     await bot.add_reaction(msg, emoji='🙄')
@@ -304,6 +304,13 @@ async def rewards(ctx):
     await bot.add_reaction(msg, emoji='💩')
     await bot.add_reaction(msg, emoji='😱')
     await bot.add_reaction(msg, emoji='😇')
+    user_id_int=int(ctx.message.author.id)
+    if user_id_int == 287369884940238849:
+        await bot.add_reaction(msg, emoji='🌸')
+
+        
+        
+        
 @bot.command(pass_context=True)
 async def gift(ctx, user: discord.Member):
     try:
