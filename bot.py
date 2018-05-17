@@ -212,11 +212,11 @@ async def credits(ctx):
     msg = await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention, cred))
     try:
         if cred_float > 1200:
-                await bot.add_reaction(msg, emoji='💰')
-            if cred_float > 2200:
-                await bot.add_reaction(msg, emoji='💸')
-            if cred_float > 3500:
-                await bot.add_reaction(msg, emoji='🤑')
+            await bot.add_reaction(msg, emoji='💰')
+        if cred_float > 2200:
+            await bot.add_reaction(msg, emoji='💸')
+        if cred_float > 3500:
+            await bot.add_reaction(msg, emoji='🤑')
     except:
         await bot.say("Something went wrong while trying to react to your message")
 
