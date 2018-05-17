@@ -177,8 +177,8 @@ async def on_message(message):
             else:
                 msg_int=int(msg_value)
                 update_msg=wks.update_cell(user_row,10,msg_int+user_msg)
-       except:
-        print("Could not add msg value")
+        except:
+            print("Could not add msg value")
     except:
         print("Could not connect to google spreadsheet")
     await bot.process_commands(message)
