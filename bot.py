@@ -159,6 +159,28 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='💩')
     except:
         pass
+    try: #message counter for users
+        #connecting to GSPREAD
+        scope = ['https://spreadsheets.google.com/feeds',
+             'https://www.googleapis.com/auth/drive']
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(
+            'Annie-e432eb58860b.json', scope)
+        gc = gspread.authorize(credentials)
+        wks = gc.open('Kurusaki_database_discord').sheet1
+        try:
+            user_msg=1
+            user_id=message.author.id
+            user_row=wks.find(user_id).row
+            msg_value=wks.cell(user_row,10).value
+            if msg_value=="":
+                adding_value=wks.update_cell(user_row,10,1)
+            else:
+                msg_int=int(msg_value)
+                update_msg=wks.update_cell(user_row,10,msg_int+user_msg)
+       except:
+        print("Could not add msg value")
+    except:
+        print("Could not connect to google spreadsheet")
     await bot.process_commands(message)
 
 
