@@ -32,16 +32,17 @@ An = Pymoe.Anilist()
 bot = commands.Bot(command_prefix='s.')
 
 
-@bot.event
+@bot.event #print and do the following when bot is ready
 async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print("I am running on " + bot.user.name)
-    mesg = "Hello Kitty"
+    mesg =tools.Games.random_game
     await bot.change_presence(game=discord.Game(name=mesg))
 
 
-@bot.event
+@bot.event 
 async def on_message(message):
+    """TALK TO THE BOT USING @KURUSAKI"""
     mention = bot.user.mention
     if message.content.startswith(mention):
         anime = rq.get('https://kurusaki-webhook.herokuapp.com/').text
@@ -267,11 +268,11 @@ async def check(ctx, user: discord.Member):
             await bot.add_reaction(msg, emoji='🤑')
         try:
             # updating the user's  tax    
-            checker_tax_value = wks.cell(checker_row, 7).value# current tax value
+            checker_tax_value = wks.cell(checker_row, 6).value# current tax value
             tax_float = float(checker_tax_value) #tax value into float
-            updating_tax = wks.update_cell(checker_row, 7, tax_float+tax) #updating the new tax value
+            updating_tax = wks.update_cell(checker_row, 6, tax_float+tax) #updating the new tax value
         except:
-            new_tax=wks.update_cell(checker_row,7,tax)
+            new_tax=wks.update_cell(checker_row,6,tax)
             print("User had no current tax value, so it was added")
 
 
@@ -290,12 +291,12 @@ async def check(ctx, user: discord.Member):
         await bot.say("{} credits has been removed from your account as tax.".format(tax))
         
         try: #updating the user's tax    
-            checker_tax_value = wks.cell(checker_row, 7).value #checker's tax value
+            checker_tax_value = wks.cell(checker_row, 6).value #checker's tax value
             if checker_tax_value == "":
-                new_tax=wks.update_cell(checker_row,7,tax)
+                new_tax=wks.update_cell(checker_row,6,tax)
             else:                
                 tax_float = float(checker_tax_value)
-                updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
+                updating_tax = wks.update_cell(checker_row, 6, tax_float+tax)
         except:
             print("Unable to add the user{} to tax database ".format(ctx.message.name))
 
@@ -359,11 +360,11 @@ async def gift(ctx, user: discord.Member):
         update_receiver = wks.update_cell(receiver_row, 3, new_receiver_value)
 
         try:
-            tax_value = wks.cell(sender_row, 7).value
+            tax_value = wks.cell(sender_row, 6).value
             tax_float=float(tax_value)
-            command_tax = wks.update_cell(sender_row, 7, tax_float+tax)
+            command_tax = wks.update_cell(sender_row, 6, tax_float+tax)
         except gspread.exceptions.CellNotFound:
-            adding_tax = wks.update_cell(sender_row, 7, tax)
+            adding_tax = wks.update_cell(sender_row, 6, tax)
         await bot.say("{} {} credits have been sent to {} from your credits".format(ctx.message.author.mention,amount, receiver_name))
         await bot.say("{} credits have been removed from your account as tax.".format(tax))
 
@@ -378,13 +379,13 @@ async def gift(ctx, user: discord.Member):
         send_credits = wks.cell(send_row, 3).value
         send_float = float(send_credits)
         send_update = wks.update_cell(send_row, 3, send_float-tax)
-        user_tax = wks.update_cell(send_row, 7, tax)
+        user_tax = wks.update_cell(send_row, 6, tax)
         await bot.say("{} {} credits have been removed from your account as tax.".format(ctx.message.author.mention,tax))
         try:
-            tax_value = wks.cell(sender_row, 7).value
-            command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
+            tax_value = wks.cell(sender_row, 6).value
+            command_tax = wks.update_cell(sender_row, 6, tax_value+tax)
         except gspread.exceptions.CellNotFound:
-            adding_tax = wks.update_cell(sender_row, 7, tax)
+            adding_tax = wks.update_cell(sender_row, 6, tax)
 
 @bot.command(pass_context=True)
 async def dog(ctx):
