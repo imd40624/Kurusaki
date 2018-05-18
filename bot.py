@@ -228,11 +228,15 @@ async def credits(ctx):
     msg = await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention, cred))
     try:
         if cred_float > 1200:
-            await bot.add_reaction(msg, emoji='💰')
-        if cred_float > 2200:
+            await bot.add_reaction(msg, emoji='💲')
+        if cred_float > 2300:
             await bot.add_reaction(msg, emoji='💸')
-        if cred_float > 3500:
+        if cred_float > 3400:
             await bot.add_reaction(msg, emoji='🤑')
+        if cred_float > 4200:
+            await bot.add_reaction(msg, emoji='💵')
+        if cred_float > 5300:
+            await bot.add_reaction(msg, emoji='💰')
     except:
         await bot.say("Something went wrong while trying to react to your message")
 
@@ -259,11 +263,15 @@ async def check(ctx, user: discord.Member):
 
         #reacting to high credits
         if target_float > 1200:
-            await bot.add_reaction(msg, emoji='💰')
+            await bot.add_reaction(msg, emoji='💲')
         if target_float > 2300:
             await bot.add_reaction(msg, emoji='💸')
         if target_float > 3400:
             await bot.add_reaction(msg, emoji='🤑')
+        if target_float > 4200:
+            await bot.add_reaction(msg, emoji='💵')
+        if target_float > 5300:
+            await bot.add_reaction(msg, emoji='💰')
         try:
             # updating the user's  tax    
             checker_tax_value = wks.cell(checker_row, 7).value# current tax value
@@ -292,7 +300,7 @@ async def check(ctx, user: discord.Member):
             checker_tax_value = wks.cell(checker_row, 7).value #checker's tax value
             if checker_tax_value == "":
                 new_tax=wks.update_cell(checker_row,7,tax)
-            else:                
+            else: # ADD A NEW TAX VALUE IF IT IS BLANK               
                 tax_float = float(checker_tax_value)
                 updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
         except:
@@ -314,7 +322,7 @@ async def check(ctx, user: discord.Member):
 
 
 @bot.command(pass_context=True)
-async def rewards(ctx):
+async def rewards(ctx): # ADD REACTIONS FOLLOWING THE REWARD TYPES
     await bot.say("Currently only reaction rewards are available.")
     msg=await bot.say(":rolling_eyes: :900\n:cherry_blossom: :1150\n:ok_hand: :900\n:kiss: : 900\n:thinking: :700\n:poop: : 800\n:zzz: :550\n:scream: :800\n:innocent: :2000")
     await bot.add_reaction(msg, emoji='🌸')
@@ -327,35 +335,34 @@ async def rewards(ctx):
     await bot.add_reaction(msg, emoji='😇')
 @bot.command(pass_context=True)
 async def gift(ctx, user: discord.Member):
-    try:
-        tax = 50
+    try:#GIFTING A USER YOUR CREDITS TAX = 100
+        tax = 100
         #user setup
-        name = user.name
-        user_id = user.id
-        amount = 100
-        sender_name = ctx.message.author.name
-        receiver_name = user.name
-        receiver = user.id
-        sender = ctx.message.author.id
+        amount = 200 #GIFTING AMOUNT
+        sender_name = ctx.message.author.name #THE PERSON GIFTING'S DISCORD NAME
+        receiver_name = user.name # THE DISCORD USER RECEIVING THE GIFT'S NAME
+        receiver = user.id # THE DISCORD USER RECEIVING'S ID
+        sender = ctx.message.author.id #DISCORD USER THAT IS IS GIFTING
+        
         #google locations
         scope = ['https://spreadsheets.google.com/feeds',
                  'https://www.googleapis.com/auth/drive']
         credentials = ServiceAccountCredentials.from_json_keyfile_name(
             'Annie-e432eb58860b.json', scope)
-        gc = gspread.authorize(credentials)
-        wks = gc.open('Kurusaki_database_discord').sheet1
+        gc = gspread.authorize(credentials)#AUTHORIZING CREDS
+        wks = gc.open('Kurusaki_database_discord').sheet1 #WORKSHEET1 
+        
+        
         #finding user row and value
-        receiver_row = wks.find(receiver).row
-        sender_row = wks.find(sender).row
-        sender_credits = wks.cell(sender_row, 3).value
-        receiver_credits = wks.cell(receiver_row, 3).value
-        send_float = float(sender_credits)
-        receiver_float = float(receiver_credits)
-        tax_gift = tax+amount
-        new_sender_value = send_float-tax_gift
-        new_receiver_value = receiver_float+amount
-        update_sender = wks.update_cell(sender_row, 3, send_float-tax_gift)
-        update_receiver = wks.update_cell(receiver_row, 3, new_receiver_value)
+        receiver_row = wks.find(receiver).row #RECEIVER'S GSPREAD ROW
+        sender_row = wks.find(sender).row #SENDER ROW
+        sender_credits = wks.cell(sender_row, 3).value #VALUE OF CREDITS
+        receiver_credits = wks.cell(receiver_row, 3).value #VALUE OF CREDITS
+        send_float = float(sender_credits) #CONVERT TO FLOAT TYPE
+        receiver_float = float(receiver_credits)#CONVERT TO FLOAT TYPE
+        tax_gift = tax+amount #ADD TA WITH AMOUNT
+        update_sender = wks.update_cell(sender_row, 3, send_float-tax_gift) #UPDATING VALUES
+        update_receiver = wks.update_cell(receiver_row, 3,receiver_float+amount) #UPDATING VALUES
 
         try:
             tax_value = wks.cell(sender_row, 7).value
