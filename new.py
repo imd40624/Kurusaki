@@ -6,6 +6,8 @@ import asyncio
 
 
 
+
+bot_token=os.environ['NDAzNDAyNjE0NDU0MzUzOTQx.DeCrDw.zyBWdRkVggjETQraJhGTgTHRWuo']
 bot =commands.Bot(command_prefix='v')
 
 @bot.event
@@ -14,4 +16,4 @@ async def on_ready():
 
 
 
-bot.run('NDAzNDAyNjE0NDU0MzUzOTQx.DeCrDw.zyBWdRkVggjETQraJhGTgTHRWuo')
+bot.run(bot_token)
