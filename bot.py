@@ -35,15 +35,8 @@ bot = commands.Bot(command_prefix='s.') #SETUP BOT COMMAND PREFIX
 async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print("I am running on " + bot.user.name)
-    while True:
-        
-        games=['Bread Puppies','Jump Rope Kitten: Nyawatobi','TripTrap','Potion Maker','Crusaders Quest','My Waffle Maker','AfroCat','Hello Kitty','Halo 4','My Cat Album','LINE: Disney Tsum Tsum','Cat Room','Alphabear','Play With Cats','My Dog Album','Giant Turnip Game','MEOW MEOW STAR ACRES','Patchmania','Tiny Sheep','Hello Kitty World – Fun Park Game']
-        global random_game_change
-        game=random.choice(games)
-        global random_game_change
-        random_game_change=str(game)
-        time.sleep(10)
-    await bot.change_presence(game=discord.Game(name=random_game_change))
+#   games=['Bread Puppies','Jump Rope Kitten: Nyawatobi','TripTrap','Potion Maker','Crusaders Quest','My Waffle Maker','AfroCat','Hello Kitty','Halo 4','My Cat Album','LINE: Disney Tsum Tsum','Cat Room','Alphabear','Play With Cats','My Dog Album','Giant Turnip Game','MEOW MEOW STAR ACRES','Patchmania','Tiny Sheep','Hello Kitty World – Fun Park Game']
+    await bot.change_presence(game=discord.Game(name="My Cat Album"))
 
 
 @bot.event
@@ -458,15 +451,6 @@ async def info(ctx, user: discord.Member):
     await bot.say("The user's name is: {}\n{}'s ID is: {}\n{} is: {}\n{}'s highest role is: {}\n{} joined at: {}".format(user.name, user.name, user.id, user.name, user.status, user.name, user.top_role, user.name, user.joined_at))
 
 
-# @bot.command(pass_context=True)
-# async def serverinfo(ctx):
-#     g=ctx.message.author.server
-#     name=ctx.message.author.server.name
-#     member_count=g.members
-#     owner=g.owner
-#     m_c=g.member_count
-#     await bot.say("{}{}{}{}".format(name,member_count,m_c,owner))
-
 
 @bot.command(pass_context=True)
 async def catfact(ctx):
@@ -641,6 +625,7 @@ async def mal(ctx):
     scored_by = rq_json2['scored_by']
     score = rq_json2['score']
     #anime formatting output
+    
     anime_picture = rq_json2['image_url']
     embed = discord.Embed(title="Title: {}".format(
         query), description=title_en+":"+title_jp, color=0xDEADBF)
