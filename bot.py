@@ -21,13 +21,13 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-api = os.environ.get("RIOT_KEY")
-wu_key = os.environ.get('WU_API')
-owm = os.environ.get('open_weather')
-img_api = os.environ.get('img_api')
-apiai_token = os.environ.get('api_ai')
-bot_token = os.environ.get('BOT_TOKEN')
-An = Pymoe.Anilist()
+# api = os.environ.get("RIOT_KEY")
+# wu_key = os.environ.get('WU_API')
+# owm = os.environ.get('open_weather')
+# img_api = os.environ.get('img_api')
+# apiai_token = os.environ.get('api_ai')
+# bot_token = os.environ.get('BOT_TOKEN')
+# An = Pymoe.Anilist()
 
 bot = commands.Bot(command_prefix='s.')
 
@@ -852,4 +852,4 @@ async def on_ready():
 #     await bot.say("Word: {}\nVotes: {}\nDefinitioin: {}\nExample: {}".format(rq_json['list'][0]['word'], rq_json['list'][0]['thumbs_up'], rq_json['list'][0]['definition'], rq_json['list'][0]['example']))
 
 
-bot.run(bot_token)
+bot.run('NDAzNDAyNjE0NDU0MzUzOTQx.DeCrDw.zyBWdRkVggjETQraJhGTgTHRWuo')
