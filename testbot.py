@@ -31,17 +31,5 @@ async def on_ready():
 
 
 
-@bot.event
-async def on_message(message):
-  try:
-    msg=message.content
-    if message.author.id in sp:
-      await bot.say("Someone has messaged!")
-    elif message.author.id not in sp:
-      await bot.send_message(message.channel,"Author id is not in database yet, let's add it")
-  except:
-    await bot.send_message(message.channel,"looks like it didn't work")
-    
-
 
 bot.run('MzE3MDkyNzg4Mzc2NDM2NzM2.Ddsvww.ofp-IDE7rgMlsGRF243yCwbfoao')
