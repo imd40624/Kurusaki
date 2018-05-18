@@ -42,7 +42,7 @@ async def on_ready():
         game=random.choice(games)
         global random_game_change
         random_game_change=str(game)
-        time.sleep(2300)
+        time.sleep(10)
     await bot.change_presence(game=discord.Game(name=random_game_change))
 
 
