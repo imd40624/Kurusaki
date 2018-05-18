@@ -19,7 +19,7 @@ import urllib.request
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-
+#GETTING API KEYS FROM HEROKU
 api = os.environ["RIOT_KEY"]
 wu_key = os.environ['WU_API']
 owm = os.environ['open_weather']
@@ -28,19 +28,22 @@ apiai_token = os.environ['api_ai']
 bot_token = os.environ['BOT_TOKEN']
 An = Pymoe.Anilist()
 
-bot = commands.Bot(command_prefix='s.')
+bot = commands.Bot(command_prefix='s.') #SETUP BOT COMMAND PREFIX
 
 
 @bot.event
 async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print("I am running on " + bot.user.name)
-#     while True:
-#         games=['Bread Puppies','Jump Rope Kitten: Nyawatobi','TripTrap','Potion Maker','Crusaders Quest','My Waffle Maker','AfroCat','Hello Kitty','Halo 4','My Cat Album','LINE: Disney Tsum Tsum','Cat Room','Alphabear','Play With Cats','My Dog Album','Giant Turnip Game','MEOW MEOW STAR ACRES','Patchmania','Tiny Sheep','Hello Kitty World – Fun Park Game']
-#         game=random.choice(games)
-#         global random_game_change
-#         random_game_change=str(game)
-    await bot.change_presence(game=discord.Game(name="My Cat Album"))
+    while True:
+        
+        games=['Bread Puppies','Jump Rope Kitten: Nyawatobi','TripTrap','Potion Maker','Crusaders Quest','My Waffle Maker','AfroCat','Hello Kitty','Halo 4','My Cat Album','LINE: Disney Tsum Tsum','Cat Room','Alphabear','Play With Cats','My Dog Album','Giant Turnip Game','MEOW MEOW STAR ACRES','Patchmania','Tiny Sheep','Hello Kitty World – Fun Park Game']
+        global random_game_change
+        game=random.choice(games)
+        global random_game_change
+        random_game_change=str(game)
+        time.sleep(2300)
+    await bot.change_presence(game=discord.Game(name=random_game_change))
 
 
 @bot.event
