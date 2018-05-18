@@ -8,7 +8,7 @@ import os
 
 
 
-bot_token=os.environ[BOT_TOKEN]
+bot_token=os.environ['BOT_TOKEN']
 bot =commands.Bot(command_prefix='v')
 
 @bot.event
