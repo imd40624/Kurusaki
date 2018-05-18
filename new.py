@@ -3,22 +3,22 @@ import discord.ext
 from discord.ext import commands
 from discord.ext.commands import Bot
 import asyncio
-import Pymoe
-import simplejson as json
-import datetime
-import requests as rq
-from champs import champs
+# import Pymoe
+# import simplejson as json
+# import datetime
+# import requests as rq
+# from champs import champs
 import os
-import apiai
-import image_links
-import random
-import time
-import tools
-import bs4 as bs
-import urllib
-import urllib.request
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+# import apiai
+# import image_links
+# import random
+# import time
+# import tools
+# import bs4 as bs
+# import urllib
+# import urllib.request
+# import gspread
+# from oauth2client.service_account import ServiceAccountCredentials
 
 
 # api = os.environ["RIOT_KEY"]
