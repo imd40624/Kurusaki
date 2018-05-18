@@ -21,12 +21,12 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-api = os.environ["RIOT_KEY"]
-wu_key = os.environ['WU_API']
-owm = os.environ['open_weather']
-img_api = os.environ['img_api']
-apiai_token = os.environ['api_ai']
-bot_token = os.environ['BOT_TOKEN']
+api = os.environ.get("RIOT_KEY")
+wu_key = os.environ.get('WU_API')
+owm = os.environ.get('open_weather')
+img_api = os.environ.get('img_api')
+apiai_token = os.environ.get('api_ai')
+bot_token = os.environ.get('BOT_TOKEN')
 An = Pymoe.Anilist()
 
 bot = commands.Bot(command_prefix='s.')
