@@ -69,7 +69,8 @@ async def on_message(message):
                 love = ['I love you Yukinno',
                         'Yukkino, I love you!', 'I love you!', '<3']
                 ran_love = random.choice(love)
-                yukinno_love = rope.replace(rope, ran_love)
+                love_str="".join(ran_love)
+                yukinno_love = rope.replace(rope, love_str)
                 await bot.send_message(message.channel, yukinno_love)
             elif message.author.id != 287369884940238849:
                 await bot.send_message(message.channel, rope)
@@ -141,8 +142,8 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
             await bot.add_reaction(message, emoji='😇')
-            
-        re=287369884940238849
+        global michelle_id
+        michelle_id=287369884940238849
         send_id=int(message.author.id)
         if send_id == re:
             await bot.add_reaction(message, emoji='❤')
@@ -159,28 +160,15 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='💩')
     except:
         pass
-    try: #message counter for users
-        #connecting to GSPREAD
-        scope = ['https://spreadsheets.google.com/feeds',
-             'https://www.googleapis.com/auth/drive']
-        credentials = ServiceAccountCredentials.from_json_keyfile_name(
-            'Annie-e432eb58860b.json', scope)
-        gc = gspread.authorize(credentials)
-        wks = gc.open('Kurusaki_database_discord').sheet1
-        try:
-            user_msg=1
-            user_id=message.author.id
-            user_row=wks.find(user_id).row
-            msg_value=wks.cell(user_row,10).value
-            if msg_value=="":
-                adding_value=wks.update_cell(user_row,10,1)
-            else:
-                msg_int=int(msg_value)
-                update_msg=wks.update_cell(user_row,10,msg_int+user_msg)
-        except:
-            print("Could not add msg value")
+    try:
+        peasant=message
+        triger=('bow down peasant','bow down','bow donw servant','bow down to your princess')
+        msg = await bot.wait_for_message(author=message.author, content='bow down peasant')
+#         user_id=int(peasant.author.id)
+#         if user_id == 287369884940238849:
+        await bot.add_reaction(peasant,emoji='🙇')
     except:
-        print("Could not connect to google spreadsheet")
+        print("somethin went wrong")
     await bot.process_commands(message)
 
 
@@ -256,7 +244,8 @@ async def check(ctx, user: discord.Member):
         checker_float = float(checker_credits) #checker's credits in float
         target_float = float(target_credits) #target's credits in float
         update_checker = wks.update_cell(checker_row, 3, checker_float-tax) #taxing the checker
-        msg = await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits, tax))
+        mention=ctx.message.author.mention
+        msg = await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(mention,target_name, target_credits, tax))
 
         #reacting to high credits
         if target_float > 1200:
@@ -318,7 +307,6 @@ async def check(ctx, user: discord.Member):
 async def rewards(ctx):
     await bot.say("Currently only reaction rewards are available.")
     msg=await bot.say(":rolling_eyes: :900\n:cherry_blossom: :1150\n:ok_hand: :900\n:kiss: : 900\n:thinking: :700\n:poop: : 800\n:zzz: :550\n:scream: :800\n:innocent: :2000")
-    await bot.add_reaction(msg, emoji='🌸')
     await bot.add_reaction(msg, emoji='💋')
     await bot.add_reaction(msg, emoji='👌')
     await bot.add_reaction(msg, emoji='🙄')
@@ -326,6 +314,13 @@ async def rewards(ctx):
     await bot.add_reaction(msg, emoji='💩')
     await bot.add_reaction(msg, emoji='😱')
     await bot.add_reaction(msg, emoji='😇')
+    user_id_int=int(ctx.message.author.id)
+    if user_id_int == 287369884940238849:
+        await bot.add_reaction(msg, emoji='🌸')
+
+        
+        
+        
 @bot.command(pass_context=True)
 async def gift(ctx, user: discord.Member):
     try:
