@@ -13,13 +13,13 @@ import apiai
 import image_links
 import random
 import time
-# 
-import tools
+
+# import tools
 import bs4 as bs
 import urllib
 import urllib.request
-# import gspread
-# from oauth2client.service_account import ServiceAccountCredentials
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 
 # api = os.environ["RIOT_KEY"]
