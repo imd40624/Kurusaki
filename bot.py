@@ -36,7 +36,7 @@ bot = commands.Bot(command_prefix='s.')
 async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print("I am running on " + bot.user.name)
-    mesg =tools.Games.game
+    mesg ="My Cat Album"
     await bot.change_presence(game=discord.Game(name=mesg))
 
 
