@@ -9,14 +9,15 @@ import datetime
 import requests as rq
 from champs import champs
 import os
-# import apiai
-# import image_links
-# import random
-# import time
+import apiai
+import image_links
+import random
+import time
+# 
 import tools
-import bs4 as bs
-import urllib
-import urllib.request
+# import bs4 as bs
+# import urllib
+# import urllib.request
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
