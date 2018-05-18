@@ -2,6 +2,9 @@ import requests as rq
 import json
 import datetime
 import random
+import time
+import asyncio
+import discord
 
 
 
