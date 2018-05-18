@@ -26,14 +26,9 @@ class Apiai():
   words=['#anime','$time']
 
  
-class Reaction():
-  heart=1000
-  rolling_eyes=900
-  cherry_blossom=1150
-  ok_hand=900
-  kiss=800
-  thinking=700
-  poop=800
-  zzz=500
-  scream=700
-  innocent=800
+class Games():
+  while True:
+    games=['Bread Puppies','Jump Rope Kitten: Nyawatobi','TripTrap','Potion Maker','Crusaders Quest','My Waffle Maker','AfroCat','Hello Kitty','Halo 4','My Cat Album','LINE: Disney Tsum Tsum','Cat Room','Alphabear','Play With Cats','My Dog Album','Giant Turnip Game','MEOW MEOW STAR ACRES','Patchmania','Tiny Sheep','Hello Kitty World – Fun Park Game']
+    random_game=random.choice(games)
+    time.sleep(10800)
+  
