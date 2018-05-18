@@ -2,12 +2,13 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
 import asyncio
+import os
 
 
 
 
 
-bot_token=os.environ['NDAzNDAyNjE0NDU0MzUzOTQx.DeCrDw.zyBWdRkVggjETQraJhGTgTHRWuo']
+bot_token=os.environ[BOT_TOKEN]
 bot =commands.Bot(command_prefix='v')
 
 @bot.event
