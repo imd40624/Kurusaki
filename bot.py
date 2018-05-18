@@ -13,7 +13,7 @@ import apiai
 import image_links
 import random
 import time
-# import tools
+import tools
 import bs4 as bs
 import urllib
 import urllib.request
@@ -36,7 +36,7 @@ bot = commands.Bot(command_prefix='s.')
 async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print("I am running on " + bot.user.name)
-    mesg = "Hello Kitty"
+    mesg =toos.stat
     await bot.change_presence(game=discord.Game(name=mesg))
 
 
