@@ -21,13 +21,13 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-api = os.environ["RIOT_KEY"]
-wu_key = os.environ['WU_API']
-owm = os.environ['open_weather']
-img_api = os.environ['img_api']
-apiai_token = os.environ['api_ai']
+# api = os.environ["RIOT_KEY"]
+# wu_key = os.environ['WU_API']
+# owm = os.environ['open_weather']
+# img_api = os.environ['img_api']
+# apiai_token = os.environ['api_ai']
 bot_token = os.environ['BOT_TOKEN']
-An = Pymoe.Anilist()
+# An = Pymoe.Anilist()
 
 bot = commands.Bot(command_prefix='s.')
 
@@ -36,8 +36,6 @@ bot = commands.Bot(command_prefix='s.')
 async def on_ready():
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print("I am running on " + bot.user.name)
-    mesg = "Hello Kitty"
-    await bot.change_presence(game=discord.Game(name=mesg))
 
 
 bot.run(bot_token)
