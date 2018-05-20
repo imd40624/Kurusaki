@@ -40,7 +40,7 @@ async def on_ready():
     while True:
         global random_status_game
         random_status_game=random.choice(games)
-        time.sleep(2000)
+        asyncio.sleep(2000)
     await bot.change_presence(game=discord.Game(name=random_status_game))
 
 
