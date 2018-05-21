@@ -168,17 +168,17 @@ async def on_message(message):
     except:
         pass
     try:  # message counter for users
-        #connecting to GSPREAD
-        scope = ['https://spreadsheets.google.com/feeds',
-                 'https://www.googleapis.com/auth/drive']
-        credentials = ServiceAccountCredentials.from_json_keyfile_name(
-            'Annie-e432eb58860b.json', scope)
-        gc = gspread.authorize(credentials)
-        wks = gc.open('Kurusaki_database_discord').sheet1
+#         #connecting to GSPREAD
+#         scope = ['https://spreadsheets.google.com/feeds',
+#                  'https://www.googleapis.com/auth/drive']
+#         credentials = ServiceAccountCredentials.from_json_keyfile_name(
+#             'Annie-e432eb58860b.json', scope)
+#         gc = gspread.authorize(credentials)
+#         wks = gc.open('Kurusaki_database_discord').sheet1
         try:
             user_id = message.author.id  # user's id
             user_row = wks.find(user_id).row  # finds user's row
-            msg_value = wks.cell(user_row, 10).value  # get user's msg value
+            msg_value = wks.cell(user_row, 6).value  # get user's msg value
             if msg_value == "":  # check if the user has empty value
                 # if user value is empty add value =1
                 adding_value = wks.update_cell(user_row, 6, 1)
