@@ -28,12 +28,12 @@ apiai_token = os.environ['api_ai']
 bot_token = os.environ['BOT_TOKEN']
 An = Pymoe.Anilist()
 
-bot = commands.Bot(command_prefix='s.') #SETUP BOT COMMAND PREFIX
+bot = commands.Bot(command_prefix='s.')  # SETUP BOT COMMAND PREFIX
 
 
 @bot.event
 async def on_ready():
-    
+
     """WHEN BOT IS READY, PRINT MESSAGE IN TERMINAL"""
     print("I am running on " + bot.user.name)
 #     games=['Bread Puppies','Jump Rope Kitten: Nyawatobi','TripTrap','Potion Maker','Crusaders Quest','My Waffle Maker','AfroCat','Hello Kitty','Halo 4','My Cat Album','LINE: Disney Tsum Tsum','Cat Room','Alphabear','Play With Cats','My Dog Album','Giant Turnip Game','MEOW MEOW STAR ACRES','Patchmania','Tiny Sheep','Hello Kitty World – Fun Park Game']
@@ -118,7 +118,8 @@ async def on_message(message):
         if len(msg) <= 110 and len(msg) > 100:
             new_value = wks.update_cell(row, 3, num_points+12.20)
     except gspread.exceptions.CellNotFound:
-        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name, name))
+        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(
+            name, name))
         adding_user = wks.append_row([name, user_id, 2.00])
 
     #reacting to discord user's message
@@ -145,9 +146,9 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
             await bot.add_reaction(message, emoji='😇')
-            
-        re=287369884940238849
-        send_id=int(message.author.id)
+
+        re = 287369884940238849
+        send_id = int(message.author.id)
         if send_id == re:
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
@@ -163,24 +164,25 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='💩')
     except:
         pass
-    try: #message counter for users
+    try:  # message counter for users
         #connecting to GSPREAD
         scope = ['https://spreadsheets.google.com/feeds',
-             'https://www.googleapis.com/auth/drive']
+                 'https://www.googleapis.com/auth/drive']
         credentials = ServiceAccountCredentials.from_json_keyfile_name(
             'Annie-e432eb58860b.json', scope)
         gc = gspread.authorize(credentials)
         wks = gc.open('Kurusaki_database_discord').sheet1
         try:
-            user_msg=1
-            user_id=message.author.id #user's id
-            user_row=wks.find(user_id).row #finds user's row
-            msg_value=wks.cell(user_row,10).value #get user's msg value
-            if msg_value=="": #check if the user has empty value 
-                adding_value=wks.update_cell(user_row,10,1) #if user value is empty add value =1
-            else: #updating the user's new message value
-                msg_int=int(msg_value)
-                update_msg=wks.update_cell(user_row,10,msg_int+user_msg)
+            user_msg = 1
+            user_id = message.author.id  # user's id
+            user_row = wks.find(user_id).row  # finds user's row
+            msg_value = wks.cell(user_row, 10).value  # get user's msg value
+            if msg_value == "":  # check if the user has empty value
+                # if user value is empty add value =1
+                adding_value = wks.update_cell(user_row, 10, 1)
+            else:  # updating the user's new message value
+                msg_int = int(msg_value)
+                update_msg = wks.update_cell(user_row, 10, msg_int+user_msg)
         except:
             print("Could not add msg value")
     except:
@@ -224,12 +226,11 @@ async def credits(ctx):
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
 
-
     tax = 25
     author_id = ctx.message.author.id
     row = wks.find(author_id).row
     cred = wks.cell(row, 3).value
-    cred_float=float(cred)
+    cred_float = float(cred)
     msg = await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention, cred))
     try:
         if cred_float > 1200:
@@ -245,25 +246,29 @@ async def credits(ctx):
     except:
         await bot.say("Something went wrong while trying to react to your message")
 
+
 @bot.command(pass_context=True)
 async def check(ctx, user: discord.Member):
-    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
+    scope = ['https://spreadsheets.google.com/feeds',
+             'https://www.googleapis.com/auth/drive']
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+        'Annie-e432eb58860b.json', scope)
     gc = gspread.authorize(credentials)
     wks = gc.open('Kurusaki_database_discord').sheet1
     try:
 
         tax = 50
-        checker = ctx.message.author.id #pserson who is checking someone's credits
-        target_id = user.id #the person that is getting his/her credits checked
-        target_name = user.name #target's name
-        target_row = wks.find(target_id).row #target's row
-        checker_row = wks.find(checker).row #checker's row 
-        target_credits = wks.cell(target_row, 3).value  #target's value
+        checker = ctx.message.author.id  # pserson who is checking someone's credits
+        target_id = user.id  # the person that is getting his/her credits checked
+        target_name = user.name  # target's name
+        target_row = wks.find(target_id).row  # target's row
+        checker_row = wks.find(checker).row  # checker's row
+        target_credits = wks.cell(target_row, 3).value  # target's value
         checker_credits = wks.cell(checker_row, 3).value
-        checker_float = float(checker_credits) #checker's credits in float
-        target_float = float(target_credits) #target's credits in float
-        update_checker = wks.update_cell(checker_row, 3, checker_float-tax) #taxing the checker
+        checker_float = float(checker_credits)  # checker's credits in float
+        target_float = float(target_credits)  # target's credits in float
+        update_checker = wks.update_cell(
+            checker_row, 3, checker_float-tax)  # taxing the checker
         msg = await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits, tax))
 
         #reacting to high credits
@@ -278,38 +283,43 @@ async def check(ctx, user: discord.Member):
         if target_float > 5300:
             await bot.add_reaction(msg, emoji='💰')
         try:
-            # updating the user's  tax    
-            checker_tax_value = wks.cell(checker_row, 7).value# current tax value
-            tax_float = float(checker_tax_value) #tax value into float
-            updating_tax = wks.update_cell(checker_row, 7, tax_float+tax) #updating the new tax value
+            # updating the user's  tax
+            checker_tax_value = wks.cell(
+                checker_row, 7).value  # current tax value
+            tax_float = float(checker_tax_value)  # tax value into float
+            # updating the new tax value
+            updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
         except:
-            new_tax=wks.update_cell(checker_row,7,tax)
+            new_tax = wks.update_cell(checker_row, 7, tax)
             print("User had no current tax value, so it was added")
 
-
-
-    except gspread.exceptions.CellNotFound: #if user has no database in gspread
+    except gspread.exceptions.CellNotFound:  # if user has no database in gspread
         tax = 35
-        checker = ctx.message.author.id #checker id
-        checker_row = wks.find(checker).row #checker's row
-        checker_credits = wks.cell(checker_row, 3).value #checker's credits value
-        checker_float = float(checker_credits) #checker credits float
-        await bot.say("User {} is not in database".format(target_name)) 
+        checker = ctx.message.author.id  # checker id
+        checker_row = wks.find(checker).row  # checker's row
+        # checker's credits value
+        checker_credits = wks.cell(checker_row, 3).value
+        checker_float = float(checker_credits)  # checker credits float
+        await bot.say("User {} is not in database".format(target_name))
         await bot.say("Attempting to adding user to database")
-        adding_user = wks.append_row([target_name, target_id, 55.00]) #adding value to no existing user
-        update_checker = wks.update_cell(checker_row, 3, checker_float-tax) #taxing user
+        # adding value to no existing user
+        adding_user = wks.append_row([target_name, target_id, 55.00])
+        update_checker = wks.update_cell(
+            checker_row, 3, checker_float-tax)  # taxing user
         await bot.say("{} now has 55.00 credits".format(target_name))
         await bot.say("{} credits has been removed from your account as tax.".format(tax))
-        
-        try: #updating the user's tax    
-            checker_tax_value = wks.cell(checker_row, 7).value #checker's tax value
+
+        try:  # updating the user's tax
+            checker_tax_value = wks.cell(
+                checker_row, 7).value  # checker's tax value
             if checker_tax_value == "":
-                new_tax=wks.update_cell(checker_row,7,tax)
-            else: # ADD A NEW TAX VALUE IF IT IS BLANK               
+                new_tax = wks.update_cell(checker_row, 7, tax)
+            else:  # ADD A NEW TAX VALUE IF IT IS BLANK
                 tax_float = float(checker_tax_value)
                 updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
         except:
-            print("Unable to add the user{} to tax database ".format(ctx.message.name))
+            print("Unable to add the user{} to tax database ".format(
+                ctx.message.name))
 
 
 # @bot.command(pass_context=True)
@@ -325,11 +335,10 @@ async def check(ctx, user: discord.Member):
 #         await bot.say("Something went wrong")
 
 
-
 @bot.command(pass_context=True)
-async def rewards(ctx): # ADD REACTIONS FOLLOWING THE REWARD TYPES
+async def rewards(ctx):  # ADD REACTIONS FOLLOWING THE REWARD TYPES
     await bot.say("Currently only reaction rewards are available.")
-    msg=await bot.say(":rolling_eyes: :900\n:cherry_blossom: :1150\n:ok_hand: :900\n:kiss: : 900\n:thinking: :700\n:poop: : 800\n:zzz: :550\n:scream: :800\n:innocent: :2000")
+    msg = await bot.say(":rolling_eyes: :900\n:cherry_blossom: :1150\n:ok_hand: :900\n:kiss: : 900\n:thinking: :700\n:poop: : 800\n:zzz: :550\n:scream: :800\n:innocent: :2000")
     await bot.add_reaction(msg, emoji='🌸')
     await bot.add_reaction(msg, emoji='💋')
     await bot.add_reaction(msg, emoji='👌')
@@ -338,47 +347,52 @@ async def rewards(ctx): # ADD REACTIONS FOLLOWING THE REWARD TYPES
     await bot.add_reaction(msg, emoji='💩')
     await bot.add_reaction(msg, emoji='😱')
     await bot.add_reaction(msg, emoji='😇')
+
+
 @bot.command(pass_context=True)
 async def gift(ctx, user: discord.Member):
-    try:#GIFTING A USER YOUR CREDITS TAX = 100
+    try:  # GIFTING A USER YOUR CREDITS TAX = 100
         tax = 100
         #user setup
-        amount = 200 #GIFTING AMOUNT
-        sender_name = ctx.message.author.name #THE PERSON GIFTING'S DISCORD NAME
-        receiver_name = user.name # THE DISCORD USER RECEIVING THE GIFT'S NAME
-        receiver = user.id # THE DISCORD USER RECEIVING'S ID
-        sender = ctx.message.author.id #DISCORD USER THAT IS IS GIFTING
-        
+        amount = 200  # GIFTING AMOUNT
+        sender_name = ctx.message.author.name  # THE PERSON GIFTING'S DISCORD NAME
+        receiver_name = user.name  # THE DISCORD USER RECEIVING THE GIFT'S NAME
+        receiver = user.id  # THE DISCORD USER RECEIVING'S ID
+        sender = ctx.message.author.id  # DISCORD USER THAT IS IS GIFTING
+
         #google locations
         scope = ['https://spreadsheets.google.com/feeds',
                  'https://www.googleapis.com/auth/drive']
         credentials = ServiceAccountCredentials.from_json_keyfile_name(
             'Annie-e432eb58860b.json', scope)
-        gc = gspread.authorize(credentials)#AUTHORIZING CREDS
-        wks = gc.open('Kurusaki_database_discord').sheet1 #WORKSHEET1 
-        
-        
+        gc = gspread.authorize(credentials)  # AUTHORIZING CREDS
+        wks = gc.open('Kurusaki_database_discord').sheet1  # WORKSHEET1
+
         #finding user row and value
-        receiver_row = wks.find(receiver).row #RECEIVER'S GSPREAD ROW
-        sender_row = wks.find(sender).row #SENDER ROW
-        sender_credits = wks.cell(sender_row, 3).value #VALUE OF CREDITS
-        receiver_credits = wks.cell(receiver_row, 3).value #VALUE OF CREDITS
-        send_float = float(sender_credits) #CONVERT TO FLOAT TYPE
-        receiver_float = float(receiver_credits)#CONVERT TO FLOAT TYPE
-        tax_gift = tax+amount #ADD TA WITH AMOUNT
-        update_sender = wks.update_cell(sender_row, 3, send_float-tax_gift) #UPDATING VALUES
-        update_receiver = wks.update_cell(receiver_row, 3,receiver_float+amount) #UPDATING VALUES
+        receiver_row = wks.find(receiver).row  # RECEIVER'S GSPREAD ROW
+        sender_row = wks.find(sender).row  # SENDER ROW
+        sender_credits = wks.cell(sender_row, 3).value  # VALUE OF CREDITS
+        receiver_credits = wks.cell(receiver_row, 3).value  # VALUE OF CREDITS
+        send_float = float(sender_credits)  # CONVERT TO FLOAT TYPE
+        receiver_float = float(receiver_credits)  # CONVERT TO FLOAT TYPE
+        tax_gift = tax+amount  # ADD TA WITH AMOUNT
+        update_sender = wks.update_cell(
+            sender_row, 3, send_float-tax_gift)  # UPDATING VALUES
+        update_receiver = wks.update_cell(
+            receiver_row, 3, receiver_float+amount)  # UPDATING VALUES
 
         try:
             tax_value = wks.cell(sender_row, 7).value
-            tax_float=float(tax_value)
+            tax_float = float(tax_value)
             command_tax = wks.update_cell(sender_row, 7, tax_float+tax)
         except gspread.exceptions.CellNotFound:
             adding_tax = wks.update_cell(sender_row, 7, tax)
-        await bot.say("{} {} credits have been sent to {} from your credits".format(ctx.message.author.mention,amount, receiver_name))
+        await bot.say("{} {} credits have been sent to {} from your credits".format(ctx.message.author.mention, amount, receiver_name))
         await bot.say("{} credits have been removed from your account as tax.".format(tax))
 
     except gspread.exceptions.CellNotFound:
+        name=user.name
+        user_id=user.id
         tax = 25
         await bot.say("Dscord user {} has no credits data".format(receiver_name))
         await bot.say("Attempting to add the data")
@@ -390,12 +404,13 @@ async def gift(ctx, user: discord.Member):
         send_float = float(send_credits)
         send_update = wks.update_cell(send_row, 3, send_float-tax)
         user_tax = wks.update_cell(send_row, 7, tax)
-        await bot.say("{} {} credits have been removed from your account as tax.".format(ctx.message.author.mention,tax))
+        await bot.say("{} {} credits have been removed from your account as tax.".format(ctx.message.author.mention, tax))
         try:
             tax_value = wks.cell(sender_row, 7).value
             command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
         except gspread.exceptions.CellNotFound:
             adding_tax = wks.update_cell(sender_row, 7, tax)
+
 
 @bot.command(pass_context=True)
 async def dog(ctx):
@@ -461,7 +476,6 @@ async def game(ctx):
 async def info(ctx, user: discord.Member):
     """GETS THE BASIC INFORMATION OF A USER IN DISCORD. EX: a.info @Kurusaki#4763"""
     await bot.say("The user's name is: {}\n{}'s ID is: {}\n{} is: {}\n{}'s highest role is: {}\n{} joined at: {}".format(user.name, user.name, user.id, user.name, user.status, user.name, user.top_role, user.name, user.joined_at))
-
 
 
 @bot.command(pass_context=True)
@@ -637,7 +651,7 @@ async def mal(ctx):
     scored_by = rq_json2['scored_by']
     score = rq_json2['score']
     #anime formatting output
-    
+
     anime_picture = rq_json2['image_url']
     embed = discord.Embed(title="Title: {}".format(
         query), description=title_en+":"+title_jp, color=0xDEADBF)
