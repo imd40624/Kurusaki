@@ -121,7 +121,22 @@ async def on_message(message):
         print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(
             name, name))
         adding_user = wks.append_row([name, user_id, 2.00])
-
+    
+    #message counter per user
+    try:
+        user_id=message.author.id
+        user_name=message.author.name
+        user_row=wks.find(user_id).row
+        msg_value=wks.cell(user_row,6).value
+        if msg_value == "":
+            add_value=wks.update_cell(user_row,6,1)
+        elif msg_value != "":
+            msg_int=int(msg_value)
+            update_value=wks.update_cell(user_row,6,msg_ing+1)
+            
+    except gspread.exceptions.CellNotFound:
+        print("Something went wrong")
+    
     #reacting to discord user's message
     try:
         if "gay" in message.content.lower():
