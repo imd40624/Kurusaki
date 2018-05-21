@@ -40,7 +40,7 @@ async def on_ready():
     while True:
         global random_status_game
         random_status_game=random.choice(games)
-        await asyncio.sleep(2000)
+        await asyncio.sleep(2)
     await bot.change_presence(game=discord.Game(name=random_status_game))
 
 
@@ -120,8 +120,7 @@ async def on_message(message):
         if len(msg) <= 110 and len(msg) > 100:
             new_value = wks.update_cell(row, 3, num_points+12.20)
     except gspread.exceptions.CellNotFound:
-        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(
-            name, name))
+        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name, name))
         adding_user = wks.append_row([name, user_id, 2.00])
     
    
