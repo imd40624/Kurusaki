@@ -380,7 +380,7 @@ async def gift(ctx, user: discord.Member):
         tax_gift = tax+amount  # ADD TA WITH AMOUNT
         if send_float  <=-100:
             await bot.saay("Your credits is too low right now to gift someone")
-        elif send_float => 100:
+        elif send_float >= 100:
             update_sender = wks.update_cell(
                 sender_row, 3, send_float-tax_gift)  # UPDATING VALUES
             update_receiver = wks.update_cell(
