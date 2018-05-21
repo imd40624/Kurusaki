@@ -92,6 +92,8 @@ async def on_message(message):
         #setting up spreadsheets for updates
         row = wks.find(user_id).row
         points = wks.cell(row, 3).value
+        if points == "":
+            get_value=wks.update_cell(row,3,2)
         num_points = float(points)
         if len(msg) <= 2 and len(msg) > 0:
             new_value = wks.update_cell(row, 3, num_points+.50)
@@ -122,21 +124,7 @@ async def on_message(message):
             name, name))
         adding_user = wks.append_row([name, user_id, 2.00])
     
-    #message counter per user
-    try:
-        user_id=message.author.id
-        user_name=message.author.name
-        user_row=wks.find(user_id).row
-        msg_value=wks.cell(user_row,6).value
-        if msg_value == "":
-            add_value=wks.update_cell(user_row,6,1)
-        elif msg_value != "":
-            msg_int=int(msg_value)
-            update_value=wks.update_cell(user_row,6,msg_ing+1)
-            
-    except gspread.exceptions.CellNotFound:
-        print("Something went wrong")
-    
+   
     #reacting to discord user's message
     try:
         if "gay" in message.content.lower():
@@ -188,16 +176,15 @@ async def on_message(message):
         gc = gspread.authorize(credentials)
         wks = gc.open('Kurusaki_database_discord').sheet1
         try:
-            user_msg = 1
             user_id = message.author.id  # user's id
             user_row = wks.find(user_id).row  # finds user's row
             msg_value = wks.cell(user_row, 10).value  # get user's msg value
             if msg_value == "":  # check if the user has empty value
                 # if user value is empty add value =1
-                adding_value = wks.update_cell(user_row, 10, 1)
+                adding_value = wks.update_cell(user_row, 6, 1)
             else:  # updating the user's new message value
                 msg_int = int(msg_value)
-                update_msg = wks.update_cell(user_row, 10, msg_int+user_msg)
+                update_msg = wks.update_cell(user_row, 6, msg_int+1)
         except:
             print("Could not add msg value")
     except:
