@@ -378,19 +378,22 @@ async def gift(ctx, user: discord.Member):
         send_float = float(sender_credits)  # CONVERT TO FLOAT TYPE
         receiver_float = float(receiver_credits)  # CONVERT TO FLOAT TYPE
         tax_gift = tax+amount  # ADD TA WITH AMOUNT
-        update_sender = wks.update_cell(
-            sender_row, 3, send_float-tax_gift)  # UPDATING VALUES
-        update_receiver = wks.update_cell(
-            receiver_row, 3, receiver_float+amount)  # UPDATING VALUES
+        if send_float  <=-100:
+            await bot.saay("Your credits is too low right now to gift someone")
+        elif send_float => 100:
+            update_sender = wks.update_cell(
+                sender_row, 3, send_float-tax_gift)  # UPDATING VALUES
+            update_receiver = wks.update_cell(
+                receiver_row, 3, receiver_float+amount)  # UPDATING VALUES
 
-        try:
-            tax_value = wks.cell(sender_row, 7).value
-            tax_float = float(tax_value)
-            command_tax = wks.update_cell(sender_row, 7, tax_float+tax)
-        except gspread.exceptions.CellNotFound:
-            adding_tax = wks.update_cell(sender_row, 7, tax)
-        await bot.say("{} {} credits have been sent to {} from your credits".format(ctx.message.author.mention, amount, receiver_name))
-        await bot.say("{} credits have been removed from your account as tax.".format(tax))
+            try:
+                tax_value = wks.cell(sender_row, 7).value
+                tax_float = float(tax_value)
+                command_tax = wks.update_cell(sender_row, 7, tax_float+tax)
+            except gspread.exceptions.CellNotFound:
+                adding_tax = wks.update_cell(sender_row, 7, tax)
+            await bot.say("{} {} credits have been sent to {} from your credits".format(ctx.message.author.mention, amount, receiver_name))
+            await bot.say("{} credits have been removed from your account as tax.".format(tax))
 
     except gspread.exceptions.CellNotFound:
         name=user.name
@@ -404,14 +407,17 @@ async def gift(ctx, user: discord.Member):
         send_row = wks.find(send_id).row
         send_credits = wks.cell(send_row, 3).value
         send_float = float(send_credits)
-        send_update = wks.update_cell(send_row, 3, send_float-tax)
-        user_tax = wks.update_cell(send_row, 7, tax)
-        await bot.say("{} {} credits have been removed from your account as tax.".format(ctx.message.author.mention, tax))
-        try:
-            tax_value = wks.cell(sender_row, 7).value
-            command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
-        except gspread.exceptions.CellNotFound:
-            adding_tax = wks.update_cell(sender_row, 7, tax)
+        if send_float <= -100:
+            await bot.say("Your credits is too low to gift someone")
+        elif send_float => 100:
+            send_update = wks.update_cell(send_row, 3, send_float-tax)
+            user_tax = wks.update_cell(send_row, 7, tax)
+            await bot.say("{} {} credits have been removed from your account as tax.".format(ctx.message.author.mention, tax))
+            try:
+                tax_value = wks.cell(sender_row, 7).value
+                command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
+            except gspread.exceptions.CellNotFound:
+                adding_tax = wks.update_cell(sender_row, 7, tax)
 
 
 @bot.command(pass_context=True)
