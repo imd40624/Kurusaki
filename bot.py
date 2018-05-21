@@ -409,7 +409,7 @@ async def gift(ctx, user: discord.Member):
         send_float = float(send_credits)
         if send_float <= -100:
             await bot.say("Your credits is too low to gift someone")
-        elif send_float => 100:
+        elif send_float >= 100:
             send_update = wks.update_cell(send_row, 3, send_float-tax)
             user_tax = wks.update_cell(send_row, 7, tax)
             await bot.say("{} {} credits have been removed from your account as tax.".format(ctx.message.author.mention, tax))
