@@ -128,16 +128,29 @@ async def on_message(message):
     try:
         if "gay" in message.content.lower():
             await bot.add_reaction(message, emoji='👌')
+            await bot.add_reaction(message, emoji='🏳️‍🌈')
         if "yukinno" in message.content.lower():
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
             await bot.add_reaction(message, emoji='😇')
+        if "🤔" in message.content.lower():
+            await bot.add_reaction(message, emoji='🤔')
+        if "👌" in message.content.lower():
+            await bot.add_reaction(message, emoji='👌')
+        if "think" in message.content.lower():
+            await bot.add_reaction(message, emoji='🤔')
         if 'okay' in message.content.lower():
             await bot.add_reaction(message, emoji='👌')
+        if 'flower' in message.content.lower():
+            await bot.add_reaction(message, emoji='🌸')
         if 'gj' in message.content.lower():
             await bot.add_reaction(message, emoji='👏')
         if 'good job' in message.content.lower():
             await bot.add_reaction(message, emoji='👏')
+        if 'nice job' in message.content.lower():
+            await bot.add_reaction(message, emoji='👏')
+        if 'cake' in message.content.lower():
+            await bot.add_reaction(message, emoji='🍰')
         if 'goodjob' in message.content.lower():
             await bot.add_reaction(message, emoji='👏')
         if 'bye' in message.content.lower():
@@ -167,13 +180,6 @@ async def on_message(message):
     except:
         pass
     try:  # message counter for users
-#         #connecting to GSPREAD
-#         scope = ['https://spreadsheets.google.com/feeds',
-#                  'https://www.googleapis.com/auth/drive']
-#         credentials = ServiceAccountCredentials.from_json_keyfile_name(
-#             'Annie-e432eb58860b.json', scope)
-#         gc = gspread.authorize(credentials)
-#         wks = gc.open('Kurusaki_database_discord').sheet1
         try:
             user_id = message.author.id  # user's id
             user_row = wks.find(user_id).row  # finds user's row
@@ -220,6 +226,7 @@ async def say(ctx):
 
 @bot.command(pass_context=True)
 async def credits(ctx):
+    """CHECKS YOUR CREDITS"""
     scope = ['https://spreadsheets.google.com/feeds',
              'https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_name(
@@ -250,6 +257,7 @@ async def credits(ctx):
 
 @bot.command(pass_context=True)
 async def check(ctx, user: discord.Member):
+    """CHECKS ANOTHER USER'S CREDITS. Ex: s.check @kurusaki"""
     scope = ['https://spreadsheets.google.com/feeds',
              'https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_name(
@@ -336,22 +344,23 @@ async def check(ctx, user: discord.Member):
 #         await bot.say("Something went wrong")
 
 
-@bot.command(pass_context=True)
-async def rewards(ctx):  # ADD REACTIONS FOLLOWING THE REWARD TYPES
-    await bot.say("Currently only reaction rewards are available.")
-    msg = await bot.say(":rolling_eyes: :900\n:cherry_blossom: :1150\n:ok_hand: :900\n:kiss: : 900\n:thinking: :700\n:poop: : 800\n:zzz: :550\n:scream: :800\n:innocent: :2000")
-    await bot.add_reaction(msg, emoji='🌸')
-    await bot.add_reaction(msg, emoji='💋')
-    await bot.add_reaction(msg, emoji='👌')
-    await bot.add_reaction(msg, emoji='🙄')
-    await bot.add_reaction(msg, emoji='🤔')
-    await bot.add_reaction(msg, emoji='💩')
-    await bot.add_reaction(msg, emoji='😱')
-    await bot.add_reaction(msg, emoji='😇')
+# @bot.command(pass_context=True)
+# async def rewards(ctx):  # ADD REACTIONS FOLLOWING THE REWARD TYPES
+#     await bot.say("Currently only reaction rewards are available.")
+#     msg = await bot.say(":rolling_eyes: :900\n:cherry_blossom: :1150\n:ok_hand: :900\n:kiss: : 900\n:thinking: :700\n:poop: : 800\n:zzz: :550\n:scream: :800\n:innocent: :2000")
+#     await bot.add_reaction(msg, emoji='🌸')
+#     await bot.add_reaction(msg, emoji='💋')
+#     await bot.add_reaction(msg, emoji='👌')
+#     await bot.add_reaction(msg, emoji='🙄')
+#     await bot.add_reaction(msg, emoji='🤔')
+#     await bot.add_reaction(msg, emoji='💩')
+#     await bot.add_reaction(msg, emoji='😱')
+#     await bot.add_reaction(msg, emoji='😇')
 
 
 @bot.command(pass_context=True)
 async def gift(ctx, user: discord.Member):
+    """GIVES SOMEONE ELSE YOUR CREDITS """
     try:  # GIFTING A USER YOUR CREDITS TAX = 100
         tax = 100
         #user setup
@@ -677,17 +686,6 @@ async def mal(ctx):
     await bot.say(embed=embed)
     await bot.say("Summary: {}\n{}".format(summary, anime_picture))
 
-
-# @bot.command(pass_context=True)
-# async def kick(ctx, user: discord.Member):
-#     """KICKS USER THAT IS TAGGED"""
-#     if ctx.message.author.id != 185181025104560128:
-#         await bot.say("you do not have premission to kick out members.")
-#     if ctx.message.author.id == 185181025104560128:
-#         await bot.say(":boot: Bye bye, {}.".format(user.name))
-#         await bot.kick(user)
-#     else:
-#         await bot.say("Huh?")
 
 
 @bot.command(pass_context=True)
