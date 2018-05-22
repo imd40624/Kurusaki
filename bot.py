@@ -507,7 +507,7 @@ async def randomanime(ctx):
         anime_id = rq_json['mal_id']
         genres = rq_json['genres']
         gen = " ".join(genres[1:])
-        url2 = 'https://api.jikan.me/anime/{}/stats/'.format(anime_id)
+        url2 = 'https://api.jikan.moe/anime/{}/stats/'.format(anime_id)
         r2 = rq.get(url2).text
         r2j = json.loads(r2)
         summary = r2j['synopsis']
