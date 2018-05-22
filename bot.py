@@ -9,7 +9,7 @@ import datetime
 import requests as rq
 from champs import champs
 import os
-import apiai
+import apiai,apiai_set
 import image_links
 import random
 import time
