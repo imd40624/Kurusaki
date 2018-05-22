@@ -9,7 +9,7 @@ import datetime
 import requests as rq
 from champs import champs
 import os
-import apiai,apiai_set
+import apiai
 import image_links
 import random
 import time
@@ -46,6 +46,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+    import apiai_set
 #     mention = bot.user.mention
 #     if message.content.startswith(mention):
 #         anime = rq.get('https://kurusaki-webhook.herokuapp.com/').text
