@@ -41,7 +41,7 @@ async def on_ready():
 #         global random_status_game
 #         random_status_game=random.choice(games)
 #         await asyncio.sleep(2)
-    await bot.change_presence(game=discord.Game(name='Potion Maker))
+    await bot.change_presence(game=discord.Game(name='Potion Maker'))
 
 
 @bot.event
