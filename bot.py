@@ -120,6 +120,12 @@ async def on_message(message):
             emote=get(bot.get_all_emojis(), name='016')
             await bot.add_reaction(message, emoji=emote)
             await bot.add_reaction(message, emoji='🤔')
+        if "league" in message.content.lower():
+            emote=get(bot.get_all_emojis(), name='league')
+            await bot.add_reaction(message, emoji=emote)
+        if "teemo" in message.content.lower():
+            emote=get(bot.get_all_emojis(), name='teemo')
+            await bot.add_reaction(message, emoji=emote)
         if 'okay' in message.content.lower():
             await bot.add_reaction(message, emoji='👌')
         if 'flower' in message.content.lower():
