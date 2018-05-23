@@ -117,7 +117,7 @@ async def on_message(message):
         if "👌" in message.content.lower():
             await bot.add_reaction(message, emoji='👌')
         if "think" in message.content.lower():
-            emote=get(bot.get_all_emojis(), name='010')
+            emote=get(bot.get_all_emojis(), name='016')
             await bot.add_reaction(message, emoji=emote)
             await bot.add_reaction(message, emoji='🤔')
         if 'okay' in message.content.lower():
