@@ -18,6 +18,8 @@ import urllib
 import urllib.request
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from discord.utils import get
+
 
 #GETTING API KEYS FROM HEROKU
 api = os.environ["RIOT_KEY"]
@@ -115,6 +117,8 @@ async def on_message(message):
         if "👌" in message.content.lower():
             await bot.add_reaction(message, emoji='👌')
         if "think" in message.content.lower():
+            emote016=get(bot.get_all_emojis(),name='016')
+            await bot.add_reaction(message, emoji=emote010)
             await bot.add_reaction(message, emoji='🤔')
         if 'okay' in message.content.lower():
             await bot.add_reaction(message, emoji='👌')
@@ -138,6 +142,12 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='❤')
             await bot.add_reaction(message, emoji='🌸')
             await bot.add_reaction(message, emoji='😇')
+        if 'sleep' in message.content.lower():
+            await bot.add_reaction(message, emoji='💤')
+        if 'i\'m sick' in message.content.lower():
+            await bot.add_reaction(message, emoji='🤧')
+        if 'got sick' in message.content.lower():
+            await bot.add_reaction(message, emoji='🤧')
 
         re = 287369884940238849
         send_id = int(message.author.id)
