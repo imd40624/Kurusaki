@@ -50,10 +50,11 @@ async def on_ready():
 async def on_message(message):
     mention = bot.user.mention
     if message.content.startswith(mention):
-        mentioner_id=message.author.id
+        discord_name=message.author.display_name
+        discord_id=message.author.id
         raw_msg = message.content.split("{}".format(mention))
         msg = "".join(raw_msg[1:])
-        get_resp=rq.get('https://kurusaki-webhook.herokuapp.com/kurusaki/{}/{}'.format(msg,mentioner_id)).text
+        get_resp=rq.get('https://kurusaki-webhook.herokuapp.com/kurusaki/{}/{}/{}'.format(msg,discord_id,discord_name)).text
         await bot.send_message(message.channel,get_resp)
         
     scope = ['https://spreadsheets.google.com/feeds',
