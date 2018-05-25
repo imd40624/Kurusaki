@@ -46,6 +46,17 @@ async def on_ready():
     await bot.change_presence(game=discord.Game(name='Potion Maker'))
 
 
+
+
+#google spreadsheet connect
+scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
+gc = gspread.authorize(credentials)
+wks = gc.open('Kurusaki_database_discord').sheet1
+
+
+
+
 @bot.event
 async def on_message(message):
     mention = bot.user.mention
@@ -58,13 +69,6 @@ async def on_message(message):
             msg=msg.replace("?","")
         get_resp=rq.get('https://kurusaki-webhook.herokuapp.com/kurusaki/{}/{}/{}'.format(msg,discord_id,discord_name)).text
         await bot.send_message(message.channel,get_resp)
-        
-    scope = ['https://spreadsheets.google.com/feeds',
-             'https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        'Annie-e432eb58860b.json', scope)
-    gc = gspread.authorize(credentials)
-    wks = gc.open('Kurusaki_database_discord').sheet1
     try:
         msg = message.content
         user_id = message.author.id
@@ -261,12 +265,6 @@ async def say(ctx):
 @bot.command(pass_context=True)
 async def credits(ctx):
     """CHECKS YOUR CREDITS"""
-    scope = ['https://spreadsheets.google.com/feeds',
-             'https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        'Annie-e432eb58860b.json', scope)
-    gc = gspread.authorize(credentials)
-    wks = gc.open('Kurusaki_database_discord').sheet1
 
     tax = 25
     author_id = ctx.message.author.id
@@ -292,12 +290,6 @@ async def credits(ctx):
 @bot.command(pass_context=True)
 async def check(ctx, user: discord.Member):
     """CHECKS ANOTHER USER'S CREDITS. Ex: s.check @kurusaki"""
-    scope = ['https://spreadsheets.google.com/feeds',
-             'https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        'Annie-e432eb58860b.json', scope)
-    gc = gspread.authorize(credentials)
-    wks = gc.open('Kurusaki_database_discord').sheet1
     try:
 
         tax = 50
@@ -367,10 +359,6 @@ async def check(ctx, user: discord.Member):
 
 # @bot.command(pass_context=True)
 # async def scoreboard(ctx):
-#     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-#     credentials = ServiceAccountCredentials.from_json_keyfile_name('Annie-e432eb58860b.json', scope)
-#     gc = gspread.authorize(credentials)
-#     wks = gc.open('Kurusaki_database_discord').sheet1
 #     try:
 #         records=wks.get_all_records()
 #         await bot.say(records)
@@ -403,15 +391,6 @@ async def gift(ctx, user: discord.Member):
         receiver_name = user.name  # THE DISCORD USER RECEIVING THE GIFT'S NAME
         receiver = user.id  # THE DISCORD USER RECEIVING'S ID
         sender = ctx.message.author.id  # DISCORD USER THAT IS IS GIFTING
-
-        #google locations
-        scope = ['https://spreadsheets.google.com/feeds',
-                 'https://www.googleapis.com/auth/drive']
-        credentials = ServiceAccountCredentials.from_json_keyfile_name(
-            'Annie-e432eb58860b.json', scope)
-        gc = gspread.authorize(credentials)  # AUTHORIZING CREDS
-        wks = gc.open('Kurusaki_database_discord').sheet1  # WORKSHEET1
-
         #finding user row and value
         receiver_row = wks.find(receiver).row  # RECEIVER'S GSPREAD ROW
         sender_row = wks.find(sender).row  # SENDER ROW
