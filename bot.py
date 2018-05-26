@@ -653,6 +653,7 @@ async def al(ctx):
             
 @bot.command(pass_context=True)
 async def neko(ctx):
+    """GENERATES A RANDOM NEKO GIRL PICTURE. Ex: s.neko"""
     url = 'https://nekos.brussell.me/api/v1/random/image?count=1&nsfw=false'
     r=rq.get(url).text
     r_json=json.loads(r)
