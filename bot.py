@@ -69,83 +69,83 @@ async def on_message(message):
             msg=msg.replace("?","")
         get_resp=rq.get('https://kurusaki-webhook.herokuapp.com/kurusaki/{}/{}/{}'.format(msg,discord_id,discord_name)).text
         await bot.send_message(message.channel,get_resp)
-    try:
-        msg = message.content
-        user_id = message.author.id
-        name = message.author.name
-        find_user_id = wks.find(user_id)
+#     try:
+#         msg = message.content
+#         user_id = message.author.id
+#         name = message.author.name
+#         find_user_id = wks.find(user_id)
 
-        #setting up spreadsheets for updates
-        row = wks.find(user_id).row
-        points = wks.cell(row, 3).value
-        if points == "":
-            get_value=wks.update_cell(row,3,2)
-        num_points = float(points)
-        if len(msg) <= 2 and len(msg) > 0:
-            new_value = wks.update_cell(row, 3, num_points+.50)
-        if len(msg) <= 10 and len(msg) > 2:
-            new_value = wks.update_cell(row, 3, num_points+.60)
-        if len(msg) <= 20 and len(msg) > 10:
-            new_value = wks.update_cell(row, 3, num_points+1.20)
-        if len(msg) <= 30 and len(msg) > 20:
-            new_value = wks.update_cell(row, 3, num_points+2.75)
-        if len(msg) <= 40 and len(msg) > 30:
-            new_value = wks.update_cell(row, 3, num_points+3.00)
-        if len(msg) <= 50 and len(msg) > 40:
-            new_value = wks.update_cell(row, 3, num_points+2.00)
-        if len(msg) <= 60 and len(msg) > 50:
-            new_value = wks.update_cell(row, 3, num_points+4.50)
-        if len(msg) <= 70 and len(msg) > 60:
-            new_value = wks.update_cell(row, 3, num_points+6.00)
-        if len(msg) <= 80 and len(msg) > 70:
-            new_value = wks.update_cell(row, 3, num_points+7.50)
-        if len(msg) <= 90 and len(msg) > 80:
-            new_value = wks.update_cell(row, 3, num_points+9.20)
-        if len(msg) <= 100 and len(msg) > 90:
-            new_value = wks.update_cell(row, 3, num_points+10.55)
-        if len(msg) <= 110 and len(msg) > 100:
-            new_value = wks.update_cell(row, 3, num_points+12.20)
-        if len(msg) <= 120 and len(msg) > 110:
-            new_value = wks.update_cell(row, 3, num_points+16.20)
-        if len(msg) <= 130 and len(msg) > 120:
-            new_value = wks.update_cell(row, 3, num_points+20.70)
-        if len(msg) <= 140 and len(msg) > 130:
-            new_value = wks.update_cell(row, 3, num_points+27.20)
-        if len(msg) <= 150 and len(msg) > 140:
-            new_value = wks.update_cell(row, 3, num_points+34.20)
-        if len(msg) <= 160 and len(msg) > 150:
-            new_value = wks.update_cell(row, 3, num_points+39.20)
-        if len(msg) <= 170 and len(msg) > 160:
-            new_value = wks.update_cell(row, 3, num_points+44.20)
-        if len(msg) <= 180 and len(msg) > 170:
-            new_value = wks.update_cell(row, 3, num_points+49.60)
-        if len(msg) <= 190 and len(msg) > 180:
-            new_value = wks.update_cell(row, 3, num_points+55.20)
-        if len(msg) <= 200 and len(msg) > 190:
-            new_value = wks.update_cell(row, 3, num_points+63.20)
-        if len(msg) <= 210 and len(msg) > 200:
-            new_value = wks.update_cell(row, 3, num_points+79.20)
-        if len(msg) <= 220 and len(msg) > 210:
-            new_value = wks.update_cell(row, 3, num_points+87.20)
-        if len(msg) <= 230 and len(msg) > 220:
-            new_value = wks.update_cell(row, 3, num_points+109.99)
-        if len(msg) <= 240 and len(msg) > 230:
-            new_value = wks.update_cell(row, 3, num_points+130.20)
-        if len(msg) <= 250 and len(msg) > 240:
-            new_value = wks.update_cell(row, 3, num_points+154.20)
-        if len(msg) <= 260 and len(msg) > 250:
-            new_value = wks.update_cell(row, 3, num_points+178.20)
-        if len(msg) <= 270 and len(msg) > 260:
-            new_value = wks.update_cell(row, 3, num_points+210.20)
-        if len(msg) <= 280 and len(msg) > 270:
-            new_value = wks.update_cell(row, 3, num_points+250.20)
-        if len(msg) <= 290 and len(msg) > 280:
-            new_value = wks.update_cell(row, 3, num_points+277.20)
-        if len(msg) <= 500 and len(msg) > 300:
-            new_value = wks.update_cell(row, 3, num_points+440.20)
-    except gspread.exceptions.CellNotFound:
-        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name, name))
-        adding_user = wks.append_row([name, user_id, 2.00])
+#         #setting up spreadsheets for updates
+#         row = wks.find(user_id).row
+#         points = wks.cell(row, 3).value
+#         if points == "":
+#             get_value=wks.update_cell(row,3,2)
+#         num_points = float(points)
+#         if len(msg) <= 2 and len(msg) > 0:
+#             new_value = wks.update_cell(row, 3, num_points+.50)
+#         if len(msg) <= 10 and len(msg) > 2:
+#             new_value = wks.update_cell(row, 3, num_points+.60)
+#         if len(msg) <= 20 and len(msg) > 10:
+#             new_value = wks.update_cell(row, 3, num_points+1.20)
+#         if len(msg) <= 30 and len(msg) > 20:
+#             new_value = wks.update_cell(row, 3, num_points+2.75)
+#         if len(msg) <= 40 and len(msg) > 30:
+#             new_value = wks.update_cell(row, 3, num_points+3.00)
+#         if len(msg) <= 50 and len(msg) > 40:
+#             new_value = wks.update_cell(row, 3, num_points+2.00)
+#         if len(msg) <= 60 and len(msg) > 50:
+#             new_value = wks.update_cell(row, 3, num_points+4.50)
+#         if len(msg) <= 70 and len(msg) > 60:
+#             new_value = wks.update_cell(row, 3, num_points+6.00)
+#         if len(msg) <= 80 and len(msg) > 70:
+#             new_value = wks.update_cell(row, 3, num_points+7.50)
+#         if len(msg) <= 90 and len(msg) > 80:
+#             new_value = wks.update_cell(row, 3, num_points+9.20)
+#         if len(msg) <= 100 and len(msg) > 90:
+#             new_value = wks.update_cell(row, 3, num_points+10.55)
+#         if len(msg) <= 110 and len(msg) > 100:
+#             new_value = wks.update_cell(row, 3, num_points+12.20)
+#         if len(msg) <= 120 and len(msg) > 110:
+#             new_value = wks.update_cell(row, 3, num_points+16.20)
+#         if len(msg) <= 130 and len(msg) > 120:
+#             new_value = wks.update_cell(row, 3, num_points+20.70)
+#         if len(msg) <= 140 and len(msg) > 130:
+#             new_value = wks.update_cell(row, 3, num_points+27.20)
+#         if len(msg) <= 150 and len(msg) > 140:
+#             new_value = wks.update_cell(row, 3, num_points+34.20)
+#         if len(msg) <= 160 and len(msg) > 150:
+#             new_value = wks.update_cell(row, 3, num_points+39.20)
+#         if len(msg) <= 170 and len(msg) > 160:
+#             new_value = wks.update_cell(row, 3, num_points+44.20)
+#         if len(msg) <= 180 and len(msg) > 170:
+#             new_value = wks.update_cell(row, 3, num_points+49.60)
+#         if len(msg) <= 190 and len(msg) > 180:
+#             new_value = wks.update_cell(row, 3, num_points+55.20)
+#         if len(msg) <= 200 and len(msg) > 190:
+#             new_value = wks.update_cell(row, 3, num_points+63.20)
+#         if len(msg) <= 210 and len(msg) > 200:
+#             new_value = wks.update_cell(row, 3, num_points+79.20)
+#         if len(msg) <= 220 and len(msg) > 210:
+#             new_value = wks.update_cell(row, 3, num_points+87.20)
+#         if len(msg) <= 230 and len(msg) > 220:
+#             new_value = wks.update_cell(row, 3, num_points+109.99)
+#         if len(msg) <= 240 and len(msg) > 230:
+#             new_value = wks.update_cell(row, 3, num_points+130.20)
+#         if len(msg) <= 250 and len(msg) > 240:
+#             new_value = wks.update_cell(row, 3, num_points+154.20)
+#         if len(msg) <= 260 and len(msg) > 250:
+#             new_value = wks.update_cell(row, 3, num_points+178.20)
+#         if len(msg) <= 270 and len(msg) > 260:
+#             new_value = wks.update_cell(row, 3, num_points+210.20)
+#         if len(msg) <= 280 and len(msg) > 270:
+#             new_value = wks.update_cell(row, 3, num_points+250.20)
+#         if len(msg) <= 290 and len(msg) > 280:
+#             new_value = wks.update_cell(row, 3, num_points+277.20)
+#         if len(msg) <= 500 and len(msg) > 300:
+#             new_value = wks.update_cell(row, 3, num_points+440.20)
+#     except gspread.exceptions.CellNotFound:
+#         print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name, name))
+#         adding_user = wks.append_row([name, user_id, 2.00])
     
    
     #reacting to discord user's message
@@ -217,21 +217,21 @@ async def on_message(message):
             await bot.add_reaction(message, emoji='💩')
     except:
         pass
-    try:  # message counter for users
-        try:
-            user_id = message.author.id  # user's id
-            user_row = wks.find(user_id).row  # finds user's row
-            msg_value = wks.cell(user_row, 6).value  # get user's msg value
-            if msg_value == "":  # check if the user has empty value
-                # if user value is empty add value =1
-                adding_value = wks.update_cell(user_row, 6, 1)
-            else:  # updating the user's new message value
-                msg_int = int(msg_value)
-                update_msg = wks.update_cell(user_row, 6, msg_int+1)
-        except:
-            print("Could not add msg value")
-    except:
-        print("Could not connect to google spreadsheet")
+#     try:  # message counter for users
+#         try:
+#             user_id = message.author.id  # user's id
+#             user_row = wks.find(user_id).row  # finds user's row
+#             msg_value = wks.cell(user_row, 6).value  # get user's msg value
+#             if msg_value == "":  # check if the user has empty value
+#                 # if user value is empty add value =1
+#                 adding_value = wks.update_cell(user_row, 6, 1)
+#             else:  # updating the user's new message value
+#                 msg_int = int(msg_value)
+#                 update_msg = wks.update_cell(user_row, 6, msg_int+1)
+#         except:
+#             print("Could not add msg value")
+#     except:
+#         print("Could not connect to google spreadsheet")
     await bot.process_commands(message)
 
 
@@ -262,99 +262,99 @@ async def say(ctx):
     await bot.delete_message(msg_id)
 
 
-@bot.command(pass_context=True)
-async def credits(ctx):
-    """CHECKS YOUR CREDITS"""
+# @bot.command(pass_context=True)
+# async def credits(ctx):
+#     """CHECKS YOUR CREDITS"""
 
-    tax = 25
-    author_id = ctx.message.author.id
-    row = wks.find(author_id).row
-    cred = wks.cell(row, 3).value
-    cred_float = float(cred)
-    msg = await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention, cred))
-    try:
-        if cred_float > 1200:
-            await bot.add_reaction(msg, emoji='💲')
-        if cred_float > 2300:
-            await bot.add_reaction(msg, emoji='💸')
-        if cred_float > 3400:
-            await bot.add_reaction(msg, emoji='🤑')
-        if cred_float > 4200:
-            await bot.add_reaction(msg, emoji='💵')
-        if cred_float > 5300:
-            await bot.add_reaction(msg, emoji='💰')
-    except:
-        await bot.say("Something went wrong while trying to react to your message")
+#     tax = 25
+#     author_id = ctx.message.author.id
+#     row = wks.find(author_id).row
+#     cred = wks.cell(row, 3).value
+#     cred_float = float(cred)
+#     msg = await bot.say("{} You have a total of {} credits".format(ctx.message.author.mention, cred))
+#     try:
+#         if cred_float > 1200:
+#             await bot.add_reaction(msg, emoji='💲')
+#         if cred_float > 2300:
+#             await bot.add_reaction(msg, emoji='💸')
+#         if cred_float > 3400:
+#             await bot.add_reaction(msg, emoji='🤑')
+#         if cred_float > 4200:
+#             await bot.add_reaction(msg, emoji='💵')
+#         if cred_float > 5300:
+#             await bot.add_reaction(msg, emoji='💰')
+#     except:
+#         await bot.say("Something went wrong while trying to react to your message")
 
 
-@bot.command(pass_context=True)
-async def check(ctx, user: discord.Member):
-    """CHECKS ANOTHER USER'S CREDITS. Ex: s.check @kurusaki"""
-    try:
+# @bot.command(pass_context=True)
+# async def check(ctx, user: discord.Member):
+#     """CHECKS ANOTHER USER'S CREDITS. Ex: s.check @kurusaki"""
+#     try:
 
-        tax = 50
-        checker = ctx.message.author.id  # pserson who is checking someone's credits
-        target_id = user.id  # the person that is getting his/her credits checked
-        target_name = user.name  # target's name
-        target_row = wks.find(target_id).row  # target's row
-        checker_row = wks.find(checker).row  # checker's row
-        target_credits = wks.cell(target_row, 3).value  # target's value
-        checker_credits = wks.cell(checker_row, 3).value
-        checker_float = float(checker_credits)  # checker's credits in float
-        target_float = float(target_credits)  # target's credits in float
-        update_checker = wks.update_cell(
-            checker_row, 3, checker_float-tax)  # taxing the checker
-        msg = await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits, tax))
+#         tax = 50
+#         checker = ctx.message.author.id  # pserson who is checking someone's credits
+#         target_id = user.id  # the person that is getting his/her credits checked
+#         target_name = user.name  # target's name
+#         target_row = wks.find(target_id).row  # target's row
+#         checker_row = wks.find(checker).row  # checker's row
+#         target_credits = wks.cell(target_row, 3).value  # target's value
+#         checker_credits = wks.cell(checker_row, 3).value
+#         checker_float = float(checker_credits)  # checker's credits in float
+#         target_float = float(target_credits)  # target's credits in float
+#         update_checker = wks.update_cell(
+#             checker_row, 3, checker_float-tax)  # taxing the checker
+#         msg = await bot.say("{} The user {} has a total of {} credits.\n{} credits have been removed from you as tax.".format(ctx.message.author.mention, target_name, target_credits, tax))
 
-        #reacting to high credits
-        if target_float > 1200:
-            await bot.add_reaction(msg, emoji='💲')
-        if target_float > 2300:
-            await bot.add_reaction(msg, emoji='💸')
-        if target_float > 3400:
-            await bot.add_reaction(msg, emoji='🤑')
-        if target_float > 4200:
-            await bot.add_reaction(msg, emoji='💵')
-        if target_float > 5300:
-            await bot.add_reaction(msg, emoji='💰')
-        try:
-            # updating the user's  tax
-            checker_tax_value = wks.cell(
-                checker_row, 7).value  # current tax value
-            tax_float = float(checker_tax_value)  # tax value into float
-            # updating the new tax value
-            updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
-        except:
-            new_tax = wks.update_cell(checker_row, 7, tax)
-            print("User had no current tax value, so it was added")
+#         #reacting to high credits
+#         if target_float > 1200:
+#             await bot.add_reaction(msg, emoji='💲')
+#         if target_float > 2300:
+#             await bot.add_reaction(msg, emoji='💸')
+#         if target_float > 3400:
+#             await bot.add_reaction(msg, emoji='🤑')
+#         if target_float > 4200:
+#             await bot.add_reaction(msg, emoji='💵')
+#         if target_float > 5300:
+#             await bot.add_reaction(msg, emoji='💰')
+#         try:
+#             # updating the user's  tax
+#             checker_tax_value = wks.cell(
+#                 checker_row, 7).value  # current tax value
+#             tax_float = float(checker_tax_value)  # tax value into float
+#             # updating the new tax value
+#             updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
+#         except:
+#             new_tax = wks.update_cell(checker_row, 7, tax)
+#             print("User had no current tax value, so it was added")
 
-    except gspread.exceptions.CellNotFound:  # if user has no database in gspread
-        tax = 35
-        checker = ctx.message.author.id  # checker id
-        checker_row = wks.find(checker).row  # checker's row
-        # checker's credits value
-        checker_credits = wks.cell(checker_row, 3).value
-        checker_float = float(checker_credits)  # checker credits float
-        await bot.say("User {} is not in database".format(target_name))
-        await bot.say("Attempting to adding user to database")
-        # adding value to no existing user
-        adding_user = wks.append_row([target_name, target_id, 55.00])
-        update_checker = wks.update_cell(
-            checker_row, 3, checker_float-tax)  # taxing user
-        await bot.say("{} now has 55.00 credits".format(target_name))
-        await bot.say("{} credits has been removed from your account as tax.".format(tax))
+#     except gspread.exceptions.CellNotFound:  # if user has no database in gspread
+#         tax = 35
+#         checker = ctx.message.author.id  # checker id
+#         checker_row = wks.find(checker).row  # checker's row
+#         # checker's credits value
+#         checker_credits = wks.cell(checker_row, 3).value
+#         checker_float = float(checker_credits)  # checker credits float
+#         await bot.say("User {} is not in database".format(target_name))
+#         await bot.say("Attempting to adding user to database")
+#         # adding value to no existing user
+#         adding_user = wks.append_row([target_name, target_id, 55.00])
+#         update_checker = wks.update_cell(
+#             checker_row, 3, checker_float-tax)  # taxing user
+#         await bot.say("{} now has 55.00 credits".format(target_name))
+#         await bot.say("{} credits has been removed from your account as tax.".format(tax))
 
-        try:  # updating the user's tax
-            checker_tax_value = wks.cell(
-                checker_row, 7).value  # checker's tax value
-            if checker_tax_value == "":
-                new_tax = wks.update_cell(checker_row, 7, tax)
-            else:  # ADD A NEW TAX VALUE IF IT IS BLANK
-                tax_float = float(checker_tax_value)
-                updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
-        except:
-            print("Unable to add the user{} to tax database ".format(
-                ctx.message.name))
+#         try:  # updating the user's tax
+#             checker_tax_value = wks.cell(
+#                 checker_row, 7).value  # checker's tax value
+#             if checker_tax_value == "":
+#                 new_tax = wks.update_cell(checker_row, 7, tax)
+#             else:  # ADD A NEW TAX VALUE IF IT IS BLANK
+#                 tax_float = float(checker_tax_value)
+#                 updating_tax = wks.update_cell(checker_row, 7, tax_float+tax)
+#         except:
+#             print("Unable to add the user{} to tax database ".format(
+#                 ctx.message.name))
 
 
 # @bot.command(pass_context=True)
@@ -380,65 +380,65 @@ async def check(ctx, user: discord.Member):
 #     await bot.add_reaction(msg, emoji='😇')
 
 
-@bot.command(pass_context=True)
-async def gift(ctx, user: discord.Member):
-    """GIVES SOMEONE ELSE YOUR CREDITS """
-    try:  # GIFTING A USER YOUR CREDITS TAX = 100
-        tax = 100
-        #user setup
-        amount = 200  # GIFTING AMOUNT
-        sender_name = ctx.message.author.name  # THE PERSON GIFTING'S DISCORD NAME
-        receiver_name = user.name  # THE DISCORD USER RECEIVING THE GIFT'S NAME
-        receiver = user.id  # THE DISCORD USER RECEIVING'S ID
-        sender = ctx.message.author.id  # DISCORD USER THAT IS IS GIFTING
-        #finding user row and value
-        receiver_row = wks.find(receiver).row  # RECEIVER'S GSPREAD ROW
-        sender_row = wks.find(sender).row  # SENDER ROW
-        sender_credits = wks.cell(sender_row, 3).value  # VALUE OF CREDITS
-        receiver_credits = wks.cell(receiver_row, 3).value  # VALUE OF CREDITS
-        send_float = float(sender_credits)  # CONVERT TO FLOAT TYPE
-        receiver_float = float(receiver_credits)  # CONVERT TO FLOAT TYPE
-        tax_gift = tax+amount  # ADD TA WITH AMOUNT
-        if send_float  <=-100:
-            await bot.saay("Your credits is too low right now to gift someone")
-        elif send_float >= 100:
-            update_sender = wks.update_cell(
-                sender_row, 3, send_float-tax_gift)  # UPDATING VALUES
-            update_receiver = wks.update_cell(
-                receiver_row, 3, receiver_float+amount)  # UPDATING VALUES
+# @bot.command(pass_context=True)
+# async def gift(ctx, user: discord.Member):
+#     """GIVES SOMEONE ELSE YOUR CREDITS """
+#     try:  # GIFTING A USER YOUR CREDITS TAX = 100
+#         tax = 100
+#         #user setup
+#         amount = 200  # GIFTING AMOUNT
+#         sender_name = ctx.message.author.name  # THE PERSON GIFTING'S DISCORD NAME
+#         receiver_name = user.name  # THE DISCORD USER RECEIVING THE GIFT'S NAME
+#         receiver = user.id  # THE DISCORD USER RECEIVING'S ID
+#         sender = ctx.message.author.id  # DISCORD USER THAT IS IS GIFTING
+#         #finding user row and value
+#         receiver_row = wks.find(receiver).row  # RECEIVER'S GSPREAD ROW
+#         sender_row = wks.find(sender).row  # SENDER ROW
+#         sender_credits = wks.cell(sender_row, 3).value  # VALUE OF CREDITS
+#         receiver_credits = wks.cell(receiver_row, 3).value  # VALUE OF CREDITS
+#         send_float = float(sender_credits)  # CONVERT TO FLOAT TYPE
+#         receiver_float = float(receiver_credits)  # CONVERT TO FLOAT TYPE
+#         tax_gift = tax+amount  # ADD TA WITH AMOUNT
+#         if send_float  <=-100:
+#             await bot.saay("Your credits is too low right now to gift someone")
+#         elif send_float >= 100:
+#             update_sender = wks.update_cell(
+#                 sender_row, 3, send_float-tax_gift)  # UPDATING VALUES
+#             update_receiver = wks.update_cell(
+#                 receiver_row, 3, receiver_float+amount)  # UPDATING VALUES
 
-            try:
-                tax_value = wks.cell(sender_row, 7).value
-                tax_float = float(tax_value)
-                command_tax = wks.update_cell(sender_row, 7, tax_float+tax)
-            except gspread.exceptions.CellNotFound:
-                adding_tax = wks.update_cell(sender_row, 7, tax)
-            await bot.say("{} {} credits have been sent to {} from your credits".format(ctx.message.author.mention, amount, receiver_name))
-            await bot.say("{} credits have been removed from your account as tax.".format(tax))
+#             try:
+#                 tax_value = wks.cell(sender_row, 7).value
+#                 tax_float = float(tax_value)
+#                 command_tax = wks.update_cell(sender_row, 7, tax_float+tax)
+#             except gspread.exceptions.CellNotFound:
+#                 adding_tax = wks.update_cell(sender_row, 7, tax)
+#             await bot.say("{} {} credits have been sent to {} from your credits".format(ctx.message.author.mention, amount, receiver_name))
+#             await bot.say("{} credits have been removed from your account as tax.".format(tax))
 
-    except gspread.exceptions.CellNotFound:
-        name=user.name
-        user_id=user.id
-        tax = 25
-        await bot.say("Dscord user {} has no credits data".format(receiver_name))
-        await bot.say("Attempting to add the data")
-        adding_user = wks.append_row([name, user_id, 55.00])
-        await bot.say("The user {} now has 55.00 credits.".format(receiver_name))
-        send_id = ctx.message.author.id
-        send_row = wks.find(send_id).row
-        send_credits = wks.cell(send_row, 3).value
-        send_float = float(send_credits)
-        if send_float <= -100:
-            await bot.say("Your credits is too low to gift someone")
-        elif send_float >= 100:
-            send_update = wks.update_cell(send_row, 3, send_float-tax)
-            user_tax = wks.update_cell(send_row, 7, tax)
-            await bot.say("{} {} credits have been removed from your account as tax.".format(ctx.message.author.mention, tax))
-            try:
-                tax_value = wks.cell(sender_row, 7).value
-                command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
-            except gspread.exceptions.CellNotFound:
-                adding_tax = wks.update_cell(sender_row, 7, tax)
+#     except gspread.exceptions.CellNotFound:
+#         name=user.name
+#         user_id=user.id
+#         tax = 25
+#         await bot.say("Dscord user {} has no credits data".format(receiver_name))
+#         await bot.say("Attempting to add the data")
+#         adding_user = wks.append_row([name, user_id, 55.00])
+#         await bot.say("The user {} now has 55.00 credits.".format(receiver_name))
+#         send_id = ctx.message.author.id
+#         send_row = wks.find(send_id).row
+#         send_credits = wks.cell(send_row, 3).value
+#         send_float = float(send_credits)
+#         if send_float <= -100:
+#             await bot.say("Your credits is too low to gift someone")
+#         elif send_float >= 100:
+#             send_update = wks.update_cell(send_row, 3, send_float-tax)
+#             user_tax = wks.update_cell(send_row, 7, tax)
+#             await bot.say("{} {} credits have been removed from your account as tax.".format(ctx.message.author.mention, tax))
+#             try:
+#                 tax_value = wks.cell(sender_row, 7).value
+#                 command_tax = wks.update_cell(sender_row, 7, tax_value+tax)
+#             except gspread.exceptions.CellNotFound:
+#                 adding_tax = wks.update_cell(sender_row, 7, tax)
 
 
 @bot.command(pass_context=True)
