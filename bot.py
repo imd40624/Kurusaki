@@ -648,6 +648,17 @@ async def al(ctx):
         if not_json['data']['Page']['pageInfo']['lastPage'] == 0:
             await bot.say("Anime {} is not found.".format(new_msg))
 
+            
+            
+            
+@bot.command(pass_context=True)
+async def neko(ctx):
+    url = 'https://nekos.brussell.me/api/v1/random/image?count=1&nsfw=false'
+    r=rq.get(url).text
+    r_json=json.loads(r)
+    pic = 'https://nekos.moe/thumbnail/{}'.format(r_json['images'][0]['id'])
+    await bot.say(pic)
+
 
 @bot.command(pass_context=True)
 async def mal(ctx):
