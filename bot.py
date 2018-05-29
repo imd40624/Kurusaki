@@ -58,94 +58,94 @@ wks = gc.open('Kurusaki_database_discord').sheet1
 
 
 @bot.event
-async def on_message(message):
-    mention = bot.user.mention
-    if message.content.startswith(mention):
-        discord_name=message.author.display_name
-        discord_id=message.author.id
-        raw_msg = message.content.split("{}".format(mention))
-        msg = "".join(raw_msg[1:])
-        if "?" in msg:
-            msg=msg.replace("?","")
-        get_resp=rq.get('https://kurusaki-webhook.herokuapp.com/kurusaki/{}/{}/{}'.format(msg,discord_id,discord_name)).text
-        await bot.send_message(message.channel,get_resp)
-    try:
-        msg = message.content
-        user_id = message.author.id
-        name = message.author.name
-        find_user_id = wks.find(user_id)
+# async def on_message(message):
+#     mention = bot.user.mention
+#     if message.content.startswith(mention):
+#         discord_name=message.author.display_name
+#         discord_id=message.author.id
+#         raw_msg = message.content.split("{}".format(mention))
+#         msg = "".join(raw_msg[1:])
+#         if "?" in msg:
+#             msg=msg.replace("?","")
+#         get_resp=rq.get('https://kurusaki-webhook.herokuapp.com/kurusaki/{}/{}/{}'.format(msg,discord_id,discord_name)).text
+#         await bot.send_message(message.channel,get_resp)
+#     try:
+#         msg = message.content
+#         user_id = message.author.id
+#         name = message.author.name
+#         find_user_id = wks.find(user_id)
 
-        #setting up spreadsheets for updates
-        row = wks.find(user_id).row
-        points = wks.cell(row, 3).value
-        if points == "":
-            get_value=wks.update_cell(row,3,2)
-        num_points = float(points)
-        if len(msg) <= 2 and len(msg) > 0:
-            new_value = wks.update_cell(row, 3, num_points+.50)
-        if len(msg) <= 10 and len(msg) > 2:
-            new_value = wks.update_cell(row, 3, num_points+.60)
-        if len(msg) <= 20 and len(msg) > 10:
-            new_value = wks.update_cell(row, 3, num_points+1.20)
-        if len(msg) <= 30 and len(msg) > 20:
-            new_value = wks.update_cell(row, 3, num_points+2.75)
-        if len(msg) <= 40 and len(msg) > 30:
-            new_value = wks.update_cell(row, 3, num_points+3.00)
-        if len(msg) <= 50 and len(msg) > 40:
-            new_value = wks.update_cell(row, 3, num_points+2.00)
-        if len(msg) <= 60 and len(msg) > 50:
-            new_value = wks.update_cell(row, 3, num_points+4.50)
-        if len(msg) <= 70 and len(msg) > 60:
-            new_value = wks.update_cell(row, 3, num_points+6.00)
-        if len(msg) <= 80 and len(msg) > 70:
-            new_value = wks.update_cell(row, 3, num_points+7.50)
-        if len(msg) <= 90 and len(msg) > 80:
-            new_value = wks.update_cell(row, 3, num_points+9.20)
-        if len(msg) <= 100 and len(msg) > 90:
-            new_value = wks.update_cell(row, 3, num_points+10.55)
-        if len(msg) <= 110 and len(msg) > 100:
-            new_value = wks.update_cell(row, 3, num_points+12.20)
-        if len(msg) <= 120 and len(msg) > 110:
-            new_value = wks.update_cell(row, 3, num_points+16.20)
-        if len(msg) <= 130 and len(msg) > 120:
-            new_value = wks.update_cell(row, 3, num_points+20.70)
-        if len(msg) <= 140 and len(msg) > 130:
-            new_value = wks.update_cell(row, 3, num_points+27.20)
-        if len(msg) <= 150 and len(msg) > 140:
-            new_value = wks.update_cell(row, 3, num_points+34.20)
-        if len(msg) <= 160 and len(msg) > 150:
-            new_value = wks.update_cell(row, 3, num_points+39.20)
-        if len(msg) <= 170 and len(msg) > 160:
-            new_value = wks.update_cell(row, 3, num_points+44.20)
-        if len(msg) <= 180 and len(msg) > 170:
-            new_value = wks.update_cell(row, 3, num_points+49.60)
-        if len(msg) <= 190 and len(msg) > 180:
-            new_value = wks.update_cell(row, 3, num_points+55.20)
-        if len(msg) <= 200 and len(msg) > 190:
-            new_value = wks.update_cell(row, 3, num_points+63.20)
-        if len(msg) <= 210 and len(msg) > 200:
-            new_value = wks.update_cell(row, 3, num_points+79.20)
-        if len(msg) <= 220 and len(msg) > 210:
-            new_value = wks.update_cell(row, 3, num_points+87.20)
-        if len(msg) <= 230 and len(msg) > 220:
-            new_value = wks.update_cell(row, 3, num_points+109.99)
-        if len(msg) <= 240 and len(msg) > 230:
-            new_value = wks.update_cell(row, 3, num_points+130.20)
-        if len(msg) <= 250 and len(msg) > 240:
-            new_value = wks.update_cell(row, 3, num_points+154.20)
-        if len(msg) <= 260 and len(msg) > 250:
-            new_value = wks.update_cell(row, 3, num_points+178.20)
-        if len(msg) <= 270 and len(msg) > 260:
-            new_value = wks.update_cell(row, 3, num_points+210.20)
-        if len(msg) <= 280 and len(msg) > 270:
-            new_value = wks.update_cell(row, 3, num_points+250.20)
-        if len(msg) <= 290 and len(msg) > 280:
-            new_value = wks.update_cell(row, 3, num_points+277.20)
-        if len(msg) <= 500 and len(msg) > 300:
-            new_value = wks.update_cell(row, 3, num_points+440.20)
-    except gspread.exceptions.CellNotFound:
-        print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name, name))
-        adding_user = wks.append_row([name, user_id, 2.00])
+#         #setting up spreadsheets for updates
+#         row = wks.find(user_id).row
+#         points = wks.cell(row, 3).value
+#         if points == "":
+#             get_value=wks.update_cell(row,3,2)
+#         num_points = float(points)
+#         if len(msg) <= 2 and len(msg) > 0:
+#             new_value = wks.update_cell(row, 3, num_points+.50)
+#         if len(msg) <= 10 and len(msg) > 2:
+#             new_value = wks.update_cell(row, 3, num_points+.60)
+#         if len(msg) <= 20 and len(msg) > 10:
+#             new_value = wks.update_cell(row, 3, num_points+1.20)
+#         if len(msg) <= 30 and len(msg) > 20:
+#             new_value = wks.update_cell(row, 3, num_points+2.75)
+#         if len(msg) <= 40 and len(msg) > 30:
+#             new_value = wks.update_cell(row, 3, num_points+3.00)
+#         if len(msg) <= 50 and len(msg) > 40:
+#             new_value = wks.update_cell(row, 3, num_points+2.00)
+#         if len(msg) <= 60 and len(msg) > 50:
+#             new_value = wks.update_cell(row, 3, num_points+4.50)
+#         if len(msg) <= 70 and len(msg) > 60:
+#             new_value = wks.update_cell(row, 3, num_points+6.00)
+#         if len(msg) <= 80 and len(msg) > 70:
+#             new_value = wks.update_cell(row, 3, num_points+7.50)
+#         if len(msg) <= 90 and len(msg) > 80:
+#             new_value = wks.update_cell(row, 3, num_points+9.20)
+#         if len(msg) <= 100 and len(msg) > 90:
+#             new_value = wks.update_cell(row, 3, num_points+10.55)
+#         if len(msg) <= 110 and len(msg) > 100:
+#             new_value = wks.update_cell(row, 3, num_points+12.20)
+#         if len(msg) <= 120 and len(msg) > 110:
+#             new_value = wks.update_cell(row, 3, num_points+16.20)
+#         if len(msg) <= 130 and len(msg) > 120:
+#             new_value = wks.update_cell(row, 3, num_points+20.70)
+#         if len(msg) <= 140 and len(msg) > 130:
+#             new_value = wks.update_cell(row, 3, num_points+27.20)
+#         if len(msg) <= 150 and len(msg) > 140:
+#             new_value = wks.update_cell(row, 3, num_points+34.20)
+#         if len(msg) <= 160 and len(msg) > 150:
+#             new_value = wks.update_cell(row, 3, num_points+39.20)
+#         if len(msg) <= 170 and len(msg) > 160:
+#             new_value = wks.update_cell(row, 3, num_points+44.20)
+#         if len(msg) <= 180 and len(msg) > 170:
+#             new_value = wks.update_cell(row, 3, num_points+49.60)
+#         if len(msg) <= 190 and len(msg) > 180:
+#             new_value = wks.update_cell(row, 3, num_points+55.20)
+#         if len(msg) <= 200 and len(msg) > 190:
+#             new_value = wks.update_cell(row, 3, num_points+63.20)
+#         if len(msg) <= 210 and len(msg) > 200:
+#             new_value = wks.update_cell(row, 3, num_points+79.20)
+#         if len(msg) <= 220 and len(msg) > 210:
+#             new_value = wks.update_cell(row, 3, num_points+87.20)
+#         if len(msg) <= 230 and len(msg) > 220:
+#             new_value = wks.update_cell(row, 3, num_points+109.99)
+#         if len(msg) <= 240 and len(msg) > 230:
+#             new_value = wks.update_cell(row, 3, num_points+130.20)
+#         if len(msg) <= 250 and len(msg) > 240:
+#             new_value = wks.update_cell(row, 3, num_points+154.20)
+#         if len(msg) <= 260 and len(msg) > 250:
+#             new_value = wks.update_cell(row, 3, num_points+178.20)
+#         if len(msg) <= 270 and len(msg) > 260:
+#             new_value = wks.update_cell(row, 3, num_points+210.20)
+#         if len(msg) <= 280 and len(msg) > 270:
+#             new_value = wks.update_cell(row, 3, num_points+250.20)
+#         if len(msg) <= 290 and len(msg) > 280:
+#             new_value = wks.update_cell(row, 3, num_points+277.20)
+#         if len(msg) <= 500 and len(msg) > 300:
+#             new_value = wks.update_cell(row, 3, num_points+440.20)
+#     except gspread.exceptions.CellNotFound:
+#         print("Discord {} is not in Kurusaki's database yet.\nAttempting to add {} to database.".format(name, name))
+#         adding_user = wks.append_row([name, user_id, 2.00])
     
    
     #reacting to discord user's message
