@@ -235,11 +235,11 @@ async def on_message(message):
     await bot.process_commands(message)
 
 
-@bot.command(pass_context=True)
-async def ping(ctx):
-    """PINGS THE BOT"""
-    await bot.say(":ping_pong: ping!!")
-    print("user has pinged")
+# @bot.command(pass_context=True)
+# async def ping(ctx):
+#     """PINGS THE BOT"""
+#     await bot.say(":ping_pong: ping!!")
+#     print("user has pinged")
 
 
 @bot.command(pass_context=True)
@@ -491,7 +491,7 @@ async def logout(ctx):
 async def dice(ctx):
     """GENERATES A RANDOM BETWEEN 1-6"""
     r = random.choice(range(1, 7))
-    await bot.say("{}".format(r))
+    await bot.say("**{}**".format(r))
 
 
 @bot.command(pass_context=True)
@@ -533,7 +533,7 @@ async def randomanime(ctx):
         r2 = rq.get(url2).text
         r2j = json.loads(r2)
         summary = r2j['synopsis']
-        await bot.say("Title: {}\nGenres: {}\nSynopsis: {}".format(title, gen, summary))
+        await bot.say("**Title**: {}\n**Genres**: {}\n**Synopsis**: {}".format(title, gen, summary))
 
 
 @bot.command(pass_context=True)
@@ -548,7 +548,7 @@ async def randommovie(ctx):
         runtime = rq_json['runtime']
         genres = rq_json['genres']
         gen = " ".join(genres[1:])
-        await bot.say("Title: {}\nGenres: {}\nLength: {} Minutes\nSynopsis: {}".format(title, gen, runtime, summary))
+        await bot.say("**Title**: {}\n**Genres**: {}\n**Length8*: {} **Minutes**\n**Synopsis**: {}".format(title, gen, runtime, summary))
 
 
 @bot.command(pass_context=True)
@@ -559,7 +559,7 @@ async def randomshow(ctx):
     name = r_json['title']
     year = r_json['year']
     img = r_json['images']['poster']
-    await bot.say("Name: {}\nYear: {}\nPoster: {}".format(name, year, img))
+    await bot.say("**Name**: {}\n**Year**: {}\n**Poster**: {}".format(name, year, img))
 
 
 @bot.command(pass_context=True)
@@ -583,7 +583,7 @@ async def weather(ctx):
         min_temp = rq_json['main']['temp_min']
         dis = rq_json['weather'][0]['description']
         wind = rq_json['wind']['speed']
-        await bot.say("Temperature in {} is around {}{}F\nMinimum Temperature is: {}{}F\nMaximum Temperature is: {}{}F\nMainly: {}\nWind speed is around: {} MPH".format(city_state, temp, t, min_temp, t, max_temp, t, dis, wind))
+        await bot.say("**Temperature** **in** {} **is around** {}{}F\n**Minimum Temperature is**: {}{}F\n**Maximum Temperature is**: {}{}F\n**Mainly**: {}\n**Wind speed is around**: {} **MPH**".format(city_state, temp, t, min_temp, t, max_temp, t, dis, wind))
     except:
         await bot.say("Looks like something went wrong. Your spelling may be incorrect or the bot may just be able to process this command at the moment.")
 
@@ -709,7 +709,7 @@ async def mal(ctx):
     embed.add_field(name="Duration", value=duration)
     embed.add_field(name="Premiered", value=premiered)
     await bot.say(embed=embed)
-    await bot.say("Summary: {}\n{}".format(summary, anime_picture))
+    await bot.say("**Summary**: {}\n{}".format(summary, anime_picture))
 
 
 
@@ -757,7 +757,7 @@ async def champmastery(ctx):
     champ_lvl = mast_json['championLevel']
     champ_points = mast_json['championPoints']
     chest = mast_json['chestGranted']
-    await bot.say("Level: {}\nPoints: {}\nChest: {}".format(champ_lvl, champ_points, chest))
+    await bot.say("**Level**: {}\n**Points**: {}\n**Chest**: {}".format(champ_lvl, champ_points, chest))
 
 
 @bot.command(pass_context=True)
@@ -770,7 +770,7 @@ async def masterytotal(ctx):
     ide = rq_json['id']
     mast = rq.get(
         "https://na1.api.riotgames.com/lol/champion-mastery/v3/scores/by-summoner/{}?api_key={}".format(ide, api)).text
-    await bot.say("Points: {}".format(mast))
+    await bot.say("**Points**: {}".format(mast))
 
 
 @bot.command(pass_context=True)
@@ -798,7 +798,7 @@ async def status(ctx):
         store = r_json['services'][1]['status']
         website = r_json['services'][2]['status']
         client = r_json['services'][3]['status']
-        await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(region, game, store, website, client))
+        await bot.say("**Region**: {}\n**Game**: {}\n**Store**: {}\n**Website**: {}\n**Client**: {}".format(region, game, store, website, client))
     else:
         url = 'https://{}1.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(
             mg, api)
