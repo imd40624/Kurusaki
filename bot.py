@@ -548,7 +548,7 @@ async def randommovie(ctx):
         runtime = rq_json['runtime']
         genres = rq_json['genres']
         gen = " ".join(genres[1:])
-        await bot.say("**Title**: {}\n**Genres**: {}\n**Length8*: {} **Minutes**\n**Synopsis**: {}".format(title, gen, runtime, summary))
+        await bot.say("**Title**: {}\n**Genres**: {}\n**Length*: {} Minutes\n**Synopsis**: {}".format(title, gen, runtime, summary))
 
 
 @bot.command(pass_context=True)
@@ -787,7 +787,7 @@ async def status(ctx):
         store = r_json['services'][1]['status']
         website = r_json['services'][2]['status']
         client = r_json['services'][3]['status']
-        await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(region, game, store, website, client))
+        await bot.say("**Region**: {}\n**Game**: {}\n**Store**: {}\n**Website**: {}\n**Client**: {}".format(region, game, store, website, client))
     if mg == "ru":
         url = 'https://{}.api.riotgames.com/lol/status/v3/shard-data?api_key={}'.format(
             mg, api)
@@ -809,7 +809,7 @@ async def status(ctx):
         store = r_json['services'][1]['status']
         website = r_json['services'][2]['status']
         client = r_json['services'][3]['status']
-        await bot.say("Region: {}\nGame: {}\nStore: {}\nWebsite: {}\nClient: {}".format(region, game, store, website, client))
+        await bot.say("**Region**: {}\n**Game**: {}\n**Store**: {}\n**Website**: {}\n**Client**: {}".format(region, game, store, website, client))
 
 
 @bot.command(pass_context=True)
