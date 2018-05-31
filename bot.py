@@ -730,7 +730,8 @@ async def summoner(ctx):
 @bot.command(pass_context=True)
 async def lore(ctx):
     """GETS THE LORE OF A CHAMPION GIVEN. EX: s.lore Ashe"""
-    new_msg = ctx.message.content[6:]
+    msg = ctx.message.content[6:]
+    new_msg=msg.lower()
     champ = rq.get('https://na1.api.riotgames.com/lol/static-data/v3/champions/{}?locale=en_US&champData=lore&api_key={}'.format(
         champs['keys'][new_msg], api)).text
     champ_json = json.loads(champ)
@@ -743,7 +744,8 @@ async def champmastery(ctx):
     msg = ctx.message.content[14:]
     bett = msg.find(",")
     summoner = msg[0:bett]
-    champ = msg[bett+1:]
+    cham = msg[bett+1:]
+    champ=cham.lower()
     url1 = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(
         summoner, api)
     sum_info = rq.get(url1).text
