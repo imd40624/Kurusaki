@@ -583,7 +583,7 @@ async def weather(ctx):
         min_temp = rq_json['main']['temp_min']
         dis = rq_json['weather'][0]['description']
         wind = rq_json['wind']['speed']
-        await bot.say("**Temperature** **in** {} **is around** {}{}F\n**Minimum Temperature is**: {}{}F\n**Maximum Temperature is**: {}{}F\n**Mainly**: {}\n**Wind speed is around**: {} **MPH**".format(city_state, temp, t, min_temp, t, max_temp, t, dis, wind))
+        await bot.say("**Temperature** **in** **{}** **is around** {}{}F\n**Minimum Temperature is**: {}{}F\n**Maximum Temperature is**: {}{}F\n**Mainly**: {}\n**Wind speed is around**: {} **MPH**".format(city_state, temp, t, min_temp, t, max_temp, t, dis, wind))
     except:
         await bot.say("Looks like something went wrong. Your spelling may be incorrect or the bot may just be able to process this command at the moment.")
 
