@@ -59,16 +59,16 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-#     mention = bot.user.mention
-#     if message.content.startswith(mention):
-#         discord_name=message.author.display_name
-#         discord_id=message.author.id
-#         raw_msg = message.content.split("{}".format(mention))
-#         msg = "".join(raw_msg[1:])
-#         if "?" in msg:
-#             msg=msg.replace("?","")
-#         get_resp=rq.get('https://kurusaki-webhook.herokuapp.com/kurusaki/{}/{}/{}'.format(msg,discord_id,discord_name)).text
-#         await bot.send_message(message.channel,get_resp)
+    mention = bot.user.mention
+    if message.content.startswith(mention):
+        discord_name=message.author.display_name
+        discord_id=message.author.id
+        raw_msg = message.content.split("{}".format(mention))
+        msg = "".join(raw_msg[1:])
+        if "?" in msg:
+            msg=msg.replace("?","")
+        get_resp=rq.get('https://kurusaki-webhook.herokuapp.com/kurusaki/{}/{}/{}'.format(msg,discord_id,discord_name)).text
+        await bot.send_message(message.channel,get_resp)
 #     try:
 #         msg = message.content
 #         user_id = message.author.id
