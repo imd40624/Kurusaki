@@ -6,3 +6,4 @@ https://github.com/CharmingMother/git_to_heroku
 To get the bot's command inforation enter s.help in lower case
 
 This is my main bot's file and codes
+# The code and files are not complete, I'm still editing it for public user usages
