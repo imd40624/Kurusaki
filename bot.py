@@ -9,7 +9,7 @@ import datetime
 import requests as rq
 
 import os
-import image_links
+
 import random
 import time
 import bs4 as bs
