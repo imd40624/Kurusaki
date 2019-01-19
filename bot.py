@@ -7,7 +7,7 @@ import asyncio
 
 import datetime
 import requests as rq
-from champs import champs
+
 import os
 import apiai
 import image_links
