@@ -701,4 +701,4 @@ async def urban(ctx):
     await bot.say("Word: {}\nVotes: {}\nDefinitioin: {}\nExample: {}".format(rq_json['list'][0]['word'], rq_json['list'][0]['thumbs_up'], rq_json['list'][0]['definition'], rq_json['list'][0]['example']))
 
 
-bot.run(bot_token)
+bot.run(os.environ['BOT_TOKEN'])
