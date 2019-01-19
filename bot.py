@@ -9,7 +9,6 @@ import datetime
 import requests as rq
 
 import os
-import apiai
 import image_links
 import random
 import time
