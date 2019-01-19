@@ -4,7 +4,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 import asyncio
 
-import simplejson as json
+
 import datetime
 import requests as rq
 from champs import champs
